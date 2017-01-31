@@ -9,10 +9,6 @@ class UserManager(models.Manager):
     def add_user(self, postData):
         errors = []
         # TODO change validations
-        if not len(postData['first_name']):
-            errors.append('First name can not be blank.')
-        if not len(postData['last_name']):
-            errors.append('Last name can not be blank.')
         if not len(postData['password']):
             errors.append('Password can not be blank.')
         if len(postData['password'])<8:
@@ -24,7 +20,7 @@ class UserManager(models.Manager):
         if not EMAIL_REGEX.match(postData['email']):
             errors.append('Must use a valid email, all lowercase please')
 
-        user = Users.objects.filter(email=postData['email'])
+        user = Users.objects.filter(email=postData['email_add'])
 
         if user:
             errors.append('E-mail already exists')
@@ -48,14 +44,14 @@ class UserManager(models.Manager):
 
         errors = []
         modelResponse={}
-        if not postData['lemail']:
-            errors.append("E-mail can't be blank.")
+        if not postData['username']:
+            errors.append("Username can't be blank.")
         else:
             print postData
-            user = Users.objects.filter(email = postData['lemail'])
+            user = Users.objects.filter(username = postData['username'])
             if user:
                 # check passwords
-                if not bcrypt.checkpw(postData['lpassword'].encode(), user[0].password.encode()):
+                if not bcrypt.checkpw(postData['password'].encode(), user[0].password.encode()):
                     errors.append('Invalid E-mail, password combination, try again')
                 else:
                     modelResponse['status']=True
@@ -72,7 +68,7 @@ class Users(models.Model):
     email = models.CharField(max_length=60, unique=True)
     password = models.CharField(max_length=50)
     username = models.CharField(max_length=60, unique=True)
-    userlevel = models.SmallIntegerField(default=0)
+    userlevel = models.PositiveSmallIntegerField(default=0)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 

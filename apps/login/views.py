@@ -21,11 +21,11 @@ def login(request):
         if not log ==[]:
             for error in log:
                 messages.info(request, error)
-            return redirect(reverse('login:login'))
+            return redirect(reverse('Login:login'))
         else:
-            request.session['id']=Users.objects.only('id').get(email=request.POST['username']).id
+            request.session['id']=Users.objects.only('id').get(username=request.POST['username']).id
             request.session['name']=Users.objects.only('username').get(id=request.session['id']).username
-            return redirect(reverse('mainmenu:index'))
+            return redirect(reverse('Mainmenu:index'))
 
 
 def register(request):
@@ -33,7 +33,12 @@ def register(request):
    if not errors ==[]:
         for error in errors:
             messages.info(request, error)
-        return redirect(reverse('login:login'))
+        return redirect(reverse('Login:login'))
     else:
-        return redirect(reverse('mainmenu:index'))
-    return redirect(reverse('login:login'))
+        return redirect(reverse('Mainmenu:index'))
+    return redirect(reverse('Login:login'))
+
+def logout(request):
+	for sesskey in request.session.keys():
+		del request.session[sesskey]
+	return redirect(reverse('Login:index'))
