@@ -37,7 +37,7 @@ class UserManager(models.Manager):
         #Passed validation, save user
         else:
             hashed_password = bcrypt.hashpw(postData['password'].encode(), bcrypt.gensalt())
-            Users.objects.create(first_name=postData['first_name'], last_name=postData['last_name'], email=postData['email'], password=hashed_password)
+            Users.objects.create(email=postData['email_add'], username=postData['add_username'], password=hashed_password)
             user=Users.objects.filter(email= postData['email'])
             modelResponse['status']=True
             modelResponse['user']=user

@@ -1,0 +1,59 @@
+#wrapper {
+	width: 900px;
+	border: 5px rgb(29, 51, 107) solid;
+	border-radius: 10px;
+	height: 600px;
+
+}
+
+#header {
+	text-align: center;
+	text-decoration: underline;
+	
+}
+
+#login {
+	text-align: center;
+}
+#login1 {
+	display: inline-block;
+}
+.box {
+	height: 20px;
+	width: 200px;
+	direction: rtl;
+	display: block;
+	text-align: center;
+	margin-bottom: 5px;
+}
+#submita {
+	border-radius: 5px;
+	font-size: 15px;
+	margin-top: 5px;
+}
+
+#register {
+	text-align: left;
+	margin-left: 280px;
+
+}
+#registering {
+	text-align: center;
+	display: block;
+}
+
+.boxa {
+	height: 20px;
+	width: 200px;
+	direction: ltr;
+	display: inline-block;
+	text-align: left;
+	margin-bottom: 5px;
+
+}
+#submitb {
+	border-radius: 5px;
+	font-size: 15px;
+	margin-left: 130px;
+	margin-top: 5px;
+}
