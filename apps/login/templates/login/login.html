@@ -1,0 +1,46 @@
+{% extends "login/base.html" %}
+
+{% block title %}Login Registration Page{% endblock %}
+{% block loads %}{% load static %} {% endblock %}
+{% block css %} <link rel="stylesheet" type="text/css" href="{% static 'login/css/index.css' %}" /> {% endblock %}
+
+{% block content %}
+<div id="wrapper">
+	<div id="header">
+		<h1>Login & Registration</h1>
+	</div>
+	<div id="login">
+		<h2>Login:</h2>
+		<form id="login1" action="/login" method="post">
+		<input type="text" class="box" name="username" placeholder="Username">
+		<input type="password" name="password" class="box" placeholder="Password">
+		{% csrf_token %}
+		<input type="submit" name="submit_login" class="submitbut">
+		</form>
+	</div>
+	<div id="register">
+		<h2>Register as New User:</h2>
+		<form id="register" action="/register" method="post">
+		Username: <input type="text" name="add_username" class="boxa">
+		First Name: <input type="text" name="first_name" class="boxa">
+		Last Name: <input type="text" name="last_name" class="boxa">
+		Email Address: <input type="email" name="email_add" class="boxa">
+		Password: <input type="password" name="password2" class="boxa">
+		Re-Enter Password: <input type="password" name="confirm" class="boxa">
+		Date-of-Birth: <input type="date" name="birthday" class="boxa">
+		{% csrf_token %}
+		<input type="submit" name="submit_registration" class="submitbut">
+		</form>
+	</div>
+	<div id="errors">
+		{% if messages %}
+        <ul class="messages">
+        {% for message in messages %}
+           <li>{{ message }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
+	

@@ -1,0 +1,39 @@
+* {
+
+}
+
+#headerblock {
+    border: 5px rgb(29, 51, 107) solid;
+    border-radius: 10px;
+
+    width:900px;
+}
+
+#logoblock {
+        display: inline-block;
+        height: 100px;
+        border: 0px;
+        margin: 0px;
+        padding: 0px;
+}
+
+#logoblock img {
+    height: 100px;
+    border:0px;
+
+}
+
+#titleblock {
+        display: inline-block;
+        width: 600px;
+        padding: 10px 0px 0px 0px;
+        text-align: center;
+        vertical-align: top;
+}
+#loginblock{
+    vertical-align: top;
+    margin: 5px;
+    text-align: center;
+        display: inline-block;
+        width: 100px;
+}

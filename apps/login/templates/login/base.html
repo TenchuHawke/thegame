@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8"> {% load static %}
+    {% block loads %} {%endblock%}
+    <link rel="stylesheet" type="text/css" href="{% static 'login/css/base.css' %}">
+    {% block css %}{% endblock %}
+    <title> {% block title %}Belt Test Main Page{% endblock %}</title>
+</head>
+
+<body>
+    <div id="container">
+        <header id='headerblock'>
+            <div id="logoblock">
+                <img src="{% static 'login/img/Lorem_Ipsum.svg' %}" alt="Logo Placeholder">
+
+            </div>
+            <div id="titleblock">
+                <h1>Lorem ipsum dolor sit </h1>
+            </div>
+            <div id="loginblock">
+                {% if request.session.user_id %}
+                <p></p>
+                Hello {{request.session.username}}
+                 {# TODO logged in logic#}
+                 <p></p>
+                 <p></p>
+                 <form action="/Login/logout/" method="post">
+                     {% csrf_token %}
+                     <button type="submit" name="login">Log out</button>
+
+                 </form>
+                {% else %}
+                <p></p>
+                <p>Please Log in</p>
+                <p></p>
+                <p></p>
+                {# TODO not logged in logic#}
+                <form action="/Login/main/" method="post">
+                    {% csrf_token %}
+                    <button type="submit" name="login">Log in</button>
+
+                </form>
+                {% endif %}
+            </div>
+        </header>
+        <div id="content">
+            {% block content %}
+
+            {% endblock %}
+        </div>
+    </div>
+</body>
+
+</html>
