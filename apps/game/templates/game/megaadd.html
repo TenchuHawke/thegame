@@ -288,7 +288,22 @@
    
     <h2>Treasure</h2>
     <form class="box" action="add_Treasure" method="post">
-        
+        <table>
+            <tr>
+                <td align="left">Name: </td>
+                <td align="right"><input type="text" name="name"></td>
+            </tr>
+            <tr>
+                <td align="left">Gold: </td>
+                <td align="right"><input type="number" name="gold"></td>
+            </tr>
+            <tr>
+                <td align="left">Item: </td>
+                <td align="right"><select name="item">{% for items in items %}
+                    <option value="{{items.name}}">{{items.name}}</option>{% endfor %}
+                    </select></td>
+            </tr>
+        </table>
         {% csrf_token %}
         <button type="submit" name="button">add Treasure</button>
         <table>
@@ -303,13 +318,33 @@
                 <td>{{treasure.name}}</td>
                 <td>{{treasure.gold}}</td>
                 <td>{{treasure.item}}</td>
-                <td>{{treasure.rooms__name}}</td>
+                <!-- #TODO (add treasure rooms) -->
+                <!-- <td>{{treasure.rooms__name}}</td> -->
             </tr>
             {% endfor %}
         </table>
     </form>
     <h2>Traps</h2>
-    <form class="box" action="updateTrap" method="post">
+    <form class="box" action="add_Trap" method="post">
+        <table>
+            <tr>
+                <td align="left">Name: </td>
+                <td align="right"><input type="text" name="name">
+            </td>
+            <tr>
+                <td align="left">Class: </td>
+                <td align="right"><select name="tclass">
+                <option value="PZ">Puzzle</option>
+                <option value="PS">Poison</option>
+                <option value="RF">Reflex</option>
+                <option value="CL">Collapse</option>
+                </select></td>
+            </tr>
+            <tr>
+                <td align="left">Strength: </td>
+                <td align="right"><input type="number" name="strength"></td>
+            </tr>
+        </tr>
         {% csrf_token %}
         <button type="submit" name="button">add Trap</button>
         <table>
@@ -321,11 +356,11 @@
                 <th>Health Bonus</th>
                 <th>consumeable</th>
             </tr>
-            {% for trap in traps %}
+            {% for traps in traps %}
             <tr>
-                <td>{{trap.name}}</td>
-                <td>{{trap.Tclass}}</td>
-                <td>{{trap.strength}}</td>
+                <td>{{traps.name}}</td>
+                <td>{{traps.tclass}}</td>
+                <td>{{traps.strength}}</td>
                 <td>
                     <table>
                         {% for owners in item.owned_by %}
@@ -339,9 +374,57 @@
             {% endfor %}
         </table>
         <h2>Rooms</h2>
-        <form class="box" action="game/updateRoom" method="post">
+        <form class="box" action="add_room" method="post">
+            <table>
+                <tr>
+                    <td align="left">Name: </td>
+                    <td align="right"><input type="text" name="name"></td>
+                </tr>
+                <tr>
+                    <td align="left">Description: </td>
+                    <td align="right"><textarea name="description" rows="5"></textarea></td>
+                </tr>
+                <tr>
+                    <td align="left">Monster: </td>
+                    <td align="right"><select name="monster">
+                    {% for monsters in monsters %}
+                    <option name="{{monsters.id}}">{{monsters.name}}</option>
+                    {% endfor %}</select></td>
+                </tr>
+                <tr>
+                    <td align="left">Trap: </td>
+                    <td align="right"><select name="trap">
+                    {% for traps in traps %}
+                    <option name="{{traps.id}}">{{traps.name}}</option>
+                    {% endfor %}</select></td>
+                </tr>
+                <tr>
+                    <td align="left">Treasure: </td>
+                    <td align="right"><select name="treasure">
+                    {% for treasure in treasure %}
+                    <option name="{{treasure.id}}">{{treasure.name}}</option>
+                    {% endfor %}</select></td>
+                </tr>
+                <tr>
+                    <td align="left">Explored By: </td>
+                    <td align="right"><select name="explored_by">
+                    {% for characters in characters %}
+                    <option name="{{characters.id}}">{{characters.name}}</option>
+                    {% endfor %}</select></td>
+                </tr>
+                <tr>
+                    <td align="left">Currently In: </td>
+                    <td align="right"><select name="currently_in">
+                    {% for characters in characters %}
+                    <option name="{{characters.id}}">{{characters.name}}</option>
+                    {% endfor %}</select></td>
+                </tr>
+                <tr>
+                    <td align="left">Terrain Type: </td>
+                    <td align="right"><input type="text" name="terrain_type"></td>
+                </tr>
+            </table>
             {% csrf_token %}
-
             <button type="submit" name="button">add Room</button>
             <table>
                 <tr>

@@ -32,15 +32,15 @@ def add_item(request):
 
 def add_treasure(request):
     if request.method=="POST":
-        add_treasure(request.POST)
+        Treasure.objects.add_treasure(request.POST)
     return redirect('/')
 
 def add_room(request):
     if request.method=="POST":
-        add_room(request.POST)
+        Rooms.objects.add_room(request.POST)
     return redirect('/')
 
 def add_trap(request):
     if request.method=="POST":
-        add_trap(request.POST)
+        Traps.objects.add_trap(request.POST)
     return redirect('/')
