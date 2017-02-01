@@ -1,0 +1,103 @@
+#wrapper {
+	width: 900px;
+	border: 5px rgb(29, 51, 107) solid;
+	border-radius: 10px;
+	height: 600px;
+	margin:auto;
+	font-family: "Comic Sans MS", cursive, sans-serif;
+
+}
+#header {
+	margin-left: 90px;
+	display: inline-block;
+	font-size: 30px;
+}
+#createchar {
+	text-align: left;
+	margin-left: 280px;
+	display: inline-block;
+}
+
+table {
+	font-size: 25px;
+	display: inline-block;
+
+}
+
+select {
+	width: 200px;
+	height: 25px;
+	font-size: 15px;
+	font-family: "Comic Sans MS", cursive, sans-serif;
+}
+table a {
+	text-decoration: none;
+}
+
+#main {
+	text-align: center;
+	display: inline-block;
+}
+.boxa {
+	height: 25px;
+	width: 200px;
+	direction: ltr;
+	display: inline-block;
+	text-align: left;
+
+}
+#save {
+	border: 2px solid black;
+	border-radius: 5px;
+	width: 220px;
+	height: 40px;
+	margin-top: 20px;
+	margin-left: 80px;
+	font-size: 25px;
+	font-family: "Comic Sans MS", cursive, sans-serif;
+}
+#bottom {
+	margin-left: 600px;
+	margin-top: 50px;
+	vertical-align: bottom;
+}
+#dice {
+	display: inline-block;
+	border: 2px solid black;
+	border-radius: 5px;
+	width: 120px;
+	height: 40px;
+	text-align: center;
+	background-color: grey;
+	font-size: 25px;
+	vertical-align: top;
+	margin-top: 180px;
+	/*margin-left: 50px;*/
+}
+#dice a {
+	text-decoration: none;
+}
+#dice p {
+	font-size: 15px;
+}
+
+#bottom a {
+	margin-right: 20px;
+	text-decoration: none; 
+}
+
+#ab {
+	display: inline-block;
+}
+
+
+
+
+
+
+
+
+
+
+
+
