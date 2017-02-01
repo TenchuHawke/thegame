@@ -2,7 +2,7 @@
 <html>
 <head>
 	<title>Add Monster</title>
-	<link rel="stylesheet" type="text/css" href="{% static 'game/css/megaadd.css' %}" />
+	<link rel="stylesheet" type="text/css" href="{% static 'game/css/add.css' %}" />
     <script src="{% static 'game/js/megaadd.js' %}"></script>
 </head>
 <body>
@@ -10,7 +10,15 @@
 	{% for room in rooms %}
 	<h1>{{room.name}}</h1>
 	<table>
-	
+		<tr>
+			<th>Current Monsters: </th>
+		</tr>
+		<tr>
+			{% for room in rooms %}
+			<td>{{room.monster.name}}</td>
+			{% end for% }
+		</tr>
+	</table>
 
 
 </body>
