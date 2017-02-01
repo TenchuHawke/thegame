@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html>
+{% load static %}
+
+<head>
+    <meta charset="utf-8">
+    <title>MegaAdd</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'mainmenu/css/megaadd.css' %}" />
+    <script src="{% static 'mainmenu/js/megaadd.js' %}"></script>
+</head>
+
+<body>
+    <h2>Characters</h2>
+    <form class="box" action="game/updateCharacter" method="post">
+        {% csrf_token %}
+
+
+        <button type="submit" name="button">add Character</button>
+        <table>
+            <tr>
+                <th>Name</th>
+                <th>Class</th>
+                <th>Strength</th>
+                <th>Dexterity</th>
+                <th>Intelligence</th>
+                <th>Health</th>
+                <th>Gold</th>
+                <th>Level</th>
+                <th>Owned By</th>
+            </tr>
+            {% for character in characters %}
+            <tr>
+                <td>{{character.name}}</td>
+                <td>{{character.cclass}}</td>
+                <td>{{character.strength}}</td>
+                <td>{{character.dexterity}}</td>
+                <td>{{character.intelligence}}</td>
+                <td>{{character.health}}</td>
+                <td>{{character.gold}}</td>
+                <td>{{character.level}}</td>
+                <td>{{character.owned_by}}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </form>
+    <h2>Monsters</h2>
+    <form class="box" action="game/updateMonster" method="post">
+        {% csrf_token %}
+
+
+        <button type="submit" name="button">add Character</button>
+        <table>
+            <tr>
+                <th>Name</th>
+                <th>Class</th>
+                <th>Strength</th>
+                <th>Dexterity</th>
+                <th>Intelligence</th>
+                <th>Health</th>
+                <th>alive</th>
+            </tr>
+            {% for monster in monsters %}
+            <tr>
+                <td>{{monster.name}}</td>
+                <td>{{monster.mclass}}</td>
+                <td>{{monster.strength}}</td>
+                <td>{{monster.dexterity}}</td>
+                <td>{{monster.intelligence}}</td>
+                <td>{{monster.health}}</td>
+                <td>{{monster.image}}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </form>
+    <h2>Items</h2>
+    <form class="box" action="game/updateMonster" method="post">
+        {% csrf_token %}
+
+
+        <button type="submit" name="button">add Monster</button>
+        <table>
+            <tr>
+                <th>Name</th>
+                <th>Str Bonus</th>
+                <th>Dex Bonus</th>
+                <th>Int Bonus</th>
+                <th>Health Bonus</th>
+                <th>consumeable</th>
+            </tr>
+            {% for item in Items %}
+            <tr>
+                <td>{{item.name}}</td>
+                <td>{{item.strbonus}}</td>
+                <td>{{item.dexbonus}}</td>
+                <td>{{item.intbonus}}</td>
+                <td>{{item.hthbonus}}</td>
+                <td>{{item.consumeable}}</td>
+                <td>
+                    <table>
+                        {% for owners in item.owned_by %}
+                        <tr>
+                            {{owners.name}}
+                        </tr>
+                        {% endfor %}
+                    </table>
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+    </form>
+    <h2>Treasure</h2>
+    <form class="box" action="game/updateTreasure" method="post">
+        <button type="submit" name="button">add Treasure</button>
+        <table>
+            <tr>
+                <th>Name</th>
+                <th>Gold</th>
+                <th>Item</th>
+                <th>Location</th>
+            </tr>
+            {% for treasure in treasures %}
+            <tr>
+                <td>{{treasure.name}}</td>
+                <td>{{treasure.gold}}</td>
+                <td>{{treasure.item}}</td>
+                <td>{{treasure.rooms__name}}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </form>
+    <h2>Traps</h2>
+    <form class="box" action="game/updateTrap" method="post">
+        {% csrf_token %}
+        <button type="submit" name="button">add Trap</button>
+        <table>
+            <tr>
+                <th>Name</th>
+                <th>Class</th>
+                <th>Strength</th>
+                <th>Location</th>
+                <th>Health Bonus</th>
+                <th>consumeable</th>
+            </tr>
+            {% for trap in traps %}
+            <tr>
+                <td>{{trap.name}}</td>
+                <td>{{trap.Tclass}}</td>
+                <td>{{trap.strength}}</td>
+                <td>
+                    <table>
+                        {% for owners in item.owned_by %}
+                        <tr>
+                            {{owners.name}}
+                        </tr>
+                        {% endfor %}
+                    </table>
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+        <h2>Rooms</h2>
+        <form class="box" action="game/updateRoom" method="post">
+            {% csrf_token %}
+
+            <button type="submit" name="button">add Room</button>
+<table>
+    <tr>
+    <th>Name</th>
+    <th>Description</th>
+    <th>Monster</th>
+    <th>Traps</th>
+    <th>Treasures</th>
+    <th>Currently In</th>
+    <th>Explored By</th>
+    </tr>
+    <tr>
+        {% for room in rooms %}
+        <td>room.name</td>
+        <td>room.description</td>
+        <td>
+            <table>
+                {% for monster in rooms.monster %}
+                <tr>
+                    {{monster.name}}
+                </tr>
+                {%endfor%}
+            </table>
+        </td>
+        <td>
+            <table>
+                {% for trap in rooms.trap %}
+                <tr>
+                    {{trap.name}}
+                </tr>
+                {%endfor%}
+            </table>
+        </td>
+        <td>
+            <table>
+                {% for treasure in rooms.treasure %}
+                <tr>
+                    {{treasure.name}}
+                </tr>
+                {%endfor%}
+            </table>
+        </td>
+        <td>
+            <table>
+                {% for character in rooms.currently_in %}
+                <tr>
+                    {{character}}.name
+                </tr>
+                {%endfor%}
+            </table>
+        </td>
+        <td>
+            <table>
+                {% for character in rooms.explored_by %}
+                <tr>
+                    {{character.name}}
+                </tr>
+                {%endfor%}
+            </table>
+        </td>
+
+
+    </tr>
+    {%endfor%}
+</table>
+        </form>
+    </form>
+    </body>
+
+</html>

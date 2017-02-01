@@ -69,7 +69,6 @@ class Treasure(models.Model):
     name = models.CharField(max_length=60, unique=True)
     gold = models.PositiveSmallIntegerField(default=0)
     item = models.ForeignKey(Items)
-    last_name = models.CharField(max_length=80)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -82,7 +81,7 @@ class Traps(models.Model):
     REFLEX = 'RF'
     COLLAPSE = 'CL'
     name = models.CharField(max_length=60, unique=True)
-    Tclass = models.CharField(max_length=2, choices=((PUZZLE, 'Puzzle'),(POISON, 'Poison'),(REFLEX, 'Reflex'), (COLLAPSE, 'Collapse')), default=POISON)
+    tclass = models.CharField(max_length=2, choices=((PUZZLE, 'Puzzle'),(POISON, 'Poison'),(REFLEX, 'Reflex'), (COLLAPSE, 'Collapse')), default=POISON)
     strength = models.PositiveSmallIntegerField(default=1)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
