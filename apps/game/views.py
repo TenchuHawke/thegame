@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
-from models import Users, Characters, Monsters, Rooms, Items, Traps, Treasure, Exits
+from models import Users, Characters, Monsters, Rooms, Items, Traps, Treasures, Exits
 from django.template import Context
 from random import randint
 
@@ -13,7 +13,7 @@ def index(request):
     'rooms': Rooms.objects.all().order_by('id'),
     'items': Items.objects.all().order_by('name'),
     'traps': Traps.objects.all().order_by('name'),
-    'treasure': Treasure.objects.all().order_by('name'),
+    'treasures': Treasures.objects.all().order_by('name'),
     'exits': Exits.objects.all().order_by('entrances'),
     }
 
@@ -34,6 +34,7 @@ def add_treasure(request):
     if request.method=="POST":
         Treasure.objects.add_treasure(request.POST)
     return redirect('/game')
+
 
 def add_room(request):
     if request.method=="POST":
