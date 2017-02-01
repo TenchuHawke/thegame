@@ -6,15 +6,16 @@ from random import randint
 
 
 def index(request):
+    print Characters.objects.all()
     context = {
-    'users': Users.objects.all(),
-    'chars': Characters.objects.all(),
-    'monsters': Monsters.objects.all(),
-    'rooms': Rooms.objects.all(),
-    'items': Items.objects.all(),
-    'traps': Traps.objects.all(),
-    'treasure': Treasure.objects.all(),
-    'exits': Exits.objects.all(),
+    'users': Users.objects.all().order_by('username'),
+    'characters': Characters.objects.all().order_by('name'),
+    'monsters': Monsters.objects.all().order_by('name'),
+    'rooms': Rooms.objects.all().order_by('id'),
+    'items': Items.objects.all().order_by('name'),
+    'traps': Traps.objects.all().order_by('name'),
+    'treasure': Treasure.objects.all().order_by('name'),
+    'exits': Exits.objects.all().order_by('entrances'),
     }
 
     return render(request, 'game/megaadd.html', context)

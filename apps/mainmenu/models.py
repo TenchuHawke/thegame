@@ -3,12 +3,8 @@ from django.db import models
 from ..login.models import Users
 
 
-
 class CharacaterManager(models.Manager):
     def add_char(self, postData, user):
-        print "*"*50
-        print postData
-        print "*"*50
         errors = []
         if not postData['char_name']:
             errors.append('Character name must have more then 4 characters.')
@@ -20,18 +16,23 @@ class CharacaterManager(models.Manager):
             modelResponse['status'] = False
             modelResponse['errors'] = errors
         else:
+            strength=int(postData['strength'])
+            dexterity=int(postData['dext'])
+            intelligence=int(postData['intel'])
             if postData['add_class'] == "Fighter":
-                cclass="FI"
-            if postData['add_class']== "Rogue":
+                cclass = "FI"
+                strength+=5
+            elif postData['add_class']=="Rogue":
                 cclass="RO"
+                dexterity+=5
             else:
-                cclass="WI"
-            Characters.objects.create(name=postData['char_name'], cclass=cclass, strength=postData['strength'], dexterity=postData['dext'], intelligence=postData['intel'], health=postData['health'], owned_by=user)
+                cclass = "WI"
+                intelligence+=5
+            Characters.objects.create(name=postData['char_name'],   cclass=cclass, strength=strength, dexterity=dexterity, intelligence=intelligence, health=postData['health'], owned_by=user)
             char = Characters.objects.get(name=postData['char_name'])
             modelResponse['status']=True
             modelResponse['character']=char
         return modelResponse
-
 
 
 class Characters(models.Model):
@@ -39,7 +40,7 @@ class Characters(models.Model):
     ROGUE = 'RO'
     WIZARD = 'WI'
     name = models.CharField(max_length=60)
-    cclass = models.CharField(max_length=2, choices=((FIGHTER, 'Fighter'),(ROGUE, 'Rogue'),(WIZARD, 'Wizard')), default=FIGHTER)
+    cclass = models.CharField(max_length=2, choices=((FIGHTER, 'Fighter'), (ROGUE, 'Rogue'), (WIZARD, 'Wizard')), default=FIGHTER)
     strength = models.PositiveSmallIntegerField(default=1)
     dexterity = models.PositiveSmallIntegerField(default=1)
     intelligence = models.PositiveSmallIntegerField(default=1)
