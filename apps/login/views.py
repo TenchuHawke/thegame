@@ -21,7 +21,7 @@ def login(request):
         route=check_login(request, response_from_models)
         if route:
             return redirect(reverse('Mainmenu:index'))
-    return redirect('/login/loginreg')
+    return redirect('/loginreg')
 
 
 def register(request):
@@ -31,7 +31,7 @@ def register(request):
         route=check_login(request, response_from_models)
         if route:
             return redirect(reverse('Mainmenu:index'))
-    return redirect('/login/loginreg')
+    return redirect('/loginreg')
 
 def check_login(request, response_from_views):
     if not response_from_views['status']:
