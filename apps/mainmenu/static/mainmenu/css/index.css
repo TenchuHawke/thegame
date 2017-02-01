@@ -1,0 +1,36 @@
+#wrapper {
+	width: 900px;
+	border: 5px rgb(29, 51, 107) solid;
+	border-radius: 10px;
+	height: 600px;
+	margin:auto;
+
+}
+#header {
+	margin-left: 325px;
+	/*text-decoration: underline;*/
+	display: inline-block;
+	font-size: 30px;
+	font-family: "Comic Sans MS", cursive, sans-serif
+}
+h1 {
+	margin-bottom: 5px;
+}
+
+#menu {
+	text-align: center;
+
+}
+ul  {
+	list-style-type: none;
+}
+
+a {
+	font-size: 30px;
+	text-decoration: none;
+	font-family: "Comic Sans MS", cursive, sans-serif
+}
+
+li {
+	margin-bottom: 30px;
+}
