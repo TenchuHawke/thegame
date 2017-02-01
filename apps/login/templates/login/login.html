@@ -12,7 +12,7 @@
 	</div>
 	<div id="login">
 		<h2>Login:</h2>
-		<form id="login1" action="/checklogin" method="post">
+		<form id="login1" action="/login/checklogin" method="post">
 		<input type="text" class="box" name="username" placeholder="Username">
 		<input type="password" name="password" class="box" placeholder="Password">
 		{% csrf_token %}
@@ -21,7 +21,7 @@
 	</div>
 	<div id="registering">
 		<h2>Register as New User:</h2>
-		<form id="register" action="register" method="post">
+		<form id="register" action="/login/register" method="post">
 		<table>
 			<tr>
 				<td align="left">Username:</td>
@@ -55,4 +55,3 @@
     </div>
 </div>
 {% endblock %}
-

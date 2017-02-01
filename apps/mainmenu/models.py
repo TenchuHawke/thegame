@@ -28,6 +28,10 @@ class CharacaterManager(models.Manager):
             else:
                 cclass = "WI"
                 intelligence+=5
+            try:
+                user=Users.objects.get(username=postData['owned_by'])
+            except:
+                pass
             Characters.objects.create(name=postData['char_name'],   cclass=cclass, strength=strength, dexterity=dexterity, intelligence=intelligence, health=postData['health'], owned_by=user)
             char = Characters.objects.get(name=postData['char_name'])
             modelResponse['status']=True

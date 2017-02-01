@@ -12,3 +12,14 @@
   width:400px;
   display: inline-block;
 }
+
+#fieldlist{
+  display: inline-block;
+  width: 300px;
+  overflow: scroll;
+}
+#inputfield{
+  display: inline-block;
+  width: 300px;
+  overflow: scroll;
+}
