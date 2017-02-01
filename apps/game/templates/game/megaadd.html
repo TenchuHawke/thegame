@@ -411,7 +411,7 @@
                         <table>
                             {% for monster in monsters %}
                             <tr>
-                                <td>{% if moster.id == room.monster.id %} {{monster.name}}{%endif%}</td>
+                                <td>{% if room.monster == monster %} {{monster.name}}{%endif%}</td>
                             </tr>
                             {% endfor %}
                             <tr>
@@ -449,7 +449,7 @@
 
             </table>
         </form>
-   
+
 </body>
 
 </html>
