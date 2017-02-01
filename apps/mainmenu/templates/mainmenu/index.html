@@ -1,6 +1,21 @@
-{% block title %}Login Registration Page{% endblock %}
+<!-- {% block title %}Login Registration Page{% endblock %}
 {% block loads %}{% load static %} {% endblock %}
 {% block css %} <link rel="stylesheet" type="text/css" href="{% static 'mainmenu/css/index.css' %}" /> {% endblock %}
 
-{% block content %}
-
+{% block content %} -->
+<link rel="stylesheet" type="text/css" href="index.css">
+<div id="wrapper">
+	<div id="header">
+		<h1>Main Menu</h1>
+	</div>
+	<div id="menu">
+		<ul>
+			<li><a href="{% url 'Admin:index' %}">Admin</a></li>
+			<li><a href="{% url 'Game:index' %}">Continue</a></li>
+			<li><a href="{% url 'Mainmenu:create' %}">New Character</a></li>
+			<li><a href="{% url 'Mainmenu:delete' %}">Delete Character</a></li>
+			<li><a href="{% url 'Mainmenu:hall' %}">Hall of Fame</a></li>
+			<li><a href="{% url 'Login:logout' %}">Quit Game</a></li>		
+		</ul>
+	</div>
+</div>
