@@ -49,6 +49,7 @@ class Characters(models.Model):
     gold = models.PositiveSmallIntegerField(default=0)
     level = models.PositiveSmallIntegerField(max_length=3, default=1)
     owned_by = models.ForeignKey(Users)
+    killed_by = models.CharField(max_length=255, default='')
     slug = models.SlugField()
     prepopulated_fields = {"slug": ("name",)}
     created_at = models.DateTimeField(auto_now_add=True)
