@@ -21,25 +21,26 @@ def index(request):
 
 def add_monster(request):
     if request.method=="POST":
-        add_monster(request.POST)
-    return redirect('/')
+        Monsters.objects.add_monster(request.POST)
+    return redirect('/game')
 
 def add_item(request):
     if request.method=="POST":
-        add_monster(request.POST)
-    return redirect('/')
+        print request.POST['consumeable']
+        Items.objects.add_item(request.POST)
+    return redirect('/game')
 
 def add_treasure(request):
     if request.method=="POST":
-        add_monster(request.POST)
+        add_treasure(request.POST)
     return redirect('/')
 
 def add_room(request):
     if request.method=="POST":
-        add_monster(request.POST)
+        add_room(request.POST)
     return redirect('/')
 
 def add_trap(request):
     if request.method=="POST":
-        add_monster(request.POST)
+        add_trap(request.POST)
     return redirect('/')

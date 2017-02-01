@@ -12,9 +12,10 @@ class RoomManager(models.Manager):
 
 class MonsterManager(models.Manager):
     def add_monster(self, postData):
-        strength = postData['strength']
-        dexterity = postData['dexterity']
-        intelligence = postData['intelligence']
+        strength = int(postData['strength'])
+        dexterity = int(postData['dexterity'])
+        intelligence = int(postData['intelligence'])
+        health = int(postData['health'])
         if postData['mclass']=="BR" or postData['mclass']=='EL':
             strength+=5
         elif postData['mclass']=="AS" or postData['mclass']=='EL':
@@ -22,7 +23,7 @@ class MonsterManager(models.Manager):
         elif postData['mclass']=="MA" or postData['mclass']=='EL':
             intelligence+=5
         else:
-            pass
+            health +=5
         Monsters.objects.create(
         name = postData['name'],
         mclass = postData['mclass'],
@@ -56,7 +57,7 @@ class ExitManager(models.Manager):
 
 class ItemManager(models.Manager):
     def add_item(self, postData):
-        Items.models.create(
+        Items.objects.create(
         name = postData['name'],
         strbonus = postData['strbonus'],
         dexbonus = postData['dexbonus'],

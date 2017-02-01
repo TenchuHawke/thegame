@@ -150,7 +150,7 @@
         </table>
     </form>
     <h2>Monsters</h2>
-    <form class="box" action="game/add_monster" method="post">
+    <form class="box" action="add_monster" method="post">
         <table>
             <tr>
                 <td align="left">Name: </td>
@@ -158,7 +158,7 @@
             </tr>
             <tr>
                 <td align="left">Class: </td>
-                <td align="right"><select name="add_class">
+                <td align="right"><select name="mclass">
                     <option value="BR">Brute (+5 Strength)</option>
                     <option value="AS">Assasin (+5 Dexterity)</option>
                     <option value="MA">Mage (+5 Intelligence)</option>
@@ -167,8 +167,30 @@
             </tr>
             <tr>
                 <td align="left">Alive?: </td>
-                <td align="right"><input type="checkbox" name="alive"></td>
+                <td align="right"><select name="alive">
+                <option value="True">True</option>
+                <option value="False">False</option>
+                </select></td>
             </tr>
+            <tr>
+                    <td width=100px>Base Stats: (No mods) </td>
+                </tr>
+                <tr>
+                    <td align="left"></td>
+                    <td align="right">Strength: <input type="text" name="strength" value="1"></td>
+                </tr>
+                <tr>
+                    <td align="left"></td>
+                    <td align="right">Dexterity:<input type="text" name="dexterity" value="1"></td>
+                </tr>
+                <tr>
+                    <td align="left"></td>
+                    <td align="right">Intelligence:<input type="text" name="intelligence" value="1"></td>
+                </tr>
+                <tr>
+                    <td align="left"></td>
+                    <td align="right">Health:<input type="text" name="health" value="1"></td>
+                </tr>
             <tr>
                 <td align="left">Image: </td>
                 <td align="right"><input type="text" name="image"></td>
@@ -176,6 +198,7 @@
         </table>
          {% csrf_token %}
         <button type="submit" name="button">add Monster</button>
+    </form>
         <table>
             <tr>
                 <th>Name</th>
@@ -198,9 +221,9 @@
             </tr>
             {% endfor %}
         </table>
-    </form>
+  
     <h2>Items</h2>
-    <form class="box" action="game/add_items" method="post">
+    <form class="box" action="add_item" method="post">
         <table>
             <tr>
                 <td align="left">Name: </td>
@@ -224,11 +247,15 @@
             </tr>
             <tr>
                 <td align="left">Consumeable?: </td>
-                <td align="right"><input type="checkbox" name="consumeable">
+                <td align="right"><select name="consumeable">
+                <option value="False">False</option>
+                <option value="True">True</option>
+                </select></td>
             </td>
         </table>
         {% csrf_token %}
         <button type="submit" name="button">add Items</button>
+    </form>
         <table>
             <tr>
                 <th>Name</th>
@@ -238,17 +265,17 @@
                 <th>Health Bonus</th>
                 <th>consumeable</th>
             </tr>
-            {% for item in Items %}
+            {% for items in items %}
             <tr>
-                <td>{{item.name}}</td>
-                <td>{{item.strbonus}}</td>
-                <td>{{item.dexbonus}}</td>
-                <td>{{item.intbonus}}</td>
-                <td>{{item.hthbonus}}</td>
-                <td>{{item.consumeable}}</td>
+                <td>{{items.name}}</td>
+                <td>{{items.strbonus}}</td>
+                <td>{{items.dexbonus}}</td>
+                <td>{{items.intbonus}}</td>
+                <td>{{items.hthbonus}}</td>
+                <td>{{items.consumeable}}</td>
                 <td>
                     <table>
-                        {% for owners in item.owned_by %}
+                        {% for owners in Items.owned_by %}
                         <tr>
                             {{owners.name}}
                         </tr>
@@ -258,9 +285,9 @@
             </tr>
             {% endfor %}
         </table>
-    </form>
+   
     <h2>Treasure</h2>
-    <form class="box" action="game/add_Treasure" method="post">
+    <form class="box" action="add_Treasure" method="post">
         
         {% csrf_token %}
         <button type="submit" name="button">add Treasure</button>
@@ -282,7 +309,7 @@
         </table>
     </form>
     <h2>Traps</h2>
-    <form class="box" action="game/updateTrap" method="post">
+    <form class="box" action="updateTrap" method="post">
         {% csrf_token %}
         <button type="submit" name="button">add Trap</button>
         <table>
