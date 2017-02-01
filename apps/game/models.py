@@ -7,27 +7,66 @@ from ..mainmenu.models import Characters, Users
 class RoomManager(models.Manager):
     def add_room(self, postData):
         pass
+    def assign_exit(self, postdata):
+        pass
 
 class MonsterManager(models.Manager):
     def add_monster(self, postData):
+        strength = postData['strength']
+        dexterity = postData['dexterity']
+        intelligence = postData['intelligence']
+        if postData['mclass']=="BR" or postData['mclass']=='EL':
+            strength+=5
+        elif postData['mclass']=="AS" or postData['mclass']=='EL':
+            dexterity+=5
+        elif postData['mclass']=="MA" or postData['mclass']=='EL':
+            intelligence+=5
+        else:
+            pass
+        Monsters.objects.create(
+        name = postData['name'],
+        mclass = postData['mclass'],
+        strength = strength,
+        dexterity = dexterity,
+        intelligence = intelligence,
+        health = postData['health'],
+        alive = postData['alive'],
+        image = postData['image'],
+        )
+    def assign_treasure(self, postData):
         pass
 
 class TrapManager(models.Manager):
     def add_trap(self, postData):
         pass
+    def assign_treasure(self, postData):
+        pass
 
 class TreasureManager(models.Manager):
     def add_treasure(self, postData):
+        pass
+    def assign_treasure(self, postData):
         pass
 
 class ExitManager(models.Manager):
     def add_exit(self, postData):
         pass
+    def del_exit(self, postData):
+        pass
 
 class ItemManager(models.Manager):
     def add_item(self, postData):
-        pass
+        Items.models.create(
+        name = postData['name'],
+        strbonus = postData['strbonus'],
+        dexbonus = postData['dexbonus'],
+        intbonus = postData['intbonus'],
+        hthbonus = postData['hthbonus'],
+        consumeable = postData['consumeable'],
+        )
 
+    def assign_item(self, postData):
+        pass
 
 class Monsters(models.Model):
     BRUTE = 'BR'
@@ -58,7 +97,6 @@ class Items(models.Model):
     hthbonus = models.PositiveSmallIntegerField()
     owned_by = models.ManyToManyField(Characters)
     consumeable = models.BooleanField(default=False)
-    last_name = models.CharField(max_length=80)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 

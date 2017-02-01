@@ -19,20 +19,17 @@ class CharacaterManager(models.Manager):
             strength=int(postData['strength'])
             dexterity=int(postData['dext'])
             intelligence=int(postData['intel'])
-            if postData['add_class'] == "Fighter":
-                cclass = "FI"
+            if postData['add_class'] == "FI":
                 strength+=5
-            elif postData['add_class']=="Rogue":
-                cclass="RO"
+            elif postData['add_class']=="RO":
                 dexterity+=5
             else:
-                cclass = "WI"
                 intelligence+=5
             try:
                 user=Users.objects.get(username=postData['owned_by'])
             except:
                 pass
-            Characters.objects.create(name=postData['char_name'],   cclass=cclass, strength=strength, dexterity=dexterity, intelligence=intelligence, health=postData['health'], owned_by=user)
+            Characters.objects.create(name=postData['char_name'],   cclass=postData['add_class'], strength=strength, dexterity=dexterity, intelligence=intelligence, health=postData['health'], owned_by=user)
             char = Characters.objects.get(name=postData['char_name'])
             modelResponse['status']=True
             modelResponse['character']=char
