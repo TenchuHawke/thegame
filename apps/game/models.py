@@ -11,14 +11,7 @@ class RoomManager(models.Manager):
         description = postData['description'],
         terrain_type = postData['terrain_type'],
         )
-    def assign_exit(self, postdata):
-        pass
 
-    def assign_treasure(self, room, treasure):
-        room.objects.create(treasure=treasure)
-
-    def unassign_treasure(self, room, treasure):
-        room.objects.delete(treasure=treasure)
 
 class MonsterManager(models.Manager):
     def add_monster(self, postData):
@@ -44,8 +37,7 @@ class MonsterManager(models.Manager):
         alive = postData['alive'],
         image = postData['image'],
         )
-    def assign_treasure(self, postData):
-        pass
+
 
 class TrapManager(models.Manager):
     def add_trap(self, postData):
@@ -54,8 +46,7 @@ class TrapManager(models.Manager):
         tclass = postData['tclass'],
         strength = postData['strength'],
         )
-    def assign_treasure(self, postData):
-        pass
+
 
 class TreasureManager(models.Manager):
     def add_treasure(self, postData):
@@ -66,11 +57,7 @@ class TreasureManager(models.Manager):
         item = item,
         )
 
-    def assign_item(self, treasure, item):
-        treasure.objects.create(item=item)
 
-    def unassign_item(self, treasure, item):
-        treasure.objects.delete(item=item)
 
 class ExitManager(models.Manager):
     def add_exit(self, room, exit, direction):
@@ -166,7 +153,6 @@ class Rooms(models.Model):
     explored_by = models.ManyToManyField(Characters, related_name='explored')
     currently_in = models.ManyToManyField(Characters, related_name='populating')
     terrain_type = models.CharField(max_length=50)
-    last_name = models.CharField(max_length=80)
     slug = models.SlugField()
     prepopulated_fields = {"slug": ("name",)}
     created_at = models.DateTimeField(auto_now_add=True)
@@ -177,8 +163,8 @@ class Rooms(models.Model):
 
 class Exits(models.Model):
     exitdirection = models.CharField(max_length=30)
-    leads_to = models.ManyToManyField(Rooms, related_name='exits')
-    comes_from = models.ManyToManyField(Rooms, related_name='entrances')
+    leads_to = models.ForeignKey(Rooms, related_name='exits')
+    comes_from = models.ForeignKey(Rooms, related_name='entrances')
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
