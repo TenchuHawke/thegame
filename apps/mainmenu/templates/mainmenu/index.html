@@ -1,8 +1,9 @@
-<!-- {% block title %}Login Registration Page{% endblock %}
+{% extends "main/base.html" %} {% include '/login/base.html' %}
+{% block title %}Main Menu{% endblock %}
 {% block loads %}{% load static %} {% endblock %}
 {% block css %} <link rel="stylesheet" type="text/css" href="{% static 'mainmenu/css/index.css' %}" /> {% endblock %}
 
-{% block content %} -->
+{% block content %}
 <link rel="stylesheet" type="text/css" href="index.css">
 <div id="wrapper">
 	<div id="header">
@@ -19,3 +20,4 @@
 		</ul>
 	</div>
 </div>
+{% endblock %}

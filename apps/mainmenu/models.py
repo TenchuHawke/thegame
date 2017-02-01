@@ -6,7 +6,21 @@ from ..login.models import Users
 
 class CharacaterManager(models.Manager):
     def add_char(self, postData):
-        pass
+        errors = []
+        if len(postData['char_name'])<4:
+            errors.append('Character name must have more then 4 characters.')
+        charname = Characters.objects.filter(name=postData['char_name'])
+        if charname:
+            errors.append('Character name already exist!')
+        modelResponse = {}
+        if errors:
+            modelResponse['status'] = False
+            modelResponse['errors'] = errors
+        else:
+            Characters.objets.create(name=postData['char_name'], cclas=postData['add_class'], strength=postData['strength'], dexterity=postData['dext'], intelligence=postData['intel'], health=postData['health'])
+
+        return modelResponse
+
 
 
 class Characters(models.Model):
