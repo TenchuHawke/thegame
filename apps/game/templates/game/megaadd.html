@@ -400,8 +400,8 @@
                     <th>Treasures</th>
                     <th>Currently In</th>
                     <th>Explored By</th>
-                    <th>Exits</th>
                     <th>Entrances</th>
+                    <th>Exits</th>
                 </tr>
                 <tr>
                     {% for room in rooms %}
@@ -415,7 +415,7 @@
                             </tr>
                             {% endfor %}
                             <tr>
-                                <td><a href="assign_monster{{room.id}}">Add Monsters</a></td>
+                                <td><a href="room_monster{{room.id}}">Add Monsters</a></td>
                             </tr>
                         </table>
                     </td>
@@ -427,7 +427,7 @@
                             </tr>
                             {% endfor %}
                             <tr>
-                                <td><a href="assign_trap{{room.id}}">Add Trap</a></td>
+                                <td><a href="room_trap{{room.id}}">Add Trap</a></td>
                             </tr>
                         </table>
                     </td>
@@ -439,7 +439,55 @@
                             </tr>
                             {% endfor %}
                             <tr>
-                                <td><a href="assign_treasure{{room.id}}">Add Treasure</a></td>
+                                <td><a href="room_treasure{{room.id}}">Add Treasure</a></td>
+                            </tr>
+                        </table>
+                    </td>
+                    <td>
+                        <table>
+                            {% for character in characters %}
+                            <tr>
+                                <td>{% if character.id == room.currently_in.id %} {{character.name}}{%endif%}</td>
+                            </tr>
+                            {% endfor %}
+                            <tr>
+                                <td><a href="room_character{{room.id}}">Add Characters</a></td>
+                            </tr>
+                        </table>
+                    </td>
+                    <td>
+                        <table>
+                            {% for character in characters %}
+                            <tr>
+                                <td>{% if character.id == room.explored_by.id %} {{character.name}}{%endif%}</td>
+                            </tr>
+                            {% endfor %}
+                            <tr>
+                                <td><a href="room_explored{{room.id}}">Add Characters</a></td>
+                            </tr>
+                        </table>
+                    </td>
+                    <td>
+                        <table>
+                            {% for exit in exits %}
+                            <tr>
+                                <td>{% if comes_from.id == room.id %} {{exits.comes_from.name}}{%endif%}</td>
+                            </tr>
+                            {% endfor %}
+                            <tr>
+                                <td><a href="room_enterance{{room.id}}">Add Enterance</a></td>
+                            </tr>
+                        </table>
+                    </td>
+                    <td>
+                        <table>
+                            {% for exit in exits %}
+                            <tr>
+                                <td>{% if leads_to.id == room.id %} {{exits.leads_to.name}}{%endif%}</td>
+                            </tr>
+                            {% endfor %}
+                            <tr>
+                                <td><a href="room_exit{{room.id}}">Add Exits</a></td>
                             </tr>
                         </table>
                     </td>

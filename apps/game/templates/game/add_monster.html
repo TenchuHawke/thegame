@@ -7,19 +7,35 @@
 </head>
 <body>
 <div id="wrapper">
-	{% for room in rooms %}
-	<h1>{{room.name}}</h1>
+	<h1>{% for room in room %}{{room.name}}{%endfor%}</h1>
 	<table>
 		<tr>
 			<th>Current Monsters: </th>
 		</tr>
 		<tr>
-			{% for room in rooms %}
-			<td>{{room.monster.name}}</td>
+			{% for monster in monsters %}
+			<td>{% if room.monster == monster %}{{monster.name}}{%endif%}</td>
+			{% end for% }
+			<td>Assign Monsters:</td>
+		</tr>
+		<form action="assign_monster" method="post">
+		<tr>
+			{% for monster in monsters %}
+			<td>{{monster.name}} &nbsp {% csrf_token %}<button type="submit">Assign Monster</button></td>
+			<td><input type="hidden" name="monster" value="{{monster.id}}"></td>
+			<td><input type="hidden" name="room" value="{{room.id}}"></td>
 			{% end for% }
 		</tr>
+		</form>
 	</table>
-
-
+</div>
 </body>
 </html>
+
+
+
+def room_monster(request, id):
+    context = {
+    'room': Rooms.objects.get(id=id),
+    'monsters': Monsters.objects.all(),
+    }

@@ -8,4 +8,6 @@ urlpatterns = [
 	url(r'^add_trap$', views.add_trap, name='add_trap'),
 	url(r'^add_treasure$', views.add_treasure, name='add_treasure'),
 	url(r'^$', views.index, name='megalist'),
+	
+	
 ]

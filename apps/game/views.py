@@ -45,3 +45,4 @@ def add_trap(request):
     if request.method=="POST":
         Traps.objects.add_trap(request.POST)
     return redirect('/game')
+
