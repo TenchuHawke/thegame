@@ -6,9 +6,19 @@ from ..mainmenu.models import Characters, Users
 
 class RoomManager(models.Manager):
     def add_room(self, postData):
-        pass
+        Rooms.objects.create(
+        name = postData['name'],
+        description = postData['description'],
+        terrain_type = postData['terrain_type'],
+        )
     def assign_exit(self, postdata):
         pass
+
+    def assign_treasure(self, room, treasure):
+        room.objects.create(treasure=treasure)
+
+    def unassign_treasure(self, room, treasure):
+        room.objects.delete(treasure=treasure)
 
 class MonsterManager(models.Manager):
     def add_monster(self, postData):
@@ -39,21 +49,38 @@ class MonsterManager(models.Manager):
 
 class TrapManager(models.Manager):
     def add_trap(self, postData):
-        pass
+        Traps.objects.create(
+        name = postData['name'],
+        tclass = postData['tclass'],
+        strength = postData['strength'],
+        )
     def assign_treasure(self, postData):
         pass
 
 class TreasureManager(models.Manager):
     def add_treasure(self, postData):
-        pass
-    def assign_treasure(self, postData):
-        pass
+        Treasure.objects.create(
+        name = postData['name'],
+        strbonus = postData['gold'],
+        )
+
+    def assign_item(self, treasure, item):
+        treasure.objects.create(item=item)
+
+    def unassign_item(self, treasure, item):
+        treasure.objects.delete(item=item)
 
 class ExitManager(models.Manager):
-    def add_exit(self, postData):
-        pass
-    def del_exit(self, postData):
-        pass
+    def add_exit(self, room, exit, direction):
+        Exits.objects.create(
+        exitdirection = direction,
+        leads_to = exit,
+        comes_from = room,
+        )
+    def del_exit(self, room, exit):
+        exit=Exits.objects.filter(leads_from=room).filter(comes_from=exit).get(exitdirection=direction)
+        exit.objects.delete()
+
 
 class ItemManager(models.Manager):
     def add_item(self, postData):
@@ -66,8 +93,6 @@ class ItemManager(models.Manager):
         consumeable = postData['consumeable'],
         )
 
-    def assign_item(self, postData):
-        pass
 
 class Monsters(models.Model):
     BRUTE = 'BR'
