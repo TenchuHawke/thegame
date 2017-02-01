@@ -11,7 +11,7 @@ def index(request):
     return render(request, 'login/base.html')
 
 
-def loginreg
+def loginreg(request):
 	return render(request, 'login/login.html')
 
 def login(request):
@@ -29,14 +29,14 @@ def login(request):
 
 
 def register(request):
-    errors=Users.objects.add_user(request)
+   errors=Users.objects.add_user(request)
    if not errors ==[]:
-        for error in errors:
-            messages.info(request, error)
-        return redirect(reverse('Login:login'))
-    else:
-        return redirect(reverse('Mainmenu:index'))
-    return redirect(reverse('Login:login'))
+      for error in errors:
+         messages.info(request, error)
+      return redirect(reverse('Login:login'))
+   else:
+      return redirect(reverse('Mainmenu:index'))
+   return redirect(reverse('Login:login'))
 
 def logout(request):
 	for sesskey in request.session.keys():

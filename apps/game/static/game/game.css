@@ -1,0 +1,13 @@
+* {
+  font-size: 30pt;
+}
+
+#content{
+  width:500px;
+  display: inline-block;
+}
+
+#character{
+  width:400px;
+  display: inline-block;
+}

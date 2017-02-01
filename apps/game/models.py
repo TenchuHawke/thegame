@@ -1,11 +1,9 @@
 from __future__ import unicode_literals
 from django.db import models
-from mainmenu import Char, Users
+from ..mainmenu.models import Characters, Users
 
 
-class CharManager(models.Manager):
-    def add_char(self, postData):
-        pass
+
 class RoomManager(models.Manager):
     def add_room(self, postData):
         pass
@@ -30,44 +28,6 @@ class ItemManager(models.Manager):
     def add_item(self, postData):
         pass
 
-class Char(models.Model):
-    FIGHTER = 'FI'
-    ROGUE = 'RO'
-    WIZARD = 'WI'
-    name = models.CharField(max_length=60)
-    cclass = models.CharField(max_length=2, choices=((WIZARD, 'Wizard'),(ROGUE, 'Rogue'),(WIZARD, 'Wizard')), default=FIGHTER)
-    strength = PositiveSmallIntegerField(default=1)
-    dexterity = IntegerField(default=1)
-    intelligence = PositiveSmallIntegerField(default=1)
-    health = FloatField(default=1)
-    items = ManyToManyField(game.Items)
-    gold = PositiveSmallIntegerField(default=0)
-    level = PositiveSmallIntegerField(default=1)
-    current_room = ForeignKey(game.Rooms)
-    owned_by = ForeignKey(login.users)
-    slug = models.SlugField()
-    prepopulated_fields = {"slug": ("name",)}
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-
-    objects = MonsterManager()
-
-class Rooms(models.Model):
-    name = models.CharField(max_length=60)
-    description = models.TextField()
-    monster = ManyToManyField(Monsters)
-    trap = ManyToManyField(Traps)
-    treasure = ManyToManyField(Treasure)
-    exits = ManyToManyField(Exits)
-    explored_by = ManyToManyField(mainmenu.Char)
-    terrain_type = CharField(max_length=50)
-    last_name = models.CharField(max_length=80)
-    slug = models.SlugField()
-    prepopulated_fields = {"slug": ("name",)}
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-
-    objects = MonsterManager()
 
 class Monsters(models.Model):
     BRUTE = 'BR'
@@ -81,13 +41,40 @@ class Monsters(models.Model):
     intelligence = models.PositiveSmallIntegerField(default=1)
     health = models.PositiveSmallIntegerField(default=1)
     alive = models.BooleanField(default=True)
-    image = models.CharField()
+    image = models.CharField(max_length=10)
     slug = models.SlugField()
     prepopulated_fields = {"slug": ("name",)}
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
     objects = MonsterManager()
+
+
+class Items(models.Model):
+    name = models.CharField(max_length=60, unique=True)
+    strbonus = models.PositiveSmallIntegerField()
+    dexbonus = models.PositiveSmallIntegerField()
+    intbonus = models.PositiveSmallIntegerField()
+    hthbonus = models.PositiveSmallIntegerField()
+    owned_by = models.ManyToManyField(Characters)
+    consumeable = models.BooleanField(default=False)
+    last_name = models.CharField(max_length=80)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    objects = ItemManager()
+
+
+class Treasure(models.Model):
+    name = models.CharField(max_length=60, unique=True)
+    gold = models.PositiveSmallIntegerField(default=0)
+    item = models.ForeignKey(Items)
+    last_name = models.CharField(max_length=80)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    objects = ItemManager()
+
 
 class Traps(models.Model):
     PUZZLE = 'PZ'
@@ -104,37 +91,30 @@ class Traps(models.Model):
 
     objects = TrapManager()
 
-class Treasure(models.Model):
-    name = models.CharField(max_length=60, unique=True)
-    gold = models.PositiveSmallIntegerField(default=0)
-    item = models.ManyToManyField(Items)
+
+class Rooms(models.Model):
+    name = models.CharField(max_length=60)
+    description = models.TextField()
+    monster = models.ManyToManyField(Monsters)
+    trap = models.ManyToManyField(Traps)
+    treasure = models.ManyToManyField(Treasure)
+    explored_by = models.ManyToManyField(Characters, related_name='explored')
+    currently_in = models.ManyToManyField(Characters, related_name='populating')
+    terrain_type = models.CharField(max_length=50)
     last_name = models.CharField(max_length=80)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
     slug = models.SlugField()
     prepopulated_fields = {"slug": ("name",)}
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
-    objects = TreasureManager()
+    objects = MonsterManager()
+
 
 class Exits(models.Model):
     exitdirection = models.CharField(max_length=30)
-    leadsTo = ForeignKey(Rooms)
+    leads_to = models.ManyToManyField(Rooms, related_name='exits')
+    comes_from = models.ManyToManyField(Rooms, related_name='entrances')
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
     objects = ExitManager()
-
-class Items(models.Model):
-    name = models.CharField(max_length=60, unique=True)
-    gold = models.PositiveSmallIntegerField(default=0)
-    item = models.CharField(max_length=80)
-    strbonus = models.PositiveSmallIntegerField()
-    dexbonus = models.PositiveSmallIntegerField()
-    intbonus = models.PositiveSmallIntegerField()
-    hthbonus = models.PositiveSmallIntegerField()
-    consumeable = models.BooleanField(default=False)
-    last_name = models.CharField(max_length=80)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-
-    objects = ItemManager()
