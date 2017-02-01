@@ -36,7 +36,7 @@
     </div>
     <h2>Users</h2>
     <form class="box" action="game/updateCharacter" method="post">
-        
+
         {% csrf_token %}
         <!-- #TODO (add user function) -->
         <button type="submit" name="button">add user</button>
@@ -222,7 +222,7 @@
             </tr>
             {% endfor %}
         </table>
-  
+
     <h2>Items</h2>
     <form class="box" action="add_item" method="post">
         <table>
@@ -286,9 +286,9 @@
             </tr>
             {% endfor %}
         </table>
-   
+
     <h2>Treasure</h2>
-    <form class="box" action="add_Treasure" method="post">
+    <form class="box" action="add_treasure" method="post">
         <table>
             <tr>
                 <td align="left">Name: </td>
@@ -326,7 +326,7 @@
         </table>
     </form>
     <h2>Traps</h2>
-    <form class="box" action="add_Trap" method="post">
+    <form class="box" action="add_trap" method="post">
         <table>
             <tr>
                 <td align="left">Name: </td>
@@ -450,7 +450,7 @@
                                 <td>{% if moster.id == room.monster.id %} {{monster.name}}{%endif%}</td>
                             </tr>
                             {% endfor %}
-                            <tr> 
+                            <tr>
                                 <td><a href="assign_monster{{room.id}}">Add Monsters</a></td>
                             </tr>
                         </table>
@@ -462,7 +462,7 @@
                                 <td>{% if trap.id == room.trap.id %} {{trap.name}}{%endif%}</td>
                             </tr>
                             {% endfor %}
-                            <tr> 
+                            <tr>
                                 <td><a href="assign_trap{{room.id}}">Add Trap</a></td>
                             </tr>
                         </table>
@@ -474,7 +474,7 @@
                                 <td>{% if treasure.id == room.treasure.id %} {{treasure.name}}{%endif%}</td>
                             </tr>
                             {% endfor %}
-                            <tr> 
+                            <tr>
                                 <td><a href="assign_treasure{{room.id}}">Add Treasure</a></td>
                             </tr>
                         </table>
@@ -482,7 +482,7 @@
                     {% endfor %}
                 </tr>
             </table>
-                    
+
             </table>
         </form>
     </form>

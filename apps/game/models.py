@@ -59,9 +59,11 @@ class TrapManager(models.Manager):
 
 class TreasureManager(models.Manager):
     def add_treasure(self, postData):
-        Treasure.objects.create(
+        item=Items.objects.get(id=postData['item'])
+        Treasures.objects.create(
         name = postData['name'],
-        strbonus = postData['gold'],
+        gold = postData['gold'],
+        item = item,
         )
 
     def assign_item(self, treasure, item):
@@ -129,14 +131,14 @@ class Items(models.Model):
     objects = ItemManager()
 
 
-class Treasure(models.Model):
+class Treasures(models.Model):
     name = models.CharField(max_length=60, unique=True)
     gold = models.PositiveSmallIntegerField(default=0)
     item = models.ForeignKey(Items)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
-    objects = ItemManager()
+    objects = TreasureManager()
 
 
 class Traps(models.Model):
@@ -160,7 +162,7 @@ class Rooms(models.Model):
     description = models.TextField()
     monster = models.ManyToManyField(Monsters)
     trap = models.ManyToManyField(Traps)
-    treasure = models.ManyToManyField(Treasure)
+    treasure = models.ManyToManyField(Treasures)
     explored_by = models.ManyToManyField(Characters, related_name='explored')
     currently_in = models.ManyToManyField(Characters, related_name='populating')
     terrain_type = models.CharField(max_length=50)
@@ -170,7 +172,7 @@ class Rooms(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
-    objects = MonsterManager()
+    objects = RoomManager()
 
 
 class Exits(models.Model):
