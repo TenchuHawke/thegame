@@ -37,7 +37,7 @@
     <h2>Users</h2>
     <form class="box" action="game/updateCharacter" method="post">
         {% csrf_token %}
-
+        <!-- #TODO (add user function) -->
         <button type="submit" name="button">add user</button>
         <table>
             <tr>
@@ -80,9 +80,9 @@
                 <tr>
                     <td align="left">Class: </td>
                     <td align="right"><select name="add_class">
-        					<option value="Fighter">Fighter (+5 strength)</option>
-        					<option value="Rogue">Rogue (+5 dexterity)</option>
-        					<option value="Wizard">Wizard (+5 intelligence)</option>
+        					<option value="FI">Fighter (+5 strength)</option>
+        					<option value="RO">Rogue (+5 dexterity)</option>
+        					<option value="WI">Wizard (+5 intelligence)</option>
         				</select></td>
                 </tr>
                 <tr>
@@ -150,10 +150,32 @@
         </table>
     </form>
     <h2>Monsters</h2>
-    <form class="box" action="game/updateMonster" method="post">
-        {% csrf_token %}
-
-        <button type="submit" name="button">add Character</button>
+    <form class="box" action="game/add_monster" method="post">
+        <table>
+            <tr>
+                <td align="left">Name: </td>
+                <td align="right"><input type="text" name="name"></td>
+            </tr>
+            <tr>
+                <td align="left">Class: </td>
+                <td align="right"><select name="add_class">
+                    <option value="BR">Brute (+5 Strength)</option>
+                    <option value="AS">Assasin (+5 Dexterity)</option>
+                    <option value="MA">Mage (+5 Intelligence)</option>
+                    <option value="EL">Elite (+5 All Stats)</option>
+                </select></td>
+            </tr>
+            <tr>
+                <td align="left">Alive?: </td>
+                <td align="right"><input type="checkbox" name="alive"></td>
+            </tr>
+            <tr>
+                <td align="left">Image: </td>
+                <td align="right"><input type="text" name="image"></td>
+            </tr>
+        </table>
+         {% csrf_token %}
+        <button type="submit" name="button">add Monster</button>
         <table>
             <tr>
                 <th>Name</th>
@@ -178,10 +200,35 @@
         </table>
     </form>
     <h2>Items</h2>
-    <form class="box" action="game/updateMonster" method="post">
+    <form class="box" action="game/add_items" method="post">
+        <table>
+            <tr>
+                <td align="left">Name: </td>
+                <td align="right"><input type="text" name="name"></td>
+            </tr>
+            <tr>
+                <td align="left">Star Bonus: </td>
+                <td align="right"><input type="number" name="strbonus"></td>
+            </tr>
+            <tr>
+                <td align="left">Dexterity Bonus: </td>
+                <td align="right"><input type="number" name="dexbonus"></td>
+            </tr>
+            <tr>
+                <td align="left">Intelligence Bonus:</td>
+                <td align="right"><input type="number" name="intbonus"></td>
+            </tr>
+            <tr>
+                <td align="left">Health Bonus: </td>
+                <td align="right"><input type="number" name="hthbonus"></td>
+            </tr>
+            <tr>
+                <td align="left">Consumeable?: </td>
+                <td align="right"><input type="checkbox" name="consumeable">
+            </td>
+        </table>
         {% csrf_token %}
-
-        <button type="submit" name="button">add Monster</button>
+        <button type="submit" name="button">add Items</button>
         <table>
             <tr>
                 <th>Name</th>
@@ -213,7 +260,9 @@
         </table>
     </form>
     <h2>Treasure</h2>
-    <form class="box" action="game/updateTreasure" method="post">
+    <form class="box" action="game/add_Treasure" method="post">
+        
+        {% csrf_token %}
         <button type="submit" name="button">add Treasure</button>
         <table>
             <tr>

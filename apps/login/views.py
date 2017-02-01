@@ -45,7 +45,6 @@ def check_login(request, response_from_views):
 
 
 
-
 def logout(request):
 	for sesskey in request.session.keys():
 		del request.session[sesskey]
