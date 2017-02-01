@@ -43,7 +43,7 @@ def assign_monster(request):
     if request.method=="POST":
         room=Rooms.objects.get(id=request.POST['room'])
         monster=Monsters.objects.get(id=request.POST['monster'])
-        room.objects.create(monster=monster)
+        room.monster.add(monster)
     return redirect('/game')
 
 
@@ -51,7 +51,7 @@ def assign_trap(request):
     if request.method=="POST":
         room=Rooms.objects.get(id=request.POST['room'])
         trap=Traps.objects.get(id=request.POST['trap'])
-        room.objects.create(trap=trap)
+        room.objects.add(trap=trap)
     return redirect('/game')
 
 
@@ -59,21 +59,21 @@ def assign_treasure(request):
     if request.method=="POST":
         room=Rooms.objects.get(id=request.POST['room'])
         treasure=Treasures.objects.get(id=request.POST['treasure'])
-        room.objects.create(treasure=treasure)
+        room.objects.add(treasure=treasure)
     return redirect('/game')
 
 def assign_visitor(request):
     if request.method=="POST":
         room=Rooms.objects.get(id=request.POST['room'])
         character=Characters.objects.get(id=request.POST['character'])
-        room.objects.create(currently_in=character)
+        room.objects.add(currently_in=character)
     return redirect('/game')
 
 def assign_explorer(request):
     if request.method=="POST":
         room=Rooms.objects.get(id=request.POST['room'])
         character=Characters.objects.get(id=request.POST['character'])
-        room.objects.create(explored_by=character)
+        room.objects.add(explored_by=character)
     return redirect('/game')
 
 def add_item(request):
