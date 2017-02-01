@@ -8,16 +8,17 @@ EMAIL_REGEX = re.compile(r'^[a-z0-9.+_-]+@[a-z0-9._-]+\.[a-z]+$')
 class UserManager(models.Manager):
     def add_user(self, postData):
         errors = []
+        print postData
         # TODO change validations
-        if not len(postData['password']):
+        if not postData['password2']:
             errors.append('Password can not be blank.')
-        if len(postData['password'])<8:
+        if len(postData['password2'])<8:
             errors.append('Password must be 8 characters long.')
-        if not len(postData['confirm_password']):
+        if not len(postData['confirm']):
             errors.append('Password confirmation can not be blank.')
-        if not postData['password'] == postData['confirm_password']:
+        if not postData['password2'] == postData['confirm']:
             errors.append("Passwords do not match")
-        if not EMAIL_REGEX.match(postData['email']):
+        if not EMAIL_REGEX.match(postData['email_add']):
             errors.append('Must use a valid email, all lowercase please')
 
         user = Users.objects.filter(email=postData['email_add'])
@@ -32,9 +33,9 @@ class UserManager(models.Manager):
             modelResponse['errors'] = errors
         #Passed validation, save user
         else:
-            hashed_password = bcrypt.hashpw(postData['password'].encode(), bcrypt.gensalt())
+            hashed_password = bcrypt.hashpw(postData['password2'].encode(), bcrypt.gensalt())
             Users.objects.create(email=postData['email_add'], username=postData['add_username'], password=hashed_password)
-            user=Users.objects.filter(email= postData['email'])
+            user=Users.objects.filter(email= postData['email_add'])
             modelResponse['status']=True
             modelResponse['user']=user
 

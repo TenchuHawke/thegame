@@ -15,13 +15,13 @@
 		<form id="login1" action="/checklogin" method="post">
 		<input type="text" class="box" name="username" placeholder="Username">
 		<input type="password" name="password" class="box" placeholder="Password">
-		<!-- {% csrf_token %} -->
+		{% csrf_token %}
 		<input type="submit" name="submit_login" id="submita">
 		</form>
 	</div>
 	<div id="registering">
 		<h2>Register as New User:</h2>
-		<form id="register" action="/register" method="post">
+		<form id="register" action="register" method="post">
 		<table>
 			<tr>
 				<td align="left">Username:</td>

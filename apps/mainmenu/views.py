@@ -1,21 +1,30 @@
 from django.shortcuts import render, redirect
+from django.contrib import messages
 from random import randint
 import random
 from django.core.urlresolvers import reverse
-# from .models import Users
+from .models import Characters
+from ..login.models import Users
 
 def index(request):
     return render(request, 'mainmenu/index.html')
 
+def showcreate(request):
+	return render(request, 'mainmenu/newchar.html')
+
 def create(request):
-	adderror=Users.objects.check_user(request)
-	if not adderror ==[]:
-		for error in adderror:
-			messages.info(request, error)
-		return redirect(reverse('Mainmenu:create'))
-	else:
-		return redirect('/game/')
-	return render(redirect('Mainmenu:create'))
+	if request.method=='POST':
+		print request.POST
+		user = Users.objects.get(id=request.session['user_id'])
+		print user
+		response_from_models=Characters.objects.add_char(request.POST, user)
+		if not response_from_models['status']:
+			for error in response_from_models['errors']:
+				messages.info(request, error)
+			return redirect(reverse('Mainmenu:show'))
+		else:
+			return redirect('/game/')
+	return redirect('/showcreate')
 
 def delete(request):
     return render(request, 'login/base.html')

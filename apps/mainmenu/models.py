@@ -5,9 +5,12 @@ from ..login.models import Users
 
 
 class CharacaterManager(models.Manager):
-    def add_char(self, postData):
+    def add_char(self, postData, user):
+        print "*"*50
+        print postData
+        print "*"*50
         errors = []
-        if len(postData['char_name'])<4:
+        if not postData['char_name']:
             errors.append('Character name must have more then 4 characters.')
         charname = Characters.objects.filter(name=postData['char_name'])
         if charname:
@@ -17,8 +20,16 @@ class CharacaterManager(models.Manager):
             modelResponse['status'] = False
             modelResponse['errors'] = errors
         else:
-            Characters.objets.create(name=postData['char_name'], cclas=postData['add_class'], strength=postData['strength'], dexterity=postData['dext'], intelligence=postData['intel'], health=postData['health'])
-
+            if postData['add_class'] == "Fighter":
+                cclass="FI"
+            if postData['add_class']== "Rogue":
+                cclass="RO"
+            else:
+                cclass="WI"
+            Characters.objects.create(name=postData['char_name'], cclass=cclass, strength=postData['strength'], dexterity=postData['dext'], intelligence=postData['intel'], health=postData['health'], owned_by=user)
+            char = Characters.objects.get(name=postData['char_name'])
+            modelResponse['status']=True
+            modelResponse['character']=char
         return modelResponse
 
 
@@ -28,7 +39,7 @@ class Characters(models.Model):
     ROGUE = 'RO'
     WIZARD = 'WI'
     name = models.CharField(max_length=60)
-    cclass = models.CharField(max_length=2, choices=((WIZARD, 'Wizard'),(ROGUE, 'Rogue'),(WIZARD, 'Wizard')), default=FIGHTER)
+    cclass = models.CharField(max_length=2, choices=((FIGHTER, 'Fighter'),(ROGUE, 'Rogue'),(WIZARD, 'Wizard')), default=FIGHTER)
     strength = models.PositiveSmallIntegerField(default=1)
     dexterity = models.PositiveSmallIntegerField(default=1)
     intelligence = models.PositiveSmallIntegerField(default=1)
