@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+{% load static %}
+
+<head>
+    <meta charset="utf-8">
+    <title>MegaAdd</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'gameadmin/css/megaadd.css' %}" />
+    <script src="{% static 'gameadmin/js/megaadd.js' %}"></script>
+</head>
+    <body>
+        <h2>Characters</h2>
+        <form class="box" action="/mainmenu/create" method="post">
+            {% csrf_token %}
+            <div id="inputfield">
+                <table>
+                    <tr>
+                        <td class="left">Name: </td>
+                        <td class="right"><input type="text" name="char_name" class="boxa"></td>
+                    </tr>
+                    <tr>
+                        <td class="left">Class: </td>
+                        <td class="right"><select name="add_class">
+            					<option value="FI">Fighter (+5 strength)</option>
+            					<option value="RO">Rogue (+5 dexterity)</option>
+            					<option value="WI">Wizard (+5 intelligence)</option>
+            				</select></td>
+                    </tr>
+                    <tr>
+                        <td width=100px>Base Stats: (No mods) </td>
+                    </tr>
+                    <tr>
+                        <td class="left"></td>
+                        <td class="right">Strength: <input type="text" name="strength" value="1"></td>
+                    </tr>
+                    <tr>
+                        <td class="left"></td>
+                        <td class="right">Dexterity:<input type="text" name="dext" value="1"></td>
+                    </tr>
+                    <tr>
+                        <td class="left"></td>
+                        <td class="right">Intelligence:<input type="text" name="intel" value="1"></td>
+                    </tr>
+                    <tr>
+                        <td class="left"></td>
+                        <td class="right">Health:<input type="text" name="health" value="1"></td>
+                    </tr>
+                    <tr>
+                        <td class="left">Owned By:</td>
+                        <td class="right"><select name="owned_by">
+                        {%for user in users%}
+                        <option value={{user.id}}>{{user.username}}
+
+                        </option>
+                        {% endfor %}
+
+                    </select>
+                        </td>
+                    </tr>
+                </table>
+                <br>
+            </div>
+            <div id="fieldlist">
+
+            </div>
+            <button type="submit" name="button">add Character</button>
+            <table class="stats">
+                <tr>
+                    <th class="textleft">Name</th>
+                    <th>Class</th>
+                    <th>Strength</th>
+                    <th>Dexterity</th>
+                    <th>Intelligence</th>
+                    <th>Health</th>
+                    <th>Gold</th>
+                    <th>Level</th>
+                    <th class="textleft">Owned By</th>
+                </tr>
+                {% for character in characters %}
+                <tr>
+                    <td class="textleft">{{character.name}}</td>
+                    <td>{{character.cclass}}</td>
+                    <td>{{character.strength}}</td>
+                    <td>{{character.dexterity}}</td>
+                    <td>{{character.intelligence}}</td>
+                    <td>{{character.health}}</td>
+                    <td>{{character.gold}}</td>
+                    <td>{{character.level}}</td>
+                    <td class="textleft">{{character.owned_by.username}}</td>
+                </tr>
+                {% endfor %}
+            </table>
+        </form>
+    </body>
+</html>

@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+{% load static %}
+
+<head>
+    <meta charset="utf-8">
+    <title>MegaAdd</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'gameadmin/css/megaadd.css' %}" />
+    <script src="{% static 'gameadmin/js/megaadd.js' %}"></script>
+</head>
+    <body>
+        <h2>Monsters</h2>
+        <form class="box" action="add_monster" method="post">
+            <table>
+                <tr>
+                    <td class="left">Name: </td>
+                    <td class="right"><input type="text" name="name"></td>
+                </tr>
+                <tr>
+                    <td class="left">Class: </td>
+                    <td class="right"><select name="mclass">
+                        <option value="BR">Brute (+5 Strength)</option>
+                        <option value="AS">Assasin (+5 Dexterity)</option>
+                        <option value="MA">Mage (+5 Intelligence)</option>
+                        <option value="EL">Elite (+5 All Stats)</option>
+                    </select></td>
+                </tr>
+                <tr>
+                    <td class="left">Killed By: </td>
+                    </td>
+                </tr>
+                <tr>
+                    <td width=100px>Base Stats: (No mods) </td>
+                </tr>
+                <tr>
+                    <td class="left"></td>
+                    <td class="right">Strength: <input type="text" name="strength" value="1"></td>
+                </tr>
+                <tr>
+                    <td class="left"></td>
+                    <td class="right">Dexterity:<input type="text" name="dexterity" value="1"></td>
+                </tr>
+                <tr>
+                    <td class="left"></td>
+                    <td class="right">Intelligence:<input type="text" name="intelligence" value="1"></td>
+                </tr>
+                <tr>
+                    <td class="left"></td>
+                    <td class="right">Health:<input type="text" name="health" value="1"></td>
+                </tr>
+                <tr>
+                    <td class="left">Image: </td>
+                    <td class="right"><input type="text" name="image"></td>
+                </tr>
+            </table>
+            {% csrf_token %}
+            <button type="submit" name="button">add Monster</button>
+        </form>
+        <table class="stats">
+            <tr>
+                <th class="textleft">Name</th>
+                <th>Class</th>
+                <th>Strength</th>
+                <th>Dexterity</th>
+                <th>Intelligence</th>
+                <th>Health</th>
+                <th class="textleft">Image</th>
+                <th class="textleft">Killed By: </th>
+                <th class="textleft">Locations</th>
+            </tr>
+            {% for monster in monsters %}
+            <tr>
+                <td class="textleft">{{monster.name}}</td>
+                <td>{{monster.mclass}}</td>
+                <td>{{monster.strength}}</td>
+                <td>{{monster.dexterity}}</td>
+                <td>{{monster.intelligence}}</td>
+                <td>{{monster.health}}</td>
+                <td class="textleft">{{monster.image}}</td>
+                <td class="textleft">
+                    <table class="innertable">
+                        <tr>
+                            <th class="textleft">Killed By:</th>
+                            <th></th>
+                        </tr>
+                        <tr>
+                            {% for character in characters %} {% for character_mn in character.killed.all%} {% if character_mn.id == monster.id%}
+                            <td class="textleft">{{character.name}}</td>
+                            {% endif %} {% endfor %} {% endfor %}
+                            <td>
+                                <form action="room_killer" method="post">
+                                    {% csrf_token %}
+                                    <button type="submit" name="">Add Killer</button>
+                                    <input type="hidden" name="monster_id" value="{{monster.id}}">
+                                </form>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+                <td>
+                    <table class="innertable">
+                        <tr>
+                            <th class="textleft">In rooms:</th>
+                        </tr>
+                        <tr>
+                            <tr>{% for room in rooms %} {% for room_mn in room.monster.all%} {% if room_mn.id == monster.id%}
+                                <td class="textleft">{{room.name}}</td>
+                                {% endif %} {% endfor %}
+                            </tr>
+                            {% endfor %}
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+    </body>
+</html>
