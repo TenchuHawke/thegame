@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+{% load static %}
+
+<head>
+    <meta charset="utf-8">
+    <title>MegaAdd</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'gameadmin/css/megaadd.css' %}" />
+    <script src="{% static 'gameadmin/js/megaadd.js' %}"></script>
+</head>
+    <body>
+        <h2>Traps</h2>
+        <form class="box" action="add_trap" method="post">
+            <table>
+                <tr>
+                    <td class="left">Name: </td>
+                    <td class="right"><input type="text" name="name"></td>
+                </tr>
+                <tr>
+                    <td class="left">Class: </td>
+                    <td class="right"><select name="tclass">
+                    <option value="PZ">Puzzle</option>
+                    <option value="PS">Poison</option>
+                    <option value="RF">Reflex</option>
+                    <option value="CL">Collapse</option>
+                    </select></td>
+                </tr>
+                <tr>
+                    <td class="left">Strength: </td>
+                    <td class="right"><input type="number" name="strength"></td>
+                </tr>
+            </table>
+            {% csrf_token %}
+            <button type="submit" name="button">add Trap</button>
+            <table class="stats">
+                <tr>
+                    <th class="textleft">Name</th>
+                    <th>Class</th>
+                    <th>Strength</th>
+                    <th class="textleft">Location</th>
+                </tr>
+                {% for trap in traps %}
+                <tr>
+                    <td class="textleft">{{trap.name}}</td>
+                    <td>{{trap.tclass}}</td>
+                    <td>{{trap.strength}}</td>
+                    <td>
+                        <table class="innertable">
+                            <tr>
+                                <th class="textleft">In rooms:</th>
+                            </tr>
+                            <tr>
+                                <tr>
+                                    {% for room in rooms %} {% for room_tr in room.trap.all%} {% if room_tr.id == trap.id%}
+                                    <td class="textleft">{{room.name}}</td>
+                                    {% endif %} {% endfor %}
+                                </tr>
+                                {% endfor %}
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                {% endfor %}
+            </table>
+        </form>
+
+    </body>
+</html>

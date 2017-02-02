@@ -32,6 +32,13 @@ urlpatterns = [
     url(r'^remove_explorer$', views.remove_explorer, name='remove_explorer'),
     url(r'^remove_trap$', views.remove_trap, name='remove_trap'),
     url(r'^room_exit$', views.room_exit, name='room_exit'),
-    url(r'^$', views.index,  name='index'),
+    url(r'^admin_characters$', views.admin_characters, name='admin_characters'),
+    url(r'^admin_items$', views.admin_items, name='admin_items'),
+    url(r'^admin_monsters$', views.admin_monsters, name='admin_monsters'),
+    url(r'^admin_rooms$', views.admin_rooms, name='admin_rooms'),
+    url(r'^admin_traps$', views.admin_traps, name='admin_traps'),
+    url(r'^admin_treasure$', views.admin_treasure, name='admin_treasure'),
+    url(r'^admin_users$', views.admin_users, name='admin_users'),
+    url(r'^', views.index,  name='index'),
 
 ]

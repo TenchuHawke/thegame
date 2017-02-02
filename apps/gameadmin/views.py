@@ -239,3 +239,44 @@ def remove_trap(request):
         trap = Traps.objects.get(id=request.POST['trap'])
         room.trap.remove(trap)
     return redirect('/admin')
+
+def admin_characters(request):
+    context = {
+        'users': Users.objects.all().order_by('username'),
+        'characters': Characters.objects.all().order_by('name'),
+        'monsters': Monsters.objects.all().order_by('name'),
+        'rooms': Rooms.objects.all().order_by('id'),
+        'items': Items.objects.all().order_by('name'),
+        'traps': Traps.objects.all().order_by('name'),
+        'treasures': Treasures.objects.all().order_by('name'),
+        'exits': Exits.objects.all(),
+        }
+    return render(request, 'gameadmin/admin_character.html', context)
+
+def admin_items(request):
+    return render(request, 'gameadmin/admin_item.html')
+
+def admin_monsters(request):
+    return render(request, 'gameadmin/admin_monster.html')
+
+def admin_rooms(request):
+    return render(request, 'gameadmin/admin_room.html')
+
+def admin_traps(request):
+    return render(request, 'gameadmin/admin_trap.html')
+
+def admin_treasure(request):
+    return render(request, 'gameadmin/admin_treasure.html')
+
+def admin_users(request):
+    context = {
+        'users': Users.objects.all().order_by('username'),
+        'characters': Characters.objects.all().order_by('name'),
+        # 'monsters': Monsters.objects.all().order_by('name'),
+        # 'rooms': Rooms.objects.all().order_by('id'),
+        # 'items': Items.objects.all().order_by('name'),
+        # 'traps': Traps.objects.all().order_by('name'),
+        # 'treasures': Treasures.objects.all().order_by('name'),
+        # 'exits': Exits.objects.all(),
+        }
+    return render(request, 'gameadmin/admin_user.html', context)
