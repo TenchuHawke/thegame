@@ -19,7 +19,7 @@ urlpatterns = [
 	url(r'^assign_explorer$', views.assign_explorer, name='assign_explorer'),
 	url(r'^room_monster$', views.room_monster, name='room_monster'),
 	url(r'^room_visitor$', views.room_visitor, name='room_visitor'),
-	# url(r'^room_explorer/(?P<id>\d+)$', views.room_explorer, name='room_explorer'),
+	url(r'^room_explorer$', views.room_explorer, name='room_explorer'),
 	url(r'^$', views.index, name='megalist'),
 	
 	

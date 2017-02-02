@@ -460,19 +460,26 @@
                             {% for monster in monsters %}
                             <tr>
                             {%for monster_rm in room.monster.all %}
-                            <td class="textleft">{% if monster_rm.id == monster.id %}{{monster.name}} </td>
+                            <td class="textleft">
+                            {% if monster_rm.id == monster.id %}
+                            {{monster.name}} </td>
                             <td>
 
                                 <form action="/game/remove_monster" method="post">
                                     <input type="hidden" name="monster" value="{{monster}}">
                                     <input type="hidden" name="room" value="{{room}}">
-                                    <button type="submit">Remove</button></form>{%endif%}</td>
+                                    <button type="submit">Remove</button></td>
+                                </form>
+                                {%endif%}
                             </tr>
                         {% endfor %} {% endfor %}
                             <tr>
-                                <td><form action="/game/room_monster" method="post">
+                                <form action="room_monster" method="post">
+                                <td>
                                 {% csrf_token %}
-                                <button type="submit" name="login">Add Monster</button></form></td>
+                                <button type="submit" name="">Add Monster</button>
+                                <input type="hidden" name="room_id" value="{{room.id}}"></td>
+                                </form>
                             </tr>
                         </table>
                     </td>
@@ -508,7 +515,12 @@
                             </tr>
                             {% endfor %}
                             <tr>
-                                <td><a href="room_visitor/{{room.id}}">Add Characters</a></td>
+                                <td><form action="room_visitor" method="post">
+                                <td>
+                                {% csrf_token %}
+                                <button type="submit" name="">Add Visitor</button>
+                                <input type="hidden" name="room_id" value="{{room.id}}"></td>
+                                </form>
                             </tr>
                         </table>
                     </td>
@@ -520,7 +532,12 @@
                             </tr>
                             {% endfor %}
                             <tr>
-                                <td><a href="room_explored/{{room.id}}">Add Characters</a></td>
+                                <td><form action="room_explorer" method="post">
+                                <td>
+                                {% csrf_token %}
+                                <button type="submit" name="">Add Explorer</button>
+                                <input type="hidden" name="room_id" value="{{room.id}}"></td>
+                                </form>
                             </tr>
                         </table>
                     </td>

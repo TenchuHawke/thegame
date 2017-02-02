@@ -8,36 +8,39 @@
 	<h1>{{room.name}}</h1>
 	<table>
 		<tr>
-			<th>Currently in Room: </th>
-			
+			<th>Current Visitors: </th>
 		</tr>
 		{% for character in characters %}
-		{{character}}
-		{% for visitor in room.currently_in.all %}
-		{{visitor}}
-		{% if visitor.id == character.id %}
+		{% for character_rm in room.character.all %}
+		{% if character_rm.id == character.id %}
 		<tr>
-			<td>{{currently_in.name}}</td>
+			<td>{{character.name}}</td>
+		</tr>
+		{% endif %}
+		{% endfor %}
+		{% endfor %}
+	</table>
+	<table>
+		<tr>	
+			<th>Available Characters: </th>
+			<th>Assign Characters: </th>
+		</tr>
+		{% for character in characterse %}
+		{% if character_rm.id != room.id %}
+		<tr>
+			<td>{{character.name}}</td>
+			<td>
+				<form action="assign_visitor" method="post">
+				{% csrf_token %}
+				<button type="submit">Assign character</button>
+				<input type="hidden" name="character" value="{{character.id}}">
+				<input type="hidden" name="room" value="{{room.id}}">
+				</form>
+			</td>
 		</tr>
 		{%endif%}
 		{% endfor %}
 	</table>
-	<table>
-			<th>Available Characters: </th>
-			<th>Add Characters</th>
-		</tr>
-		{% for character in characters %}	
-		{% if character.name != currently_in.name %}
-		<tr>
-			<form action="/game/assign_visitor" method="post">
-			<td>{{character.name}}</td>
-			<td>{% csrf_token %}<button type="submit">Assign Character</button>
-			<input type="hidden" name="character" value="{{character.id}}">
-			<input type="hidden" name="room" value="{{room.id}}"></td>
-			</form>
-		</tr>	
-			{%endif%}
-			{% endfor %}
-	</table>
+	<a href="/game">Go Back</a>
 </div>
 {% endblock %}

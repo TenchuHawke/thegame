@@ -32,12 +32,14 @@ def delete_monster(request):
 
 
 def room_monster(request):
-    print request.POST
+    monsterse = Monsters.objects.exclude(rooms__id=request.POST['room_id'])
+    print monsterse
     context = {
-    'room': request.POST['room'],
+    'room': Rooms.objects.get(id=request.POST['room_id']),
     'monsters': Monsters.objects.all(),
+    'monsterse': monsterse
     }
-    return render(request, '/game/add_monster.html', context)
+    return render(request, 'game/add_monster.html', context)
 
 
 def assign_monster(request):
@@ -66,9 +68,12 @@ def assign_treasure(request):
 
 
 def room_visitor(request):
+    characterse = Characters.objects.exclude(populating=request.POST['room_id'])
+    print characterse
     context = {
-    'room': postData('room'),
+    'room': Rooms.objects.get(id=request.POST['room_id']),
     'characters': Characters.objects.all(),
+    'characterse': characterse
     }
     return render(request, 'game/currently_in.html', context)
 
@@ -77,14 +82,26 @@ def assign_visitor(request):
     if request.method=="POST":
         room=Rooms.objects.get(id=request.POST['room'])
         character=Characters.objects.get(id=request.POST['character'])
-        room.objects.add(currently_in=character)
+        room.currently_in.add(character)
     return redirect('/game')
+
+
+def room_explorer(request):
+    characterse = Characters.objects.exclude(explored=request.POST['room_id'])
+    print characterse
+    context = {
+    'room': Rooms.objects.get(id=request.POST['room_id']),
+    'characters': Characters.objects.all(),
+    'characterse': characterse
+    }
+    return render(request, 'game/explored_by.html', context)
+
 
 def assign_explorer(request):
     if request.method=="POST":
         room=Rooms.objects.get(id=request.POST['room'])
         character=Characters.objects.get(id=request.POST['character'])
-        room.objects.add(explored_by=character)
+        room.explored_by.add(character)
     return redirect('/game')
 
 def add_item(request):
