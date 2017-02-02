@@ -20,6 +20,30 @@ def index(request):
     return render(request, 'game/megaadd.html', context)
 
 
+def room_exit(request):
+    context = {
+        # 'room': Rooms.objects.get(id=request.POST['room_id']),
+        'room': Rooms.objects.get(id="2"),
+        'exits': Exits.objects.all(),
+        'rooms': Rooms.objects.all(),
+        }
+    return render(request, 'gameadmin/add_entrance_exit.html', context)
+
+
+def add_exit(request):
+    if request.method == "POST":
+        room = Rooms.objects.get(id=request.POST['room'])
+        exit = Rooms.objects.get(id=request.POST['exit'])
+        direction = (request.POST['direction'])
+        if request.POST['direction2']:
+            direction2 = (request.POST['direction2'])
+        else:
+            direction2 = "None"
+        Exits.objects.add_exit(room, exit, direction, direction2)
+
+    return redirect('/admin')
+
+
 def add_monster(request):
     if request.method == "POST":
         Monsters.objects.add_monster(request.POST)

@@ -1,0 +1,67 @@
+{% extends "gameadmin/base.html" %} {% include '/gameadmin/base.html' %} {% block title %}Create Exits{% endblock %} {% block loads %}{% load static %} {% endblock %} {% block css %}
+<link rel="stylesheet" type="text/css" href="{% static 'gameadmin/css/add.css' %}"
+/> {% endblock %} {%block header %} Create Entraces and Exits {% endblock %} {% block content %}
+<div id="wrapper">
+	<h1>{{room.name}}</h1>
+	<table>
+		<tr>
+			<th colspan="2">Current Exits: </th>
+		</tr>
+		{% for exit in exits %} {% if exit.leads_to.id == room.id %}
+		<tr>
+			<td> {{exit.exitdirection}} exits to
+				<form action="room_exit" method="post">
+					<button class="linktype" type="submit" name="room_id" value="{{exit.comes_from.id}}">
+						{{exit.comes_from.name}}
+					</button>
+				</form>
+			</td>
+			<td>DELETE EXIT</td>
+		</tr>
+		{% endif %} {% endfor %}
+	</table>
+	<table>
+		<tr>
+			<th colspan="2">Current Entrances: </th>
+		</tr>
+		{% for exit in exits %} {% if exit.comes_from.id == room.id %}
+		<tr>
+			<td>
+				<td>
+					<form action="room_exit" method="post">
+						<button class="linktype" type="submit" name="room_id" value="{{exit.leads_to.id}}">
+							{{exit.leads_to.name}}
+						</button>
+					</form>
+				 has exits that lead here from {{exit.exitdirection}}
+			 </td>
+			<td>
+				DELETE ENTRANCE
+			</td>
+		</tr>
+		{% endif %} {% endfor %}
+	</table>
+	<table>
+		<tr>
+			<th>Available rooms: </th>
+			<th>Create passage: </th>
+		</tr>
+		{% for room_all in rooms %} {% if not room_all.id == room.id %}
+		<tr>
+			<td>{{room_all.name}}</td>
+			<td>
+				<form action="add_exit" method="post">
+					{% csrf_token %}
+					<button type="submit">Assign exit</button>
+					<input type="hidden" name="exit" value="{{room_all.id}}">
+					<input type="hidden" name="room" value="{{room.id}}">
+					<input type="text" name="direction" placeholder="Exit Direction" value="" required>
+					<input type="text" name="direction2" placeholder="Return Direction (optional)" value="">
+				</form>
+			</td>
+		</tr>
+		{%endif%} {% endfor %}
+	</table>
+	<a href="/game">Go Back</a>
+</div>
+{% endblock %}

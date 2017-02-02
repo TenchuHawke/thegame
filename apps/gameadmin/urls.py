@@ -17,11 +17,13 @@ urlpatterns = [
     url(r'^assign_treasure$', views.assign_treasure, name='assign_treasure'),
     url(r'^assign_visitor$', views.assign_visitor, name='assign_visitor'),
     url(r'^assign_explorer$', views.assign_explorer, name='assign_explorer'),
+    url(r'^add_exit$', views.add_exit, name='add_exit'),
     url(r'^room_monster$', views.room_monster, name='room_monster'),
     url(r'^room_visitor$', views.room_visitor, name='room_visitor'),
     url(r'^room_explorer$', views.room_explorer, name='room_explorer'),
     url(r'^room_trap$', views.room_trap, name='room_trap'),
     url(r'^room_treasure$', views.room_treasure, name='room_treasure'),
+    url(r'^room_exit$', views.room_exit, name='room_exit'),
     url(r'^$', views.index,  name='index'),
 
 ]
