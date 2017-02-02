@@ -583,6 +583,7 @@
                     <tr>
                         <td>
                             <form action="room_exit" method="post">
+                                {% csrf_token %}
                                 <button class="linktype" type="submit" name="room_id" value="{{exit.leads_to.id}}">
                   							{{exit.leads_to.name}}
                   						</button>
@@ -595,6 +596,7 @@
             <tr>
                 <td>
                     <form action="room_exit" method="post">
+                        {% csrf_token %}
                         <button type="submit" name="room_id" value="{{room.id}}">
                             Add / Remove connecttions to {{room.name}}
                         </button>
@@ -610,6 +612,7 @@
         <tr>
             <td> {{exit.exitdirection}} exits to
                 <form action="room_exit" method="post">
+                    {% csrf_token %}
                     <button class="linktype" type="submit" name="room_id" value="{{exit.comes_from.id}}">
 						{{exit.comes_from.name}}
 					</button>
@@ -621,6 +624,7 @@
         <tr>
             <td>
                 <form action="room_exit" method="post">
+                    {% csrf_token %}
                     <button type="submit" name="room_id" value="{{room.id}}">
                         Add / Remove connecttions to {{room.name}}
                     </button>
@@ -631,12 +635,7 @@
         </td>
         </tr>
         {% endfor %}
-
     </table>
-
-    </form>
-
-
 </body>
 
 </html>
