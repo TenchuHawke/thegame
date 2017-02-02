@@ -20,6 +20,8 @@ urlpatterns = [
 	url(r'^room_monster$', views.room_monster, name='room_monster'),
 	url(r'^room_visitor$', views.room_visitor, name='room_visitor'),
 	url(r'^room_explorer$', views.room_explorer, name='room_explorer'),
+	url(r'^room_trap$', views.room_trap, name='room_trap'),
+	url(r'^room_treasure$', views.room_treasure, name='room_treasure'),
 	url(r'^$', views.index, name='megalist'),
 	
 	

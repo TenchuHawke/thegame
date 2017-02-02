@@ -47,7 +47,7 @@ class Characters(models.Model):
     intelligence = models.PositiveSmallIntegerField(default=1)
     health = models.PositiveSmallIntegerField(default=1)
     gold = models.PositiveSmallIntegerField(default=0)
-    level = models.PositiveSmallIntegerField(max_length=3, default=1)
+    level = models.PositiveSmallIntegerField(default=1)
     owned_by = models.ForeignKey(Users)
     killed_by = models.CharField(max_length=255, default='')
     slug = models.SlugField()

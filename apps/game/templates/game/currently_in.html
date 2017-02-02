@@ -11,7 +11,7 @@
 			<th>Current Visitors: </th>
 		</tr>
 		{% for character in characters %}
-		{% for character_rm in room.character.all %}
+		{% for character_rm in room.currently_in.all %}
 		{% if character_rm.id == character.id %}
 		<tr>
 			<td>{{character.name}}</td>
@@ -25,8 +25,10 @@
 			<th>Available Characters: </th>
 			<th>Assign Characters: </th>
 		</tr>
-		{% for character in characterse %}
-		{% if character_rm.id != room.id %}
+		{% for character in characters %}
+		{% if room.currently_in.all %}
+		{% for character_rm in room.currently_in.all %}
+		{% if not character_rm.id == character.id %}
 		<tr>
 			<td>{{character.name}}</td>
 			<td>
@@ -38,6 +40,22 @@
 				</form>
 			</td>
 		</tr>
+		{%endif%}
+		{% endfor %}
+		{% else %}
+		{% if not character_rm.id == character.id %}
+		<tr>
+			<td>{{character.name}}</td>
+			<td>
+				<form action="assign_visitor" method="post">
+				{% csrf_token %}
+				<button type="submit">Assign character</button>
+				<input type="hidden" name="character" value="{{character.id}}">
+				<input type="hidden" name="room" value="{{room.id}}">
+				</form>
+			</td>
+		</tr>
+		{%endif%}
 		{%endif%}
 		{% endfor %}
 	</table>

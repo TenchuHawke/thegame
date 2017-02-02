@@ -26,12 +26,16 @@
 			<th>Available Monsters: </th>
 			<th>Assign Monsters: </th>
 		</tr>
-		{% for monster in monsterse %}
-		{% if monster_rm.id != room.id %}
+		{% for monster in monsters %}
+		{% if room.monster.all %}
+		{% for monster_rm in room.monster.all %}
+		{% if monster_rm.id != monster.id %}
+
 		<tr>
 			<td>{{monster.name}}</td>
 			<td>
-				<form action="assign_monster" method="post">{% csrf_token %}
+				<form action="assign_monster" method="post">
+				{% csrf_token %}
 				<button type="submit">Assign Monster</button>
 				<input type="hidden" name="monster" value="{{monster.id}}">
 				<input type="hidden" name="room" value="{{room.id}}">
@@ -39,6 +43,23 @@
 			</td>
 		</tr>
 		{%endif%}
+		{% endfor %}
+		{% else %}
+		{% if monster_rm.id != monster.id %}
+
+		<tr>
+			<td>{{monster.name}}</td>
+			<td>
+				<form action="assign_monster" method="post">
+				{% csrf_token %}
+				<button type="submit">Assign Monster</button>
+				<input type="hidden" name="monster" value="{{monster.id}}">
+				<input type="hidden" name="room" value="{{room.id}}">
+				</form>
+			</td>
+		</tr>
+		{%endif%}
+		{% endif %}
 		{% endfor %}
 	</table>
 	<a href="/game">Go Back</a>

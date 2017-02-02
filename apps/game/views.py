@@ -32,12 +32,9 @@ def delete_monster(request):
 
 
 def room_monster(request):
-    monsterse = Monsters.objects.exclude(rooms__id=request.POST['room_id'])
-    print monsterse
     context = {
     'room': Rooms.objects.get(id=request.POST['room_id']),
     'monsters': Monsters.objects.all(),
-    'monsterse': monsterse
     }
     return render(request, 'game/add_monster.html', context)
 
@@ -51,29 +48,42 @@ def assign_monster(request):
     return redirect('/game')
 
 
+def room_trap(request):
+    context = {
+    'room': Rooms.objects.get(id=request.POST['room_id']),
+    'traps': Traps.objects.all(),
+    }
+    return render(request, 'game/room_traps.html', context)
+
+
 def assign_trap(request):
     if request.method=="POST":
         room=Rooms.objects.get(id=request.POST['room'])
         trap=Traps.objects.get(id=request.POST['trap'])
-        room.objects.add(trap=trap)
+        room.trap.add(trap)
     return redirect('/game')
+
+def room_treasure(request):
+    context = {
+    'room': Rooms.objects.get(id=request.POST['room_id']),
+    'treasures': Treasures.objects.all(),
+    }
+    return render(request, 'game/room_treasure.html', context)
 
 
 def assign_treasure(request):
     if request.method=="POST":
         room=Rooms.objects.get(id=request.POST['room'])
         treasure=Treasures.objects.get(id=request.POST['treasure'])
-        room.objects.add(treasure=treasure)
+        room.treasure.add(treasure)
     return redirect('/game')
 
 
 def room_visitor(request):
-    characterse = Characters.objects.exclude(populating=request.POST['room_id'])
-    print characterse
+    print request.POST
     context = {
     'room': Rooms.objects.get(id=request.POST['room_id']),
     'characters': Characters.objects.all(),
-    'characterse': characterse
     }
     return render(request, 'game/currently_in.html', context)
 
@@ -87,12 +97,9 @@ def assign_visitor(request):
 
 
 def room_explorer(request):
-    characterse = Characters.objects.exclude(explored=request.POST['room_id'])
-    print characterse
     context = {
     'room': Rooms.objects.get(id=request.POST['room_id']),
     'characters': Characters.objects.all(),
-    'characterse': characterse
     }
     return render(request, 'game/explored_by.html', context)
 

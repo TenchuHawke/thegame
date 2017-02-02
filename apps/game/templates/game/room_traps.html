@@ -2,34 +2,63 @@
 {% block title %}Create{% endblock %}
 {% block loads %}{% load static %} {% endblock %}
 {% block css %} <link rel="stylesheet" type="text/css" href="{% static 'game/css/add.css' %}" /> {% endblock %}
-
+{%block header %}Past Explorers of the Room {% endblock %}
 {% block content %}
 <div id="wrapper">
-	<h1>{% for room in room %}{{room.name}}{%endfor%}</h1>
+	<h1>{{room.name}}</h1>
 	<table>
 		<tr>
-			<th>Current Traps: </th>
+			<th>Traps: </th>
 		</tr>
 		{% for trap in traps %}
-		{% if room.trap == trap %}
+		{% for trap_rm in room.trap.all %}
+		{% if trap_rm.id == trap.id %}
 		<tr>
 			<td>{{trap.name}}</td>
-			{%endif%}
-			{% end for% }
 		</tr>
+		{% endif %}
+		{% endfor %}
+		{% endfor %}
 	</table>
-	<table>	
-			<td>Assign traps:</td>
+	<table>
+		<tr>	
+			<th>Available Traps: </th>
+			<th>Assign Traps: </th>
 		</tr>
-		<form action="assign_trap" method="post">
 		{% for trap in traps %}
+		{% if room.trap.all %}
+		{% for trap_rm in room.trap.all %}
+		{% if trap_rm.id != trap.id %}
 		<tr>
-			<td>{{trap.name}} &nbsp {% csrf_token %}<button type="submit">Assign trap</button>
-			<input type="hidden" name="trap" value="{{trap.id}}">
-			<td><input type="hidden" name="room" value="{{room.id}}"></td>
+			<td>{{trap.name}}</td>
+			<td>
+				<form action="assign_trap" method="post">
+				{% csrf_token %}
+				<button type="submit">Assign trap</button>
+				<input type="hidden" name="trap" value="{{trap.id}}">
+				<input type="hidden" name="room" value="{{room.id}}">
+				</form>
+			</td>
 		</tr>
-		{% end for% }
-		</form>
+		{%endif%}
+		{% endfor %}
+		{% else %}
+		{% if trap_rm.id != trap.id %}
+		<tr>
+			<td>{{trap.name}}</td>
+			<td>
+				<form action="assign_trap" method="post">
+				{% csrf_token %}
+				<button type="submit">Assign trap</button>
+				<input type="hidden" name="trap" value="{{trap.id}}">
+				<input type="hidden" name="room" value="{{room.id}}">
+				</form>
+			</td>
+		</tr>
+		{%endif%}
+		{%endif%}
+		{% endfor %}
 	</table>
+	<a href="/game">Go Back</a>
 </div>
 {% endblock %}
