@@ -236,7 +236,9 @@
                         <th class="textleft">In rooms:</th>
                     </tr>
                     <tr>
-                        <tr>{% for room in rooms %} {% for room_mn in room.monster.all%} {% if room_mn.id == monster.id%}
+                        <tr>{% for room in rooms %} 
+                        {% for room_mn in room.monster.all%} 
+                        {% if room_mn.id == monster.id%}
                             <td class="textleft">{{room.name}}</td>
                             {% endif %} {% endfor %}
                         </tr>
@@ -436,6 +438,7 @@
             </table>
             {% csrf_token %}
             <button type="submit" name="button">add Room</button>
+        </form>
         <table class="stats">
                 <tr>
                     <th>Name</th>
@@ -462,11 +465,14 @@
 
                                 <form action="/game/remove_monster" method="post">
                                     <input type="hidden" name="monster" value="{{monster}}">
+                                    <input type="hidden" name="room" value="{{room}}">
                                     <button type="submit">Remove</button></form>{%endif%}</td>
                             </tr>
                         {% endfor %} {% endfor %}
                             <tr>
-                                <td><a href="room_monster/{{room.id}}">Add Monsters</a></td>
+                                <td><form action="/game/room_monster" method="post">
+                                {% csrf_token %}
+                                <button type="submit" name="login">Add Monster</button></form></td>
                             </tr>
                         </table>
                     </td>

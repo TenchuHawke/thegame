@@ -17,7 +17,7 @@
 
             </div>
             <div id="titleblock">
-                <h1>Lorem ipsum dolor sit </h1>
+                <h1>{% block header %}Lorem ipsum dolor sit {% endblock %}</h1>
             </div>
             <div id="loginblock">
                 {% if request.session.user_id %}

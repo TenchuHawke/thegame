@@ -31,12 +31,13 @@ def delete_monster(request):
     return redirect('/game')
 
 
-def room_monster(request, id):
+def room_monster(request):
+    print request.POST
     context = {
-    'room': Rooms.objects.get(id=id),
+    'room': request.POST['room'],
     'monsters': Monsters.objects.all(),
     }
-    return render(request, 'game/add_monster.html', context)
+    return render(request, '/game/add_monster.html', context)
 
 
 def assign_monster(request):
@@ -64,9 +65,9 @@ def assign_treasure(request):
     return redirect('/game')
 
 
-def room_visitor(request, id):
+def room_visitor(request):
     context = {
-    'room': Rooms.objects.get(id=id),
+    'room': postData('room'),
     'characters': Characters.objects.all(),
     }
     return render(request, 'game/currently_in.html', context)
