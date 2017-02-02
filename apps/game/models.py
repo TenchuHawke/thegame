@@ -9,6 +9,7 @@ class RoomManager(models.Manager):
         Rooms.objects.create(
         name = postData['name'],
         description = postData['description'],
+        peek_description = postData['peek_description'],
         terrain_type = postData['terrain_type'],
         )
 
@@ -154,6 +155,7 @@ class Traps(models.Model):
 class Rooms(models.Model):
     name = models.CharField(max_length=60)
     description = models.TextField()
+    peek_description = models.TextField()
     monster = models.ManyToManyField(Monsters, related_name='denizen')
     trap = models.ManyToManyField(Traps, related_name='dangers')
     treasure = models.ManyToManyField(Treasures, related_name='reward')

@@ -122,7 +122,7 @@
                     {% endfor %}
 
                 </select>
-                </td>
+                    </td>
                 </tr>
             </table>
             <br>
@@ -179,70 +179,70 @@
                 </td>
             </tr>
             <tr>
-                    <td width=100px>Base Stats: (No mods) </td>
-                </tr>
-                <tr>
+                <td width=100px>Base Stats: (No mods) </td>
+            </tr>
+            <tr>
                 <td class="left"></td>
                 <td class="right">Strength: <input type="text" name="strength" value="1"></td>
-                </tr>
-                <tr>
+            </tr>
+            <tr>
                 <td class="left"></td>
                 <td class="right">Dexterity:<input type="text" name="dexterity" value="1"></td>
-                </tr>
-                <tr>
+            </tr>
+            <tr>
                 <td class="left"></td>
                 <td class="right">Intelligence:<input type="text" name="intelligence" value="1"></td>
-                </tr>
-                <tr>
+            </tr>
+            <tr>
                 <td class="left"></td>
                 <td class="right">Health:<input type="text" name="health" value="1"></td>
-                </tr>
+            </tr>
             <tr>
                 <td class="left">Image: </td>
                 <td class="right"><input type="text" name="image"></td>
             </tr>
         </table>
-         {% csrf_token %}
+        {% csrf_token %}
         <button type="submit" name="button">add Monster</button>
     </form>
     <table class="stats">
-            <tr>
+        <tr>
             <th class="textleft">Name</th>
-                <th>Class</th>
-                <th>Strength</th>
-                <th>Dexterity</th>
-                <th>Intelligence</th>
-                <th>Health</th>
+            <th>Class</th>
+            <th>Strength</th>
+            <th>Dexterity</th>
+            <th>Intelligence</th>
+            <th>Health</th>
             <th class="textleft">Image</th>
             <th class="textleft">Killed By: </th>
             <th class="textleft">Locations</th>
-            </tr>
-            {% for monster in monsters %}
-            <tr>
+        </tr>
+        {% for monster in monsters %}
+        <tr>
             <td class="textleft">{{monster.name}}</td>
-                <td>{{monster.mclass}}</td>
-                <td>{{monster.strength}}</td>
-                <td>{{monster.dexterity}}</td>
-                <td>{{monster.intelligence}}</td>
-                <td>{{monster.health}}</td>
+            <td>{{monster.mclass}}</td>
+            <td>{{monster.strength}}</td>
+            <td>{{monster.dexterity}}</td>
+            <td>{{monster.intelligence}}</td>
+            <td>{{monster.health}}</td>
             <td class="textleft">{{monster.image}}</td>
-            <td class="textleft"><table class="innertable">
+            <td class="textleft">
+                <table class="innertable">
                     <tr>
                         <th class="textleft">Killed By:</th>
                         <th></th>
                     </tr>
                     <tr>
-                        {% for character in characters %}
-                        {% for character_mn in character.killed.all%}
-                        {% if character_mn.id == monster.id%}
+                        {% for character in characters %} {% for character_mn in character.killed.all%} {% if character_mn.id == monster.id%}
                         <td class="textleft">{{character.name}}</td>
-                        {% endif %} {% endfor %}
-                        {% endfor %}
-                        <td><form action="room_killer" method="post">
-                        {% csrf_token %}
-                        <button type="submit" name="">Add Killer</button>
-                        <input type="hidden" name="monster_id" value="{{monster.id}}">
-                        </form></td>
+                        {% endif %} {% endfor %} {% endfor %}
+                        <td>
+                            <form action="room_killer" method="post">
+                                {% csrf_token %}
+                                <button type="submit" name="">Add Killer</button>
+                                <input type="hidden" name="monster_id" value="{{monster.id}}">
+                            </form>
+                        </td>
                     </tr>
                 </table>
             </td>
@@ -252,9 +252,7 @@
                         <th class="textleft">In rooms:</th>
                     </tr>
                     <tr>
-                        <tr>{% for room in rooms %}
-                        {% for room_mn in room.monster.all%}
-                        {% if room_mn.id == monster.id%}
+                        <tr>{% for room in rooms %} {% for room_mn in room.monster.all%} {% if room_mn.id == monster.id%}
                             <td class="textleft">{{room.name}}</td>
                             {% endif %} {% endfor %}
                         </tr>
@@ -262,9 +260,9 @@
                     </tr>
                 </table>
             </td>
-            </tr>
-            {% endfor %}
-        </table>
+        </tr>
+        {% endfor %}
+    </table>
 
     <h2>Items</h2>
     <form class="box" action="add_item" method="post">
@@ -295,40 +293,40 @@
                 <option value="False">False</option>
                 <option value="True">True</option>
                 </select></td>
-            </td>
+                </td>
         </table>
         {% csrf_token %}
         <button type="submit" name="button">add Items</button>
     </form>
     <table class="stats">
-            <tr>
+        <tr>
             <th class="textleft">Name</th>
             <th>Strength Bonus</th>
             <th>Dexterity Bonus</th>
             <th>Intelligence Bonus</th>
-                <th>Health Bonus</th>
+            <th>Health Bonus</th>
             <th>consumable</th>
-            </tr>
-            {% for item in items %}
-            <tr>
+        </tr>
+        {% for item in items %}
+        <tr>
             <td class="textleft">{{item.name}}</td>
-                <td>{{item.strbonus}}</td>
-                <td>{{item.dexbonus}}</td>
-                <td>{{item.intbonus}}</td>
-                <td>{{item.hthbonus}}</td>
-                <td>{{item.consumable}}</td>
-                <td>
-                    <table>
-                        {% for owners in Items.owned_by %}
-                        <tr>
-                            {{owners.name}}
-                        </tr>
-                        {% endfor %}
-                    </table>
-                </td>
-            </tr>
-            {% endfor %}
-        </table>
+            <td>{{item.strbonus}}</td>
+            <td>{{item.dexbonus}}</td>
+            <td>{{item.intbonus}}</td>
+            <td>{{item.hthbonus}}</td>
+            <td>{{item.consumable}}</td>
+            <td>
+                <table>
+                    {% for owners in Items.owned_by %}
+                    <tr>
+                        {{owners.name}}
+                    </tr>
+                    {% endfor %}
+                </table>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
 
     <h2>Treasure</h2>
     <form class="box" action="add_treasure" method="post">
@@ -423,12 +421,12 @@
                             <th class="textleft">In rooms:</th>
                         </tr>
                         <tr>
-                        <tr>
+                            <tr>
                                 {% for room in rooms %} {% for room_tr in room.trap.all%} {% if room_tr.id == trap.id%}
                                 <td class="textleft">{{room.name}}</td>
                                 {% endif %} {% endfor %}
-                        </tr>
-                        {% endfor %}
+                            </tr>
+                            {% endfor %}
                         </tr>
                     </table>
                 </td>
@@ -436,177 +434,207 @@
             {% endfor %}
         </table>
     </form>
-        <h2>Rooms</h2>
-        <form class="box" action="add_room" method="post">
-            <table>
-                <tr>
+    <h2>Rooms</h2>
+    <form class="box" action="add_room" method="post">
+        <table>
+            <tr>
                 <td class="left">Name: </td>
                 <td class="right"><input type="text" name="name"></td>
-                </tr>
-                <tr>
+            </tr>
+            <tr>
                 <td class="left">Description: </td>
                 <td class="right"><textarea name="description" rows="5"></textarea></td>
-                </tr>
-                <tr>
+            </tr>
+            <td class="left">Peek Description: </td>
+            <td class="right"><textarea name="peek_description" rows="5"></textarea></td>
+            </tr>
+            <tr>
                 <td class="left">Terrain Type: </td>
                 <td class="right"><input type="text" name="terrain_type"></td>
-                </tr>
-            </table>
-            {% csrf_token %}
-            <button type="submit" name="button">add Room</button>
-        </form>
-        <table class="stats">
-                <tr>
-                    <th>Name</th>
-                    <th>Description</th>
-                    <th>Monster</th>
-                    <th>Traps</th>
-                    <th>Treasures</th>
-                    <th>Currently In</th>
-                    <th>Explored By</th>
-                    <th>Entrances</th>
-                    <th>Exits</th>
-                </tr>
-                <tr>
-                    {% for room in rooms %}
-                <td class="textleft">{{room.name}}</td>
-                <td class="textleft">{{room.description}}</td>
-                    <td>
-                    <table class="innertable">
-                            {% for monster in monsters %}
-                            <tr>
-                            {%for monster_rm in room.monster.all %}
-                            {% if monster_rm.id == monster.id %}
-                            <td class="textleft">
+            </tr>
+        </table>
+        {% csrf_token %}
+        <button type="submit" name="button">add Room</button>
+    </form>
+    <table class="stats">
+        <tr>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Peek_Description</th>
+            <th>Monster</th>
+            <th>Traps</th>
+            <th>Treasures</th>
+            <th>Currently In</th>
+            <th>Explored By</th>
+            <th>Entrances</th>
+            <th>Exits</th>
+        </tr>
+        <tr>
+            {% for room in rooms %}
+            <td class="textleft">{{room.name}}</td>
+            <td class="textleft">{{room.description}}</td>
+            <td class="textleft">{{room.peek_description}}</td>
+            <td>
+                <table class="innertable">
+                    {% for monster in monsters %}
+                    <tr>
+                        {%for monster_rm in room.monster.all %} {% if monster_rm.id == monster.id %}
+                        <td class="textleft">
                             {{monster.name}} </td>
-                            {%endif%}
-                            </tr>
-                            {% endfor %} {% endfor %}
-                            <tr>
-                                <td><form action="room_monster" method="post">
+                        {%endif%}
+                    </tr>
+                    {% endfor %} {% endfor %}
+                    <tr>
+                        <td>
+                            <form action="room_monster" method="post">
                                 {% csrf_token %}
                                 <button type="submit" name="">Add/Remove Monster</button>
                                 <input type="hidden" name="room_id" value="{{room.id}}">
-                                </form></td>
-                            </tr>
-                    </table>
-                    </td>
-                    <td>
-                    <table class="innertable">
-                            {% for trap in traps %}
-                            <tr>
-                            {% for trap_rm in room.trap.all %}
-                            {% if trap_rm.id == trap.id %}
-                            <td class="textleft">
+                            </form>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+            <td>
+                <table class="innertable">
+                    {% for trap in traps %}
+                    <tr>
+                        {% for trap_rm in room.trap.all %} {% if trap_rm.id == trap.id %}
+                        <td class="textleft">
                             {{trap.name}} </td>
-                            {%endif%}
-                            {% endfor %} {% endfor %}
-                            </tr>
-                            
-                            <tr>
-                                <td>
-                                <form action="room_trap" method="post">
+                        {%endif%} {% endfor %} {% endfor %}
+                    </tr>
+
+                    <tr>
+                        <td>
+                            <form action="room_trap" method="post">
                                 {% csrf_token %}
                                 <button type="submit" name="">Add/Remove Traps</button>
                                 <input type="hidden" name="room_id" value="{{room.id}}">
-                                </form>
-                                </td>
-                            </tr>
+                            </form>
+                        </td>
+                    </tr>
 
-                        </table>
-                    </td>
-                    <td>
-                    <table class="innertable">
-                             {% for treasure in treasures %}
-                            <tr>
-                            {% for treasure_rm in room.treasure.all %}
-                            {% if treasure_rm.id == treasure.id %}
-                            <td class="textleft">
+                </table>
+            </td>
+            <td>
+                <table class="innertable">
+                    {% for treasure in treasures %}
+                    <tr>
+                        {% for treasure_rm in room.treasure.all %} {% if treasure_rm.id == treasure.id %}
+                        <td class="textleft">
                             {{treasure.name}} </td>
 
-                            {%endif%}
-                            {% endfor %} {% endfor %}
-                            </tr>
-                            <tr>
-                                <td><form action="room_treasure" method="post">
+                        {%endif%} {% endfor %} {% endfor %}
+                    </tr>
+                    <tr>
+                        <td>
+                            <form action="room_treasure" method="post">
                                 {% csrf_token %}
                                 <button type="submit" name="">Add/Remove Treasures</button>
                                 <input type="hidden" name="room_id" value="{{room.id}}"></td>
-                                </form>
+                        </form>
 
-                            </tr>
+                    </tr>
 
-                        </table>
-                    </td>
-                    <td>
-                    <table class="innertable">
-                            {% for character in characters %}
-                            <tr>
-                            {% for character_rm in room.currently_in.all %}
-                            {% if character_rm.id == character.id %} 
-                                <td class="textleft">
-                                {{character.name}}</td>
-                            </tr>
-                            {%endif%}
-                            {% endfor %}{% endfor %}
-                            <tr>
-                                <td><form action="room_visitor" method="post">
+                </table>
+            </td>
+            <td>
+                <table class="innertable">
+                    {% for character in characters %}
+                    <tr>
+                        {% for character_rm in room.currently_in.all %} {% if character_rm.id == character.id %}
+                        <td class="textleft">
+                            {{character.name}}</td>
+                    </tr>
+                    {%endif%} {% endfor %}{% endfor %}
+                    <tr>
+                        <td>
+                            <form action="room_visitor" method="post">
                                 {% csrf_token %}
                                 <button type="submit" name="">Add/Remove Visitor</button>
                                 <input type="hidden" name="room_id" value="{{room.id}}"></td>
-                                </form>
-                            </tr>
-                        </table>
-                    </td>
-                    <td>
-                    <table class="innertable">
-                            {% for character in characters %}
-                            <tr>
-                            {% for character_rm in room.explored_by.all %}
-                            {% if character_rm.id == character.id %} 
-                                <td class="textleft">{{character.name}}</td>
-                            </tr>
-                            {%endif%}
-                            {% endfor %}{% endfor %}
-                            <tr>
-                                <td><form action="room_explorer" method="post">
+                        </form>
+                    </tr>
+                </table>
+            </td>
+            <td>
+                <table class="innertable">
+                    {% for character in characters %}
+                    <tr>
+                        {% for character_rm in room.explored_by.all %} {% if character_rm.id == character.id %}
+                        <td class="textleft">{{character.name}}</td>
+                    </tr>
+                    {%endif%} {% endfor %}{% endfor %}
+                    <tr>
+                        <td>
+                            <form action="room_explorer" method="post">
                                 {% csrf_token %}
                                 <button type="submit" name="">Add/Remove Explorer</button>
                                 <input type="hidden" name="room_id" value="{{room.id}}">
-                                </form></td>
-                            </tr>
-                        </table>
-                    </td>
-                    <td>
-                    <table class="innertable">
-                            {% for exit in exits %}
-                            <tr>
-                                <td>{% if comes_from.id == room.id %} {{exits.comes_from.name}}{%endif%}</td>
-                            </tr>
-                            {% endfor %}
-                            <tr>
-                                <td><a href="room_enterance/{{room.id}}">Add Enterance</a></td>
-                            </tr>
-                        </table>
-                    </td>
-                    <td>
-                    <table class="innertable">
-                            {% for exit in exits %}
-                            <tr>
-                                <td>{% if leads_to.id == room.id %} {{exits.leads_to.name}}{%endif%}</td>
-                            </tr>
-                            {% endfor %}
-                            <tr>
-                                <td><a href="room_exit/{{room.id}}">Add Exits</a></td>
-                            </tr>
-                        </table>
-                    </td>
-                </tr>
-                {% endfor %}
-
+                            </form>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+            <td>
+                <table class="innertable">
+                    {% for exit in exits %} {% if exit.comes_from.id == room.id %}
+                    <tr>
+                        <td>
+                            <form action="room_exit" method="post">
+                                <button class="linktype" type="submit" name="room_id" value="{{exit.leads_to.id}}">
+                  							{{exit.leads_to.name}}
+                  						</button>
+                            </form>
+                            has exits that lead here from {{exit.exitdirection}}
+                        </td>
+                    </tr>
+                    {% endif %} {% endfor %}
+            </td>
+            <tr>
+                <td>
+                    <form action="room_exit" method="post">
+                        <button type="submit" name="room_id" value="{{room.id}}">
+                            Add / Remove connecttions to {{room.name}}
+                        </button>
+                    </form>
+                </td>
+            </tr>
             </table>
+            <td>
+                <table class="innertable">
 
-        </form>
+        </tr>
+        {% for exit in exits %} {% if exit.leads_to.id == room.id %}
+        <tr>
+            <td> {{exit.exitdirection}} exits to
+                <form action="room_exit" method="post">
+                    <button class="linktype" type="submit" name="room_id" value="{{exit.comes_from.id}}">
+						{{exit.comes_from.name}}
+					</button>
+                </form>
+            </td>
+
+        </tr>
+        {% endif %} {% endfor %}
+        <tr>
+            <td>
+                <form action="room_exit" method="post">
+                    <button type="submit" name="room_id" value="{{room.id}}">
+                        Add / Remove connecttions to {{room.name}}
+                    </button>
+                </form>
+            </td>
+        </tr>
+        </table>
+        </td>
+        </tr>
+        {% endfor %}
+
+    </table>
+
+    </form>
 
 
 </body>

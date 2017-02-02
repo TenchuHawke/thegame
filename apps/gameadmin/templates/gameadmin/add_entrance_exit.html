@@ -26,7 +26,6 @@
 		</tr>
 		{% for exit in exits %} {% if exit.comes_from.id == room.id %}
 		<tr>
-			<td>
 				<td>
 					<form action="room_exit" method="post">
 						<button class="linktype" type="submit" name="room_id" value="{{exit.leads_to.id}}">
@@ -62,6 +61,6 @@
 		</tr>
 		{%endif%} {% endfor %}
 	</table>
-	<a href="/game">Go Back</a>
+	<a href="/admin">Go Back</a>
 </div>
 {% endblock %}
