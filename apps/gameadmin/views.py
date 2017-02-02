@@ -244,6 +244,28 @@ def admin_characters(request):
     context = {
         'users': Users.objects.all().order_by('username'),
         'characters': Characters.objects.all().order_by('name'),
+        'items': Items.objects.all().order_by('name'),
+        }
+    return render(request, 'gameadmin/admin_character.html', context)
+
+def admin_items(request):
+    context = {
+        'items': Items.objects.all().order_by('name'),
+        }
+    return render(request, 'gameadmin/admin_item.html', context)
+
+def admin_monsters(request):
+    context = {
+        'characters': Characters.objects.all().order_by('name'),
+        'monsters': Monsters.objects.all().order_by('name'),
+        'rooms': Rooms.objects.all().order_by('id'),
+        }
+    return render(request, 'gameadmin/admin_monster.html', context)
+
+def admin_rooms(request):
+    context = {
+        'users': Users.objects.all().order_by('username'),
+        'characters': Characters.objects.all().order_by('name'),
         'monsters': Monsters.objects.all().order_by('name'),
         'rooms': Rooms.objects.all().order_by('id'),
         'items': Items.objects.all().order_by('name'),
@@ -251,32 +273,26 @@ def admin_characters(request):
         'treasures': Treasures.objects.all().order_by('name'),
         'exits': Exits.objects.all(),
         }
-    return render(request, 'gameadmin/admin_character.html', context)
-
-def admin_items(request):
-    return render(request, 'gameadmin/admin_item.html')
-
-def admin_monsters(request):
-    return render(request, 'gameadmin/admin_monster.html')
-
-def admin_rooms(request):
-    return render(request, 'gameadmin/admin_room.html')
+    return render(request, 'gameadmin/admin_room.html', context)
 
 def admin_traps(request):
-    return render(request, 'gameadmin/admin_trap.html')
+    context = {
+        'rooms': Rooms.objects.all().order_by('id'),
+        'traps': Traps.objects.all().order_by('name'),
+        }
+    return render(request, 'gameadmin/admin_trap.html', context)
 
 def admin_treasure(request):
-    return render(request, 'gameadmin/admin_treasure.html')
+    context = {
+        'rooms': Rooms.objects.all().order_by('id'),
+        'items': Items.objects.all().order_by('name'),
+        'treasures': Treasures.objects.all().order_by('name'),
+        }
+    return render(request, 'gameadmin/admin_treasure.html', context)
 
 def admin_users(request):
     context = {
         'users': Users.objects.all().order_by('username'),
         'characters': Characters.objects.all().order_by('name'),
-        # 'monsters': Monsters.objects.all().order_by('name'),
-        # 'rooms': Rooms.objects.all().order_by('id'),
-        # 'items': Items.objects.all().order_by('name'),
-        # 'traps': Traps.objects.all().order_by('name'),
-        # 'treasures': Treasures.objects.all().order_by('name'),
-        # 'exits': Exits.objects.all(),
         }
     return render(request, 'gameadmin/admin_user.html', context)
