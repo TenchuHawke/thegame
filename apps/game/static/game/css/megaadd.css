@@ -23,3 +23,27 @@
   width: 300px;
   overflow: scroll;
 }
+.innertable{
+  width: 200px;
+}
+.innertable button{
+  right;
+}
+.right {
+  align:right;
+}
+.left {
+  align:left;
+}
+table td{
+  min-width: 100px;
+}
+
+.stats td{
+  text-align: center;
+}
+
+.textleft {
+
+  text-align: left !important;
+}

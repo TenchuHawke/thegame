@@ -15,7 +15,7 @@
 		</tr>
 		<tr>
 			{% for monster in monsters %}
-			<td>{% if room.monster == monster %}{{monster.name}}{%endif%}</td>
+			<td>{% if room.monster.id == monster.id %}{{monster.name}}{%endif%}</td>
 			{% endfor %}
 			<td>Assign Monsters:</td>
 		</tr>
@@ -32,6 +32,3 @@
 </div>
 </body>
 </html>
-
-
-

@@ -50,15 +50,23 @@
             </tr>
             {% for user in users %}
             <tr>
-                <td>{{user.username}}</td>
-                <td>{{user.email}}</td>
+                <td class="textleft">{{user.username}}</td>
+                <td class="textleft">{{user.email}}</td>
                 <td>{{user.userlevel}}</td>
                 <td>
-                    <table>
+                    <table class="innertable">
                         {% for character in characters %}
                         <tr>
+                            <td class="left">
+                                {% if character.owned_by == user %} {{character.name}}
+                            </td>
+                            {% csrf_token %}
                             <td>
-                                {% if character.owned_by == user %} {{character.name}} {% endif %}
+                                <form action="/game/edit_character" method="post">
+                                    <button class="right" type="submit">Edit</button>
+                                    <input type="hidden" name="character" value="character">
+                                </form>
+                                {% endif %}
                             </td>
                         </tr>
                         {% endfor %}
@@ -72,15 +80,14 @@
     <form class="box" action="{% url 'Mainmenu:create' %}" method="post">
         {% csrf_token %}
         <div id="inputfield">
-
             <table>
                 <tr>
-                    <td align="left">Name: </td>
-                    <td align="right"><input type="text" name="char_name" class="boxa"></td>
+                    <td class="left">Name: </td>
+                    <td class="right"><input type="text" name="char_name" class="boxa"></td>
                 </tr>
                 <tr>
-                    <td align="left">Class: </td>
-                    <td align="right"><select name="add_class">
+                    <td class="left">Class: </td>
+                    <td class="right"><select name="add_class">
         					<option value="FI">Fighter (+5 strength)</option>
         					<option value="RO">Rogue (+5 dexterity)</option>
         					<option value="WI">Wizard (+5 intelligence)</option>
@@ -90,23 +97,24 @@
                     <td width=100px>Base Stats: (No mods) </td>
                 </tr>
                 <tr>
-                    <td align="left"></td>
-                    <td align="right">Strength: <input type="text" name="strength" value="1"></td>
+                    <td class="left"></td>
+                    <td class="right">Strength: <input type="text" name="strength" value="1"></td>
                 </tr>
                 <tr>
-                    <td align="left"></td>
-                    <td align="right">Dexterity:<input type="text" name="dext" value="1"></td>
+                    <td class="left"></td>
+                    <td class="right">Dexterity:<input type="text" name="dext" value="1"></td>
                 </tr>
                 <tr>
-                    <td align="left"></td>
-                    <td align="right">Intelligence:<input type="text" name="intel" value="1"></td>
+                    <td class="left"></td>
+                    <td class="right">Intelligence:<input type="text" name="intel" value="1"></td>
                 </tr>
                 <tr>
-                    <td align="left"></td>
-                    <td align="right">Health:<input type="text" name="health" value="1"></td>
+                    <td class="left"></td>
+                    <td class="right">Health:<input type="text" name="health" value="1"></td>
                 </tr>
                 <tr>
-                    <td align="left">Owned By:</td><td align="right"><select name="owned_by">
+                    <td class="left">Owned By:</td>
+                    <td class="right"><select name="owned_by">
                     {%for user in users%}
                     <option value={{user.id}}>{{user.username}}
 
@@ -114,7 +122,7 @@
                     {% endfor %}
 
                 </select>
-                </td>
+                    </td>
                 </tr>
             </table>
             <br>
@@ -123,9 +131,9 @@
 
         </div>
         <button type="submit" name="button">add Character</button>
-        <table>
+        <table class="stats">
             <tr>
-                <th>Name</th>
+                <th class="textleft">Name</th>
                 <th>Class</th>
                 <th>Strength</th>
                 <th>Dexterity</th>
@@ -133,11 +141,11 @@
                 <th>Health</th>
                 <th>Gold</th>
                 <th>Level</th>
-                <th>Owned By</th>
+                <th class="textleft">Owned By</th>
             </tr>
             {% for character in characters %}
             <tr>
-                <td>{{character.name}}</td>
+                <td class="textleft">{{character.name}}</td>
                 <td>{{character.cclass}}</td>
                 <td>{{character.strength}}</td>
                 <td>{{character.dexterity}}</td>
@@ -145,7 +153,7 @@
                 <td>{{character.health}}</td>
                 <td>{{character.gold}}</td>
                 <td>{{character.level}}</td>
-                <td>{{character.owned_by.username}}</td>
+                <td class="textleft">{{character.owned_by.username}}</td>
             </tr>
             {% endfor %}
         </table>
@@ -154,12 +162,12 @@
     <form class="box" action="add_monster" method="post">
         <table>
             <tr>
-                <td align="left">Name: </td>
-                <td align="right"><input type="text" name="name"></td>
+                <td class="left">Name: </td>
+                <td class="right"><input type="text" name="name"></td>
             </tr>
             <tr>
-                <td align="left">Class: </td>
-                <td align="right"><select name="mclass">
+                <td class="left">Class: </td>
+                <td class="right"><select name="mclass">
                     <option value="BR">Brute (+5 Strength)</option>
                     <option value="AS">Assasin (+5 Dexterity)</option>
                     <option value="MA">Mage (+5 Intelligence)</option>
@@ -167,160 +175,191 @@
                 </select></td>
             </tr>
             <tr>
-                <td align="left">Alive?: </td>
-                <td align="right"><select name="alive">
+                <td class="left">Alive?: </td>
+                <td class="right"><select name="alive">
                 <option value="True">True</option>
                 <option value="False">False</option>
                 </select></td>
             </tr>
             <tr>
-                    <td width=100px>Base Stats: (No mods) </td>
-                </tr>
-                <tr>
-                    <td align="left"></td>
-                    <td align="right">Strength: <input type="text" name="strength" value="1"></td>
-                </tr>
-                <tr>
-                    <td align="left"></td>
-                    <td align="right">Dexterity:<input type="text" name="dexterity" value="1"></td>
-                </tr>
-                <tr>
-                    <td align="left"></td>
-                    <td align="right">Intelligence:<input type="text" name="intelligence" value="1"></td>
-                </tr>
-                <tr>
-                    <td align="left"></td>
-                    <td align="right">Health:<input type="text" name="health" value="1"></td>
-                </tr>
+                <td width=100px>Base Stats: (No mods) </td>
+            </tr>
             <tr>
-                <td align="left">Image: </td>
-                <td align="right"><input type="text" name="image"></td>
+                <td class="left"></td>
+                <td class="right">Strength: <input type="text" name="strength" value="1"></td>
+            </tr>
+            <tr>
+                <td class="left"></td>
+                <td class="right">Dexterity:<input type="text" name="dexterity" value="1"></td>
+            </tr>
+            <tr>
+                <td class="left"></td>
+                <td class="right">Intelligence:<input type="text" name="intelligence" value="1"></td>
+            </tr>
+            <tr>
+                <td class="left"></td>
+                <td class="right">Health:<input type="text" name="health" value="1"></td>
+            </tr>
+            <tr>
+                <td class="left">Image: </td>
+                <td class="right"><input type="text" name="image"></td>
             </tr>
         </table>
-         {% csrf_token %}
+        {% csrf_token %}
         <button type="submit" name="button">add Monster</button>
     </form>
-        <table>
-            <tr>
-                <th>Name</th>
-                <th>Class</th>
-                <th>Strength</th>
-                <th>Dexterity</th>
-                <th>Intelligence</th>
-                <th>Health</th>
-                <th>alive</th>
-            </tr>
-            {% for monster in monsters %}
-            <tr>
-                <td>{{monster.name}}</td>
-                <td>{{monster.mclass}}</td>
-                <td>{{monster.strength}}</td>
-                <td>{{monster.dexterity}}</td>
-                <td>{{monster.intelligence}}</td>
-                <td>{{monster.health}}</td>
-                <td>{{monster.image}}</td>
-            </tr>
-            {% endfor %}
-        </table>
+    <table class="stats">
+        <tr>
+            <th class="textleft">Name</th>
+            <th>Class</th>
+            <th>Strength</th>
+            <th>Dexterity</th>
+            <th>Intelligence</th>
+            <th>Health</th>
+            <th class="textleft">Image</th>
+            <th class="textleft">alive</th>
+            <th class="textleft">Locations</th>
+        </tr>
+        {% for monster in monsters %}
+        <tr>
+            <td class="textleft">{{monster.name}}</td>
+            <td>{{monster.mclass}}</td>
+            <td>{{monster.strength}}</td>
+            <td>{{monster.dexterity}}</td>
+            <td>{{monster.intelligence}}</td>
+            <td>{{monster.health}}</td>
+            <td class="textleft">{{monster.image}}</td>
+            <td class="textleft">{{monster.alive}}</td>
+            <td>
+                <table class="innertable">
+                    <tr>
+                        <th class="textleft">In rooms:</th>
+                    </tr>
+                    <tr>
+                        <tr>{% for room in rooms %} {% for room_mn in room.monster.all%} {% if room_mn.id == monster.id%}
+                            <td class="textleft">{{room.name}}</td>
+                            {% endif %} {% endfor %}
+                        </tr>
+                        {% endfor %}
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
 
     <h2>Items</h2>
     <form class="box" action="add_item" method="post">
         <table>
             <tr>
-                <td align="left">Name: </td>
-                <td align="right"><input type="text" name="name"></td>
+                <td class="left">Name: </td>
+                <td class="right"><input type="text" name="name"></td>
             </tr>
             <tr>
-                <td align="left">Star Bonus: </td>
-                <td align="right"><input type="number" name="strbonus"></td>
+                <td class="left">Strength Bonus: </td>
+                <td class="right"><input type="number" name="strbonus"></td>
             </tr>
             <tr>
-                <td align="left">Dexterity Bonus: </td>
-                <td align="right"><input type="number" name="dexbonus"></td>
+                <td class="left">Dexterity Bonus: </td>
+                <td class="right"><input type="number" name="dexbonus"></td>
             </tr>
             <tr>
-                <td align="left">Intelligence Bonus:</td>
-                <td align="right"><input type="number" name="intbonus"></td>
+                <td class="left">Intelligence Bonus:</td>
+                <td class="right"><input type="number" name="intbonus"></td>
             </tr>
             <tr>
-                <td align="left">Health Bonus: </td>
-                <td align="right"><input type="number" name="hthbonus"></td>
+                <td class="left">Health Bonus: </td>
+                <td class="right"><input type="number" name="hthbonus"></td>
             </tr>
             <tr>
-                <td align="left">Consumeable?: </td>
-                <td align="right"><select name="consumeable">
+                <td class="left">Consumeable?: </td>
+                <td class="right"><select name="consumeable">
                 <option value="False">False</option>
                 <option value="True">True</option>
                 </select></td>
-            </td>
+                </td>
         </table>
         {% csrf_token %}
         <button type="submit" name="button">add Items</button>
     </form>
-        <table>
-            <tr>
-                <th>Name</th>
-                <th>Str Bonus</th>
-                <th>Dex Bonus</th>
-                <th>Int Bonus</th>
-                <th>Health Bonus</th>
-                <th>consumeable</th>
-            </tr>
-            {% for item in items %}
-            <tr>
-                <td>{{item.name}}</td>
-                <td>{{item.strbonus}}</td>
-                <td>{{item.dexbonus}}</td>
-                <td>{{item.intbonus}}</td>
-                <td>{{item.hthbonus}}</td>
-                <td>{{item.consumeable}}</td>
-                <td>
-                    <table>
-                        {% for owners in Items.owned_by %}
-                        <tr>
-                            {{owners.name}}
-                        </tr>
-                        {% endfor %}
-                    </table>
-                </td>
-            </tr>
-            {% endfor %}
-        </table>
+    <table class="stats">
+        <tr>
+            <th class="textleft">Name</th>
+            <th>Strength Bonus</th>
+            <th>Dexterity Bonus</th>
+            <th>Intelligence Bonus</th>
+            <th>Health Bonus</th>
+            <th>Consumeable</th>
+        </tr>
+        {% for item in items %}
+        <tr>
+            <td class="textleft">{{item.name}}</td>
+            <td>{{item.strbonus}}</td>
+            <td>{{item.dexbonus}}</td>
+            <td>{{item.intbonus}}</td>
+            <td>{{item.hthbonus}}</td>
+            <td>{{item.consumeable}}</td>
+            <td>
+                <table>
+                    {% for owners in Items.owned_by %}
+                    <tr>
+                        {{owners.name}}
+                    </tr>
+                    {% endfor %}
+                </table>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
 
     <h2>Treasure</h2>
     <form class="box" action="add_treasure" method="post">
         <table>
             <tr>
-                <td align="left">Name: </td>
-                <td align="right"><input type="text" name="name"></td>
+                <td class="left">Name: </td>
+                <td class="right"><input type="text" name="name"></td>
             </tr>
             <tr>
-                <td align="left">Gold: </td>
-                <td align="right"><input type="number" name="gold"></td>
+                <td class="left">Gold: </td>
+                <td class="right"><input type="number" name="gold"></td>
             </tr>
             <tr>
-                <td align="left">Item: </td>
-                <td align="right"><select name="item">{% for items in items %}
+                <td class="left">Item: </td>
+                <td class="right"><select name="item">{% for items in items %}
                     <option value="{{items.id}}">{{items.name}}</option>{% endfor %}
                     </select></td>
             </tr>
         </table>
         {% csrf_token %}
         <button type="submit" name="button">add Treasure</button>
-        <table>
+        <table class="stats">
             <tr>
-                <th>Name</th>
+                <th class="textleft">Name</th>
                 <th>Gold</th>
                 <th>Item</th>
-                <th>Location</th>
+                <th class="textleft">Location</th>
             </tr>
             {% for treasure in treasures %}
             <tr>
-                <td>{{treasure.name}}</td>
+                <td class="textleft">{{treasure.name}}</td>
                 <td>{{treasure.gold}}</td>
-                <td>{{treasure.item}}</td>
-                <!-- #TODO (add treasure rooms) -->
-                <!-- <td>{{treasure.rooms__name}}</td> -->
+                <td>
+                    {{treasure.item.name}}
+                    <td>
+                        <table class="innertable">
+                            <tr>
+                                <th class="textleft">In rooms:</th>
+                            </tr>
+                            <tr>
+                                <tr>
+                                    {% for room in rooms %} {% for room_tr in room.treasure.all%} {% if room_tr.id == treasure.id%}
+                                    <td class="textleft">{{room.name}}</td>
+                                    {% endif %} {% endfor %}
+                                </tr>
+                                {% endfor %}
+                            </tr>
+                        </table>
+                    </td>
             </tr>
             {% endfor %}
         </table>
@@ -329,12 +368,12 @@
     <form class="box" action="add_trap" method="post">
         <table>
             <tr>
-                <td align="left">Name: </td>
-                <td align="right"><input type="text" name="name"></td>
+                <td class="left">Name: </td>
+                <td class="right"><input type="text" name="name"></td>
             </tr>
             <tr>
-                <td align="left">Class: </td>
-                <td align="right"><select name="tclass">
+                <td class="left">Class: </td>
+                <td class="right"><select name="tclass">
                 <option value="PZ">Puzzle</option>
                 <option value="PS">Poison</option>
                 <option value="RF">Reflex</option>
@@ -342,161 +381,173 @@
                 </select></td>
             </tr>
             <tr>
-                <td align="left">Strength: </td>
-                <td align="right"><input type="number" name="strength"></td>
+                <td class="left">Strength: </td>
+                <td class="right"><input type="number" name="strength"></td>
             </tr>
         </table>
         {% csrf_token %}
         <button type="submit" name="button">add Trap</button>
-        <table>
+        <table class="stats">
             <tr>
-                <th>Name</th>
+                <th class="textleft">Name</th>
                 <th>Class</th>
                 <th>Strength</th>
-                <th>Location</th>
+                <th class="textleft">Location</th>
             </tr>
             {% for trap in traps %}
             <tr>
-                <td>{{trap.name}}</td>
+                <td class="textleft">{{trap.name}}</td>
                 <td>{{trap.tclass}}</td>
                 <td>{{trap.strength}}</td>
                 <td>
-                    <table>
-                        {% for owners in item.owned_by %}
+                    <table class="innertable">
                         <tr>
-                            {{owners.name}}
+                            <th class="textleft">In rooms:</th>
                         </tr>
-                        {% endfor %}
+                        <tr>
+                            <tr>
+                                {% for room in rooms %} {% for room_tr in room.trap.all%} {% if room_tr.id == trap.id%}
+                                <td class="textleft">{{room.name}}</td>
+                                {% endif %} {% endfor %}
+                            </tr>
+                            {% endfor %}
+                        </tr>
                     </table>
                 </td>
             </tr>
             {% endfor %}
         </table>
     </form>
-        <h2>Rooms</h2>
-        <form class="box" action="add_room" method="post">
-            <table>
-                <tr>
-                    <td align="left">Name: </td>
-                    <td align="right"><input type="text" name="name"></td>
-                </tr>
-                <tr>
-                    <td align="left">Description: </td>
-                    <td align="right"><textarea name="description" rows="5"></textarea></td>
-                </tr>
-                <tr>
-                    <td align="left">Terrain Type: </td>
-                    <td align="right"><input type="text" name="terrain_type"></td>
-                </tr>
-            </table>
-            {% csrf_token %}
-            <button type="submit" name="button">add Room</button>
-            <table>
-                <tr>
-                    <th>Name</th>
-                    <th>Description</th>
-                    <th>Monster</th>
-                    <th>Traps</th>
-                    <th>Treasures</th>
-                    <th>Currently In</th>
-                    <th>Explored By</th>
-                    <th>Entrances</th>
-                    <th>Exits</th>
-                </tr>
-                <tr>
-                    {% for room in rooms %}
-                    <td>{{room.name}}</td>
-                    <td>{{room.description}}</td>
-                    <td>
-                        <table>
-                            {% for monster in monsters %}
-                            <tr>
-                                <td>{% if room.monster == monster %} {{monster.name}}{%endif%}</td>
-                            </tr>
-                            {% endfor %}
-                            <tr>
-                                <td><a href="room_monster/{{room.id}}">Add Monsters</a></td>
-                            </tr>
-                        </table>
-                    </td>
-                    <td>
-                        <table>
-                            {% for trap in traps %}
-                            <tr>
-                                <td>{% if trap.id == room.trap.id %} {{trap.name}}{%endif%}</td>
-                            </tr>
-                            {% endfor %}
-                            <tr>
-                                <td><a href="room_trap/{{room.id}}">Add Trap</a></td>
-                            </tr>
-                        </table>
-                    </td>
-                    <td>
-                        <table>
-                            {% for treasure in treasures %}
-                            <tr>
-                                <td>{% if treasure.id == room.treasure.id %} {{treasure.name}}{%endif%}</td>
-                            </tr>
-                            {% endfor %}
-                            <tr>
-                                <td><a href="room_treasure/{{room.id}}">Add Treasure</a></td>
-                            </tr>
-                        </table>
-                    </td>
-                    <td>
-                        <table>
-                            {% for character in characters %}
-                            <tr>
-                                <td>{% if character.id == room.currently_in.id %} {{character.name}}{%endif%}</td>
-                            </tr>
-                            {% endfor %}
-                            <tr>
-                                <td><a href="room_character/{{room.id}}">Add Characters</a></td>
-                            </tr>
-                        </table>
-                    </td>
-                    <td>
-                        <table>
-                            {% for character in characters %}
-                            <tr>
-                                <td>{% if character.id == room.explored_by.id %} {{character.name}}{%endif%}</td>
-                            </tr>
-                            {% endfor %}
-                            <tr>
-                                <td><a href="room_explored/{{room.id}}">Add Characters</a></td>
-                            </tr>
-                        </table>
-                    </td>
-                    <td>
-                        <table>
-                            {% for exit in exits %}
-                            <tr>
-                                <td>{% if comes_from.id == room.id %} {{exits.comes_from.name}}{%endif%}</td>
-                            </tr>
-                            {% endfor %}
-                            <tr>
-                                <td><a href="room_enterance/{{room.id}}">Add Enterance</a></td>
-                            </tr>
-                        </table>
-                    </td>
-                    <td>
-                        <table>
-                            {% for exit in exits %}
-                            <tr>
-                                <td>{% if leads_to.id == room.id %} {{exits.leads_to.name}}{%endif%}</td>
-                            </tr>
-                            {% endfor %}
-                            <tr>
-                                <td><a href="room_exit/{{room.id}}">Add Exits</a></td>
-                            </tr>
-                        </table>
-                    </td>
-                </tr>
-                {% endfor %}
-            </table>
+    <h2>Rooms</h2>
+    <form class="box" action="add_room" method="post">
+        <table>
+            <tr>
+                <td class="left">Name: </td>
+                <td class="right"><input type="text" name="name"></td>
+            </tr>
+            <tr>
+                <td class="left">Description: </td>
+                <td class="right"><textarea name="description" rows="5"></textarea></td>
+            </tr>
+            <tr>
+                <td class="left">Terrain Type: </td>
+                <td class="right"><input type="text" name="terrain_type"></td>
+            </tr>
+        </table>
+        {% csrf_token %}
+        <button type="submit" name="button">add Room</button>
+        <table class="stats">
+            <tr>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Monster</th>
+                <th>Traps</th>
+                <th>Treasures</th>
+                <th>Currently In</th>
+                <th>Explored By</th>
+                <th>Entrances</th>
+                <th>Exits</th>
+            </tr>
+            <tr>
+                {% for room in rooms %}
+                <td class="textleft">{{room.name}}</td>
+                <td class="textleft">{{room.description}}</td>
+                <td>
+                    <table class="innertable">
+                        {% for monster in monsters %}
+                        <tr>
+                            {%for monster_rm in room.monster.all %}
+                            <td class="textleft">{% if monster_rm.id == monster.id %}{{monster.name}} </td>
+                            <td>
 
-            </table>
-        </form>
+                                <form action="/game/remove_monster" method="post">
+                                    <input type="hidden" name="monster" value="{{monster}}">
+                                    <button type="submit">Remove</button></form>{%endif%}</td>
+                        </tr>
+                        {% endfor %} {% endfor %}
+                        <tr>
+                            <td><a href="room_monster/{{room.id}}">Add Monsters</a></td>
+                        </tr>
+                    </table>
+                </td>
+                <td>
+                    <table class="innertable">
+                        {% for trap in traps %}
+                        <tr>
+                            <td>{% if trap.id == room.trap.id %} {{trap.name}}{%endif%}</td>
+                        </tr>
+                        {% endfor %}
+                        <tr>
+                            <td><a href="room_trap/{{room.id}}">Add Trap</a></td>
+                        </tr>
+                    </table>
+                </td>
+                <td>
+                    <table class="innertable">
+                        {% for treasure in treasures %}
+                        <tr>
+                            <td>{% if treasure.id == room.treasure.id %} {{treasure.name}}{%endif%}</td>
+                        </tr>
+                        {% endfor %}
+                        <tr>
+                            <td><a href="room_treasure/{{room.id}}">Add Treasure</a></td>
+                        </tr>
+                    </table>
+                </td>
+                <td>
+                    <table class="innertable">
+                        {% for character in characters %}
+                        <tr>
+                            <td>{% if character.id == room.currently_in.id %} {{character.name}}{%endif%}</td>
+                        </tr>
+                        {% endfor %}
+                        <tr>
+                            <td><a href="room_character/{{room.id}}">Add Characters</a></td>
+                        </tr>
+                    </table>
+                </td>
+                <td>
+                    <table class="innertable">
+                        {% for character in characters %}
+                        <tr>
+                            <td>{% if character.id == room.explored_by.id %} {{character.name}}{%endif%}</td>
+                        </tr>
+                        {% endfor %}
+                        <tr>
+                            <td><a href="room_explored/{{room.id}}">Add Characters</a></td>
+                        </tr>
+                    </table>
+                </td>
+                <td>
+                    <table class="innertable">
+                        {% for exit in exits %}
+                        <tr>
+                            <td>{% if comes_from.id == room.id %} {{exits.comes_from.name}}{%endif%}</td>
+                        </tr>
+                        {% endfor %}
+                        <tr>
+                            <td><a href="room_enterance/{{room.id}}">Add Enterance</a></td>
+                        </tr>
+                    </table>
+                </td>
+                <td>
+                    <table class="innertable">
+                        {% for exit in exits %}
+                        <tr>
+                            <td>{% if leads_to.id == room.id %} {{exits.leads_to.name}}{%endif%}</td>
+                        </tr>
+                        {% endfor %}
+                        <tr>
+                            <td><a href="room_exit/{{room.id}}">Add Exits</a></td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+
+    </form>
+
 
 </body>
 

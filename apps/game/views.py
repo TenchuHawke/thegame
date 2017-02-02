@@ -42,8 +42,9 @@ def room_monster(request, id):
 def assign_monster(request):
     if request.method=="POST":
         room=Rooms.objects.get(id=request.POST['room'])
-        monster=Monsters.objects.get(id=request.POST['monster'])
-        room.monster.add(monster)
+        monsterin=Monsters.objects.get(id=request.POST['monster'])
+        room.monster.add(monsterin)
+
     return redirect('/game')
 
 
@@ -124,4 +125,3 @@ def delete_trap(request):
     if request.method=="POST":
         Traps.objects.add_trap(request.POST)
     return redirect('/game')
-
