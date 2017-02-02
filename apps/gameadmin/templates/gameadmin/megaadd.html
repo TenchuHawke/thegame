@@ -35,17 +35,13 @@
         {% endif %}
     </div>
     <h2>Users</h2>
-    <form class="box" action="admin/updateCharacter" method="post">
-
-        {% csrf_token %}
-        <!-- #TODO (add user function) -->
-        <button type="submit" name="button">add user</button>
         <table>
             <tr>
-                <th>Name</th>
-                <th>E-Mail</th>
-                <th>User Level</th>
-                <th>Characters</th>
+                <th>Name:</th>
+                <th>E-Mail:</th>
+                <th>User Level:</th>
+                <th>Edit User:</th>
+                <th>Characters:</th>
 
             </tr>
             {% for user in users %}
@@ -53,12 +49,16 @@
                 <td class="textleft">{{user.username}}</td>
                 <td class="textleft">{{user.email}}</td>
                 <td>{{user.userlevel}}</td>
+                <td><form class="box" action="edit_user/{{user.id}}" method="post">
+                {% csrf_token %}
+                <button type="submit" name="button" value="{{user.id}}">Edit User</button></td>
                 <td>
                     <table class="innertable">
                         {% for character in characters %}
                         <tr>
+                        {% if character.owned_by == user %}
                             <td class="left">
-                                {% if character.owned_by == user %} {{character.name}}
+                                 {{character.name}}
                             </td>
                             {% csrf_token %}
                             <td>
@@ -94,7 +94,7 @@
         				</select></td>
                 </tr>
                 <tr>
-                    <td width=100px>Base Stats: (No mods) </td>
+                    <td colspan="2">Base Stats: (No mods) </td>
                 </tr>
                 <tr>
                     <td class="left"></td>
@@ -118,7 +118,7 @@
                     {%for user in users%}
                     <option value={{user.id}}>{{user.username}}
 
-                    </option>
+                    </option></select></td>
                     {% endfor %}
 
                 </select>
@@ -142,6 +142,7 @@
                 <th>Gold</th>
                 <th>Level</th>
                 <th class="textleft">Owned By</th>
+                <th>Edit Character: </th>
             </tr>
             {% for character in characters %}
             <tr>
@@ -154,6 +155,9 @@
                 <td>{{character.gold}}</td>
                 <td>{{character.level}}</td>
                 <td class="textleft">{{character.owned_by.username}}</td>
+                <td><form class="box" action="edit_character/{{character.id}}" method="post">
+                {% csrf_token %}
+                <button type="submit" name="button" value="{{character.id}}">Edit Character</button></td>
             </tr>
             {% endfor %}
         </table>
@@ -174,12 +178,9 @@
                     <option value="EL">Elite (+5 All Stats)</option>
                 </select></td>
             </tr>
+           
             <tr>
-                <td class="left">Killed By: </td>
-                </td>
-            </tr>
-            <tr>
-                <td width=100px>Base Stats: (No mods) </td>
+                <td colspan="2">Base Stats: (No mods) </td>
             </tr>
             <tr>
                 <td class="left"></td>
@@ -214,8 +215,9 @@
             <th>Intelligence</th>
             <th>Health</th>
             <th class="textleft">Image</th>
+            <th>Edit Monster: </th>
             <th class="textleft">Killed By: </th>
-            <th class="textleft">Locations</th>
+            <th class="textleft">In Rooms: </th>
         </tr>
         {% for monster in monsters %}
         <tr>
@@ -226,12 +228,12 @@
             <td>{{monster.intelligence}}</td>
             <td>{{monster.health}}</td>
             <td class="textleft">{{monster.image}}</td>
+            <td><form class="box" action="edit_monster/{{monster.id}}" method="post">
+                {% csrf_token %}
+                <button type="submit" name="button" value="{{monster.id}}">Edit Monster</button></td>
             <td class="textleft">
                 <table class="innertable">
-                    <tr>
-                        <th class="textleft">Killed By:</th>
-                        <th></th>
-                    </tr>
+                    
                     <tr>
                         {% for character in characters %} {% for character_mn in character.killed.all%} {% if character_mn.id == monster.id%}
                         <td class="textleft">{{character.name}}</td>
@@ -248,9 +250,7 @@
             </td>
             <td>
                 <table class="innertable">
-                    <tr>
-                        <th class="textleft">In rooms:</th>
-                    </tr>
+                    
                     <tr>
                         <tr>{% for room in rooms %} {% for room_mn in room.monster.all%} {% if room_mn.id == monster.id%}
                             <td class="textleft">{{room.name}}</td>
@@ -261,6 +261,7 @@
                 </table>
             </td>
         </tr>
+        <tr>
         {% endfor %}
     </table>
 
@@ -305,7 +306,8 @@
             <th>Dexterity Bonus</th>
             <th>Intelligence Bonus</th>
             <th>Health Bonus</th>
-            <th>consumable</th>
+            <th>Consumable</th>
+            <th>Owner: </th>
         </tr>
         {% for item in items %}
         <tr>
@@ -316,12 +318,26 @@
             <td>{{item.hthbonus}}</td>
             <td>{{item.consumable}}</td>
             <td>
-                <table>
-                    {% for owners in Items.owned_by %}
+                <table class="innertable">
+                    {% for item in items %}
                     <tr>
-                        {{owners.name}}
+                        {% for character in characters %} 
+                        {% if item.id == character.owner.id %}
+                        <td class="textleft">
+                            {{item.name}} </td>
+
+                        {%endif%} {% endfor %} {% endfor %}
                     </tr>
-                    {% endfor %}
+                    <tr>
+                        <td>
+                            <form action="character_item" method="post">
+                                {% csrf_token %}
+                                <button type="submit" name="">Add/Remove Owner</button>
+                                <input type="hidden" name="item_id" value="{{item.id}}"></td>
+                        </form>
+
+                    </tr>
+
                 </table>
             </td>
         </tr>

@@ -22,8 +22,8 @@ def index(request):
 
 def room_exit(request):
     context = {
-        # 'room': Rooms.objects.get(id=request.POST['room_id']),
-        'room': Rooms.objects.get(id="2"),
+        'room': Rooms.objects.get(id=request.POST['room_id']),
+        # 'room': Rooms.objects.get(id="2"),
         'exits': Exits.objects.all(),
         'rooms': Rooms.objects.all(),
         }
