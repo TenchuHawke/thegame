@@ -91,6 +91,15 @@ class ItemManager(models.Manager):
         )
 
 
+class CombatManager(models.Manager):
+    def add_combat(self, room, hero, monsters):
+        combat=self.objects.create(room=room, hero=hero)
+        for monster in monsters.all():
+            combat.monsters.add(monster)
+        combat.save()
+        print combat
+
+
 class Monsters(models.Model):
     BRUTE = 'BR'
     ASSASSIN = 'AS'
@@ -178,3 +187,10 @@ class Exits(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     objects = ExitManager()
+
+class Combats(models.Model):
+    room = models.ForeignKey(Rooms, related_name="combat_location"),
+    hero = models.ForeignKey(Characters, related_name="combat_hero"),
+    monsters = models.ManyToManyField(Monsters, related_name="combat_villians"),
+
+    objects = CombatManager()

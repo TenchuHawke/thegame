@@ -17,3 +17,16 @@ def index(request):
     'exits': Exits.objects.all(),
     }
     return render(request, 'game/base.html', context)
+
+def start_combat(request):
+    request.session['character_id']="1",
+    request.session['room_id']="2",
+    hero=Characters.objects.get(id=request.session['character_id']),
+    room=Rooms.objects.get(id=request.session['room_id']),
+    monsters=Monster.ojbects.filter(Monsters__populating_id=request.session['room_id'])
+    combat = Combat.objects.add_combat(hero, room, monsters);
+    print combat
+    context = {
+        'combat': combat
+    }
+    return render(request, 'game/combat.html, session')
