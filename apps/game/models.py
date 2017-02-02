@@ -34,7 +34,6 @@ class MonsterManager(models.Manager):
         dexterity = dexterity,
         intelligence = intelligence,
         health = postData['health'],
-        alive = postData['alive'],
         image = postData['image'],
         )
 
@@ -94,7 +93,7 @@ class Monsters(models.Model):
     dexterity = models.PositiveSmallIntegerField(default=1)
     intelligence = models.PositiveSmallIntegerField(default=1)
     health = models.PositiveSmallIntegerField(default=1)
-    alive = models.BooleanField(default=True)
+    killed_by = models.ManyToManyField(Characters, related_name="killed")
     image = models.CharField(max_length=10)
     slug = models.SlugField()
     prepopulated_fields = {"slug": ("name",)}
