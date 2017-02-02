@@ -10,5 +10,6 @@ urlpatterns = [
 	url(r'^roll$', views.roll, name='roll'),
 	url(r'^show$', views.showcreate, name='show'),
 	url(r'^create$', views.create),
+	url(r'^admin_menu$', views.admin_menu, name='admin_menu'),
 
 ]

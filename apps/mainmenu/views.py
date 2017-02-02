@@ -30,6 +30,9 @@ def create(request):
 def delete(request):
     return render(request, 'login/base.html')
 
+def admin_menu(request):
+	return render(request, 'gameadmin/adminmenu.html')
+
 def hall(request):
     return render(request, 'mainmenu/hall.html')
 

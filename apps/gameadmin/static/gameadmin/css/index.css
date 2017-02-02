@@ -28,12 +28,14 @@ ul  {
 a {
 	font-size: 30px;
 	text-decoration: none;
-	font-family: "Comic Sans MS", cursive, sans-serif
+	font-family: "Comic Sans MS", cursive, sans-serif;
+
 }
 
 li {
 	margin-bottom: 30px;
 }
+
 a, a:visited, a:hover, a:active {
   color: blue;
 }

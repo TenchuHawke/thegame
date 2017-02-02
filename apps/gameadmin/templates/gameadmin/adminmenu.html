@@ -1,0 +1,25 @@
+{% extends "gameadmin/base.html" %} {% include '/gameadmin/base.html' %}
+{% block title %}Create{% endblock %}
+{% block loads %}{% load static %} {% endblock %}
+{% block css %} <link rel="stylesheet" type="text/css" href="{% static 'gameadmin/css/index.css' %}" /> {% endblock %}
+{%block header %}Characters Currently in Room {% endblock %}
+{% block content %}
+<div id="wrapper">
+	<div id="header">
+		<h1>Admin Menu</h1>
+	</div>
+	<div id="menu">
+		<ul>
+			<li><a href="">Users</a></li>
+			<li><a href="">Characters</a></li>
+			<li><a href="">Monsters</a></li>
+			<li><a href="">Items</a></li>
+			<li><a href="">Treasure</a></li>
+			<li><a href="">Traps</a></li>
+			<li><a href="">Rooms</a></li>
+			<li><a href="/mainmenu/">Main Menu</a>
+		</ul>
+	</div>
+</div>
+
+{% endblock %}
