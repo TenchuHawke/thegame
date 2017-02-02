@@ -17,7 +17,9 @@ urlpatterns = [
 	url(r'^assign_treasure$', views.assign_treasure, name='assign_treasure'),
 	url(r'^assign_visitor$', views.assign_visitor, name='assign_visitor'),
 	url(r'^assign_explorer$', views.assign_explorer, name='assign_explorer'),
-	url(r'^room_monster/(?P<id>\d+)$', views.room_monster, name='assign_monster'),
+	url(r'^room_monster/(?P<id>\d+)$', views.room_monster, name='room_monster'),
+	url(r'^room_visitor/(?P<id>\d+)$', views.room_visitor, name='room_visitor'),
+	# url(r'^room_explorer/(?P<id>\d+)$', views.room_explorer, name='room_explorer'),
 	url(r'^$', views.index, name='megalist'),
 	
 	

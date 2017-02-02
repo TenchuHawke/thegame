@@ -1,0 +1,34 @@
+{% extends "game/base.html" %} {% include '/game/base.html' %}
+{% block title %}Create{% endblock %}
+{% block loads %}{% load static %} {% endblock %}
+{% block css %} <link rel="stylesheet" type="text/css" href="{% static 'game/css/add.css' %}" /> {% endblock %}
+
+{% block content %}
+<div id="wrapper">
+	<h1>{{room.name}}</h1>
+	<table>
+		<tr>
+			<th>Currently in Room: </th>
+			<th>Available Characters: </th>
+			<th>Add Characters</th>
+			<th></th>
+			<th></th>
+		</tr>
+		<tr>
+			{% for character in characters %}
+			<td>{% if room.currently_in == character %}{{currently_in.name}}{%endif%}</td>
+			{% endfor %}
+		
+		<form action="/game/assign_visitor" method="post">
+		
+			{% for character in characters %}
+			<td>{% if character.name != currently_in.name %}{{character.name}}{%endif%}</td>
+			<td>{% csrf_token %}<button type="submit">Assign Character</button></td>
+			<td><input type="hidden" name="character" value="{{character.id}}"></td>
+			<td><input type="hidden" name="room" value="{{room.id}}"></td>
+			{% endfor %}
+		</tr>
+		</form>
+	</table>
+</div>
+{% endblock %}

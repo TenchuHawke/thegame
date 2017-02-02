@@ -6,8 +6,9 @@
 #headerblock {
     border: 5px rgb(29, 51, 107) solid;
     border-radius: 10px;
-
     width:900px;
+    background-color: black;
+    color: orange;
 }
 
 #logoblock {
@@ -16,6 +17,8 @@
         border: 0px;
         margin: 0px;
         padding: 0px;
+        background-color: white;
+        border-radius: 5px;
 }
 
 #logoblock img {
@@ -30,11 +33,17 @@
         padding: 10px 0px 0px 0px;
         text-align: center;
         vertical-align: top;
+        margin-top: 30px;
 }
 #loginblock{
     vertical-align: top;
     margin: 5px;
     text-align: center;
-        display: inline-block;
-        width: 100px;
+    display: inline-block;
+    width: 100px;
+    margin-top: 20px;
+}
+
+#logout {
+    margin-top: 15px;
 }

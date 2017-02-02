@@ -63,6 +63,15 @@ def assign_treasure(request):
         room.objects.add(treasure=treasure)
     return redirect('/game')
 
+
+def room_visitor(request, id):
+    context = {
+    'room': Rooms.objects.get(id=id),
+    'characters': Characters.objects.all(),
+    }
+    return render(request, 'game/currently_in.html', context)
+
+
 def assign_visitor(request):
     if request.method=="POST":
         room=Rooms.objects.get(id=request.POST['room'])
