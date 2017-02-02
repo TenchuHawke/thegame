@@ -1,26 +1,26 @@
-{% extends "game/base.html" %} {% include '/gameadmin/base.html' %}
+{% extends "gameadmin/base.html" %} {% include '/gameadmin/base.html' %}
 {% block title %}Create{% endblock %}
 {% block loads %}{% load static %} {% endblock %}
 {% block css %} <link rel="stylesheet" type="text/css" href="{% static 'gameadmin/css/add.css' %}" /> {% endblock %}
-{%block header %}Past Explorers of the Room {% endblock %}
+{%block header %}Monsters Killed By: {% endblock %}
 {% block content %}
 <div id="wrapper">
-	<h1>{{room.name}}</h1>
+	<h1>{{monster.name}}</h1>
 	<table>
 		<tr>
-			<th>Past Explorers: </th>
-			<th>Remove Explorers: </th>
+			<th>Current Killers: </th>
+			<th>Remove Killer: </th>
 		</tr>
 		{% for character in characters %}
-		{% for character_rm in room.explored_by.all %}
-		{% if character_rm.id == character.id %}
+        {% for character_mn in character.killed.all%}
+        {% if character_mn.id == monster.id%}
 		<tr>
 			<td>{{character.name}}</td>
-			<td><form action="remove_explorer" method="post">
+			<td><form action="remove_killer" method="post">
 				{% csrf_token %}
-				<button type="submit">Remove Explorer</button>
+				<button type="submit">Remove Killer</button>
 				<input type="hidden" name="character" value="{{character.id}}">
-				<input type="hidden" name="room" value="{{room.id}}">
+				<input type="hidden" name="monster" value="{{monster.id}}">
 				</form></td>
 		</tr>
 		{% endif %}
@@ -29,36 +29,36 @@
 	</table>
 	<table>
 		<tr>
-			<th>Available Characters: </th>
-			<th>Assign Characters: </th>
+			<th>Available Killers: </th>
+			<th>Assign Killers: </th>
 		</tr>
 		{% for character in characters %}
-		{% if room.explored_by.all %}
-		{% for character_rm in room.explored_by.all %}
-		{% if character_rm.id != character.id %}
+		{% if character.killed.all %}
+		{% for character_mn in character.killed.all %}
+		{% if not character_mn.id == monster.id %}
 		<tr>
 			<td>{{character.name}}</td>
 			<td>
-				<form action="assign_explorer" method="post">
+				<form action="assign_killer" method="post">
 				{% csrf_token %}
 				<button type="submit">Assign character</button>
 				<input type="hidden" name="character" value="{{character.id}}">
-				<input type="hidden" name="room" value="{{room.id}}">
+				<input type="hidden" name="monster" value="{{monster.id}}">
 				</form>
 			</td>
 		</tr>
 		{%endif%}
 		{% endfor %}
 		{% else %}
-		{% if character_rm.id != character.id %}
+		{% if not character_mn.id == monster.id %}
 		<tr>
 			<td>{{character.name}}</td>
 			<td>
-				<form action="assign_explorer" method="post">
+				<form action="assign_killer" method="post">
 				{% csrf_token %}
 				<button type="submit">Assign character</button>
 				<input type="hidden" name="character" value="{{character.id}}">
-				<input type="hidden" name="room" value="{{room.id}}">
+				<input type="hidden" name="monster" value="{{monster.id}}">
 				</form>
 			</td>
 		</tr>
