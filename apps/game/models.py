@@ -63,14 +63,14 @@ class ExitManager(models.Manager):
     def add_exit(self, room, exit, direction, direction2):
         Exits.objects.create(
         exitdirection = direction,
-        leads_to = exit,
-        comes_from = room,
+        leads_to = room,
+        comes_from = exit,
         )
         if not direction2 == "None":
             Exits.objects.create(
             exitdirection = direction2,
-            leads_to = room,
-            comes_from = exit,
+            leads_to = exit,
+            comes_from = room,
             )
 
 

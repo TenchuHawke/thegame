@@ -22,8 +22,8 @@ def index(request):
 
 def room_exit(request):
     context = {
-        # 'room': Rooms.objects.get(id=request.POST['room_id']),
-        'room': Rooms.objects.get(id="2"),
+        'room': Rooms.objects.get(id=request.POST['room_id']),
+        # 'room': Rooms.objects.get(id="2"),
         'exits': Exits.objects.all(),
         'rooms': Rooms.objects.all(),
         }
@@ -32,8 +32,8 @@ def room_exit(request):
 
 def add_exit(request):
     if request.method == "POST":
-        room = Rooms.objects.get(id=request.POST['room'])
-        exit = Rooms.objects.get(id=request.POST['exit'])
+        room = Rooms.objects.get(id=request.POST['source'])
+        exit = Rooms.objects.get(id=request.POST['destination'])
         direction = (request.POST['direction'])
         if request.POST['direction2']:
             direction2 = (request.POST['direction2'])
@@ -239,14 +239,3 @@ def remove_trap(request):
         trap = Traps.objects.get(id=request.POST['trap'])
         room.trap.remove(trap)
     return redirect('/admin')
-
-
-
-
-
-
-
-
-
-
-

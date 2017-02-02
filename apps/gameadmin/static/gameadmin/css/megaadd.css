@@ -26,6 +26,9 @@
 .innertable{
   width: 200px;
 }
+.innertable span{
+  color: red;
+}
 .innertable button{
   right;
 }
@@ -60,5 +63,8 @@ table td{
   padding:0;
   font-family:inherit;
   font-size:inherit;
-	display:inline-block;
+	display:block;
+}
+form {
+  display: inline-block;
 }

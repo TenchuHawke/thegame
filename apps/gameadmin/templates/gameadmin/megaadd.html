@@ -588,7 +588,7 @@
                   							{{exit.leads_to.name}}
                   						</button>
                             </form>
-                            has exits that lead here from {{exit.exitdirection}}
+                            has exits that lead here from <span>{{exit.exitdirection}}</span>
                         </td>
                     </tr>
                     {% endif %} {% endfor %}
@@ -610,7 +610,7 @@
         </tr>
         {% for exit in exits %} {% if exit.leads_to.id == room.id %}
         <tr>
-            <td> {{exit.exitdirection}} exits to
+            <td> <span>{{exit.exitdirection}}</span> exits to
                 <form action="room_exit" method="post">
                     {% csrf_token %}
                     <button class="linktype" type="submit" name="room_id" value="{{exit.comes_from.id}}">
@@ -637,5 +637,4 @@
         {% endfor %}
     </table>
 </body>
-
 </html>

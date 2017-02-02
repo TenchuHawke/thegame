@@ -54,8 +54,8 @@
 				<form action="add_exit" method="post">
 					{% csrf_token %}
 					<button type="submit">Assign exit</button>
-					<input type="hidden" name="exit" value="{{room_all.id}}">
-					<input type="hidden" name="room" value="{{room.id}}">
+					<input type="hidden" name="source" value="{{room.id}}">
+					<input type="hidden" name="destination" value="{{room_all.id}}">
 					<input type="text" name="direction" placeholder="Exit Direction" value="" required>
 					<input type="text" name="direction2" placeholder="Return Direction (optional)" value="">
 				</form>
