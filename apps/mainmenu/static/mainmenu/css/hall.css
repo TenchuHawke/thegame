@@ -4,5 +4,35 @@
 	border-radius: 10px;
 	height: 600px;
 	margin:auto;
+	background-color: black;
+	color: orange;
 
+}
+#header {
+	text-align: center;
+	margin-top: 20px;
+	text-decoration: underline;
+}
+
+#links {
+	text-align: right;
+	margin-right: 20px; 
+}
+#links a {
+	margin-right: 20px;
+}
+#main {
+	margin-top: 20px;
+}
+
+table {
+	width: 800px;
+	text-align: center;
+}
+
+table, th, td {
+	border: 1px solid orange;
+}
+table th {
+	font-size: 20px;
 }

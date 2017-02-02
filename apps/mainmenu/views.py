@@ -31,7 +31,7 @@ def delete(request):
     return render(request, 'login/base.html')
 
 def hall(request):
-    return render(request, 'login/base.html')
+    return render(request, 'mainmenu/hall.html')
 
 def update(request):
 	# Not being used right now

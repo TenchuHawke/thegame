@@ -1,11 +1,9 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<title>Add Traps</title>
-	<link rel="stylesheet" type="text/css" href="{% static 'game/css/add.css' %}" />
-    <script src="{% static 'game/js/megaadd.js' %}"></script>
-</head>
-<body>
+{% extends "game/base.html" %} {% include '/game/base.html' %}
+{% block title %}Create{% endblock %}
+{% block loads %}{% load static %} {% endblock %}
+{% block css %} <link rel="stylesheet" type="text/css" href="{% static 'game/css/add.css' %}" /> {% endblock %}
+
+{% block content %}
 <div id="wrapper">
 	<h1>{% for room in room %}{{room.name}}{%endfor%}</h1>
 	<table>
@@ -29,5 +27,4 @@
 		</form>
 	</table>
 </div>
-</body>
-</html>
+{% endblock %}
