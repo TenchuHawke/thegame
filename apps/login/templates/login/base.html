@@ -6,18 +6,18 @@
     {% block loads %} {%endblock%}
     <link rel="stylesheet" type="text/css" href="{% static 'login/css/base.css' %}">
     {% block css %}{% endblock %}
-    <title> {% block title %}THE GAME{% endblock %}</title>
+    <title> {% block title %}Endless Dungeon{% endblock %}</title>
 </head>
 
 <body>
     <div id="container">
-        <header id='headerblock'>
+        <header id = "headerblock">
             <div id="logoblock">
-                <img src="{% static 'login/img/Lorem_Ipsum.svg' %}" alt="Logo Placeholder">
+                <img src="{% static '/login/img/TempLogo.png' %}" alt="Logo Placeholder">
 
             </div>
             <div id="titleblock">
-                <h1> Welcome to The Game! </h1>
+                <h1> Welcome to the Endless Dungeon! </h1>
             </div>
             <div id="loginblock">
                 {% if request.session.user_id %}
@@ -26,7 +26,7 @@
                  {# TODO logged in logic#}
                  <p></p>
                  <p></p>
-                 <form action="/Login/logout/" method="post">
+                 <form action="/login/logout" method="post">
                      {% csrf_token %}
                      <button type="submit" name="login" id="logout">Log out</button>
 
@@ -37,7 +37,7 @@
                 <p></p>
                 <p></p>
                 {# TODO not logged in logic#}
-                <form action="login" method="post">
+                <form action="/login/main" method="post">
                     {% csrf_token %}
                     <button type="submit" name="login">Log in</button>
 

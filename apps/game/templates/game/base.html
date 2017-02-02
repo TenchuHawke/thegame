@@ -4,16 +4,16 @@
 <head>
     <meta charset="utf-8"> {% load static %}
     {% block loads %} {%endblock%}
-    <link rel="stylesheet" type="text/css" href="{% static 'login/css/base.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'game/css/base.css' %}">
     {% block css %}{% endblock %}
     <title> {% block title %}Belt Test Main Page{% endblock %}</title>
 </head>
 
 <body>
     <div id="container">
-        <header id='headerblock'>
+        <header id="headerblock">
             <div id="logoblock">
-                <img src="{% static 'login/img/Lorem_Ipsum.svg' %}" alt="Logo Placeholder">
+                <img src="{% static 'game/img/templogo.png' %}" alt="Logo Placeholder">
 
             </div>
             <div id="titleblock">
@@ -26,7 +26,7 @@
                  {# TODO logged in logic#}
                  <p></p>
                  <p></p>
-                 <form action="/Login/logout/" method="post">
+                 <form action="/login/logout/" method="post">
                      {% csrf_token %}
                      <button type="submit" name="login">Log out</button>
 
@@ -37,7 +37,7 @@
                 <p></p>
                 <p></p>
                 {# TODO not logged in logic#}
-                <form action="login" method="post">
+                <form action="/login/login" method="post">
                     {% csrf_token %}
                     <button type="submit" name="login">Log in</button>
 
@@ -47,7 +47,8 @@
         </header>
         <div id="content">
             {% block content %}
-
+<h1>THE MAIN GAME GOES HERE!!!</h1>
+<a href="/mainmenu/">Back to Main Menu</a>
             {% endblock %}
         </div>
     </div>

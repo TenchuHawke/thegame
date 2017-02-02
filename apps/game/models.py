@@ -79,7 +79,7 @@ class ItemManager(models.Manager):
         dexbonus = postData['dexbonus'],
         intbonus = postData['intbonus'],
         hthbonus = postData['hthbonus'],
-        consumeable = postData['consumeable'],
+        consumable = postData['consumable'],
         )
 
 
@@ -111,7 +111,7 @@ class Items(models.Model):
     intbonus = models.PositiveSmallIntegerField()
     hthbonus = models.PositiveSmallIntegerField()
     owned_by = models.ManyToManyField(Characters, related_name='owner')
-    consumeable = models.BooleanField(default=False)
+    consumable = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 

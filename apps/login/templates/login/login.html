@@ -1,57 +1,67 @@
 {% extends "login/base.html" %}
 
 {% block title %}Login Registration Page{% endblock %}
-{% block loads %}{% load static %} {% endblock %}
-{% block css %} <link rel="stylesheet" type="text/css" href="{% static 'login/css/login.css' %}" /> {% endblock %}
+{% block loads %}{% load static %}
+{% endblock %}
+{% block css %}
+	<link rel="stylesheet" type="text/css" href="{% static 'login/css/login.css' %}"/>
+{% endblock %}
 
 {% block content %}
 
-<div id="wrapper">
-	<div id="header">
-		<h1>Login & Registration</h1>
+	<div id="wrapper">
+		<div id="header">
+			<h1>Login & Registration</h1>
+		</div>
+		<div id="container">
+			<div id="messages">
+				{% if messages %}
+					<ul class="messages">
+						{% for message in messages %}
+							<li {% if message.tags %} class=" {{ message.tags }}" {% endif%}>
+								{{ message }}
+							</li>
+						{% endfor %}
+					</ul>
+				{% endif %}
+			</div>
+			<div id="login">
+				<h2>Login:</h2>
+				<form id="login1" action="/login/login/" method="post">
+					<input type="text" class="box" name="username" placeholder="Username">
+					<input type="password" name="password" class="box" placeholder="Password">
+					{% csrf_token %}
+					<input type="submit" name="submit_login" id="submita">
+				</form>
+			</div>
+			<div id="registering">
+				<h2>Register as New User:</h2>
+				<form id="register" action="/login/register" method="post">
+					<table>
+						<tr>
+							<td align="left">Username:</td>
+							<td align="right"><input type="text" name="add_username" class="boxa"></td>
+						</tr>
+						<tr>
+							<td align="left">Email Address:
+							</td>
+							<td align="right"><input type="email" name="email_add" class="boxa"></td>
+						</tr>
+						<tr>
+							<td align="left">Password:
+							</td>
+							<td align="right"><input type="password" name="password2" class="boxa"></td>
+						</tr>
+						<tr>
+							<td align="left">Re-Enter Password:
+							</td>
+							<td align="right"><input type="password" name="confirm" class="boxa"></td>
+						</tr>
+					</table>
+					{% csrf_token %}
+					<input type="submit" name="submit_registration" id="submitb">
+				</form>
+			</div>
+		</div>
 	</div>
-	<div id="login">
-		<h2>Login:</h2>
-		<form id="login1" action="checklogin" method="post">
-		<input type="text" class="box" name="username" placeholder="Username">
-		<input type="password" name="password" class="box" placeholder="Password">
-		{% csrf_token %}
-		<input type="submit" name="submit_login" id="submita">
-		</form>
-	</div>
-	<div id="registering">
-		<h2>Register as New User:</h2>
-		<form id="register" action="register" method="post">
-		<table>
-			<tr>
-				<td align="left">Username:</td>
-				<td align="right"><input type="text" name="add_username" class="boxa"></td>
-			</tr>
-			<tr>
-				<td align="left">Email Address: </td>
-				<td align="right"><input type="email" name="email_add" class="boxa"></td>
-			</tr>
-			<tr>
-				<td align="left">Password: </td>
-				<td align="right"><input type="password" name="password2" class="boxa"></td>
-			</tr>
-			<tr>
-				<td align="left">Re-Enter Password: </td>
-				<td align="right"><input type="password" name="confirm" class="boxa"></td>
-			</tr>
-		</table>
-		{% csrf_token %}
-		<input type="submit" name="submit_registration" id="submitb">
-		</form>
-	</div>
-	<div id="errors">
-		{% if messages %}
-        <ul class="messages">
-        {% for message in messages %}
-           <li>{{ message }}</li>
-            {% endfor %}
-        </ul>
-        {% endif %}
-    </div>
-</div>
 {% endblock %}

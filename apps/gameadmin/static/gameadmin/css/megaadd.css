@@ -1,0 +1,51 @@
+* {
+  /*font-size: 30pt;*/
+    vertical-align: top;
+}
+
+#content{
+  width:500px;
+  display: inline-block;
+}
+
+#character{
+  width:400px;
+  display: inline-block;
+}
+
+#fieldlist{
+  display: inline-block;
+  width: 300px;
+  overflow: scroll;
+}
+#inputfield{
+  display: inline-block;
+  width: 300px;
+  overflow: scroll;
+}
+.innertable{
+  width: 200px;
+}
+.innertable button{
+  right;
+}
+.right {
+  align:right;
+}
+.left {
+  align:left;
+}
+table td{
+  min-width: 100px;
+  border: 1px solid black;
+  text-align: center;
+}
+
+.stats td{
+  text-align: center;
+}
+
+.textleft {
+
+  text-align: left !important;
+}
