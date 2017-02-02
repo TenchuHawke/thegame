@@ -22,6 +22,14 @@ urlpatterns = [
     url(r'^room_explorer$', views.room_explorer, name='room_explorer'),
     url(r'^room_trap$', views.room_trap, name='room_trap'),
     url(r'^room_treasure$', views.room_treasure, name='room_treasure'),
+    url(r'^room_killer$', views.room_killer, name='room_killer'),
+    url(r'^assign_killer$', views.assign_killer, name='assign_killer'),
+    url(r'^remove_killer$', views.remove_killer, name='remove_killer'),
+    url(r'^remove_treasure$', views.remove_treasure, name='remove_treasure'),
+    url(r'^remove_monster$', views.remove_monster, name='remove_monster'),
+    url(r'^remove_visitor$', views.remove_visitor, name='remove_visitor'),
+    url(r'^remove_explorer$', views.remove_explorer, name='remove_explorer'),
+    url(r'^remove_trap$', views.remove_trap, name='remove_trap'),
     url(r'^$', views.index,  name='index'),
 
 ]

@@ -9,12 +9,19 @@
 	<table>
 		<tr>
 			<th>Current Visitors: </th>
+			<th>Remove Visitors: </th>
 		</tr>
 		{% for character in characters %}
 		{% for character_rm in room.currently_in.all %}
 		{% if character_rm.id == character.id %}
 		<tr>
 			<td>{{character.name}}</td>
+			<td><form action="remove_visitor" method="post">
+				{% csrf_token %}
+				<button type="submit">Remove Visitor</button>
+				<input type="hidden" name="character" value="{{character.id}}">
+				<input type="hidden" name="room" value="{{room.id}}">
+				</form></td>
 		</tr>
 		{% endif %}
 		{% endfor %}
@@ -59,6 +66,6 @@
 		{%endif%}
 		{% endfor %}
 	</table>
-	<a href="gameadmin/admin">Go Back</a>
+	<a href="/admin">Go Back</a>
 </div>
 {% endblock %}

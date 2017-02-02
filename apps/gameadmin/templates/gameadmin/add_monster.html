@@ -1,4 +1,4 @@
-{% extends "gamelogin/base.html" %} {% include '/gamelogin/base.html' %}
+{% extends "gameadmin/base.html" %} {% include '/gameadmin/base.html' %}
 {% block title %}Create{% endblock %}
 {% block loads %}{% load static %} {% endblock %}
 {% block css %} <link rel="stylesheet" type="text/css" href="{% static 'gameadmin/css/add.css' %}" /> {% endblock %}
@@ -10,12 +10,19 @@
 	<table>
 		<tr>
 			<th>Current Monsters: </th>
+			<th>Remove Monsters: </th>
 		</tr>
 		{% for monster in monsters %}
 		{% for monster_rm in room.monster.all %}
 		{% if monster_rm.id == monster.id %}
 		<tr>
 			<td>{{monster.name}}</td>
+			<td><form action="remove_monster" method="post">
+				{% csrf_token %}
+				<button type="submit">Remove Monster</button>
+				<input type="hidden" name="monster" value="{{monster.id}}">
+				<input type="hidden" name="room" value="{{room.id}}">
+				</form></td>
 		</tr>
 		{% endif %}
 		{% endfor %}

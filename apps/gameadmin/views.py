@@ -17,7 +17,7 @@ def index(request):
         'treasures': Treasures.objects.all().order_by('name'),
         'exits': Exits.objects.all(),
         }
-    return render(request, 'game/megaadd.html', context)
+    return render(request, 'gameadmin/megaadd.html', context)
 
 
 def add_monster(request):
@@ -37,7 +37,7 @@ def room_monster(request):
         'room': Rooms.objects.get(id=request.POST['room_id']),
         'monsters': Monsters.objects.all(),
         }
-    return render(request, 'game/add_monster.html', context)
+    return render(request, 'gameadmin/add_monster.html', context)
 
 
 def assign_monster(request):
@@ -50,17 +50,24 @@ def assign_monster(request):
 
 def room_killer(request):
     context = {
-        'room': Rooms.objects.get(id=request.POST['room_id']),
-        'traps': Traps.objects.all(),
+        'monster': Monsters.objects.get(id=request.POST['monster_id']),
+        'characters': Characters.objects.all(),
         }
-    return render(request, 'game/room_traps.html', context)
+    return render(request, 'gameadmin/room_killedby.html', context)
+
+def assign_killer(request):
+    if request.method == "POST":
+        monster = Monsters.objects.get(id=request.POST['monster'])
+        character = Characters.objects.get(id=request.POST['character'])
+        monster.killed_by.add(character)
+    return redirect('/admin')
 
 def room_trap(request):
     context = {
         'room': Rooms.objects.get(id=request.POST['room_id']),
         'traps': Traps.objects.all(),
         }
-    return render(request, 'game/room_traps.html', context)
+    return render(request, 'gameadmin/room_traps.html', context)
 
 
 def assign_trap(request):
@@ -76,7 +83,7 @@ def room_treasure(request):
         'room': Rooms.objects.get(id=request.POST['room_id']),
         'treasures': Treasures.objects.all(),
         }
-    return render(request, 'game/room_treasure.html', context)
+    return render(request, 'gameadmin/room_treasure.html', context)
 
 
 def assign_treasure(request):
@@ -93,7 +100,7 @@ def room_visitor(request):
         'room': Rooms.objects.get(id=request.POST['room_id']),
         'characters': Characters.objects.all(),
         }
-    return render(request, 'game/currently_in.html', context)
+    return render(request, 'gameadmin/currently_in.html', context)
 
 
 def assign_visitor(request):
@@ -109,7 +116,7 @@ def room_explorer(request):
         'room': Rooms.objects.get(id=request.POST['room_id']),
         'characters': Characters.objects.all(),
         }
-    return render(request, 'game/explored_by.html', context)
+    return render(request, 'gameadmin/explored_by.html', context)
 
 
 def assign_explorer(request):
@@ -166,3 +173,56 @@ def delete_trap(request):
     if request.method == "POST":
         Traps.objects.add_trap(request.POST)
     return redirect('/admin')
+
+def remove_killer(request):
+    if request.method == "POST":
+        monster = Monsters.objects.get(id=request.POST['monster'])
+        character = Characters.objects.get(id=request.POST['character'])
+        monster.killed_by.remove(character)
+    return redirect('/admin')
+
+def remove_treasure(request):
+    if request.method == "POST":
+        room = Rooms.objects.get(id=request.POST['room'])
+        treasure = Treasures.objects.get(id=request.POST['treasure'])
+        room.treasure.remove(treasure)
+    return redirect('/admin')
+
+def remove_monster(request):
+    if request.method == "POST":
+        room = Rooms.objects.get(id=request.POST['room'])
+        monsterin = Monsters.objects.get(id=request.POST['monster'])
+        room.monster.remove(monsterin)
+    return redirect('/admin')
+
+def remove_visitor(request):
+    if request.method == "POST":
+        room = Rooms.objects.get(id=request.POST['room'])
+        character = Characters.objects.get(id=request.POST['character'])
+        room.currently_in.remove(character)
+    return redirect('/admin')
+
+def remove_explorer(request):
+    if request.method == "POST":
+        room = Rooms.objects.get(id=request.POST['room'])
+        character = Characters.objects.get(id=request.POST['character'])
+        room.explored_by.remove(character)
+    return redirect('/admin')
+
+def remove_trap(request):
+    if request.method == "POST":
+        room = Rooms.objects.get(id=request.POST['room'])
+        trap = Traps.objects.get(id=request.POST['trap'])
+        room.trap.remove(trap)
+    return redirect('/admin')
+
+
+
+
+
+
+
+
+
+
+

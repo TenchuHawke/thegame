@@ -2,19 +2,26 @@
 {% block title %}Create{% endblock %}
 {% block loads %}{% load static %} {% endblock %}
 {% block css %} <link rel="stylesheet" type="text/css" href="{% static 'gameadmin/css/add.css' %}" /> {% endblock %}
-{%block header %}Characters Currently in Room {% endblock %}
+{%block header %}Monsters Killed By: {% endblock %}
 {% block content %}
 <div id="wrapper">
-	<h1>{{room.name}}</h1>
+	<h1>{{monster.name}}</h1>
 	<table>
 		<tr>
 			<th>Current Killers: </th>
+			<th>Remove Killer: </th>
 		</tr>
 		{% for character in characters %}
-		{% for character_rm in room.currently_in.all %}
-		{% if character_rm.id == character.id %}
+        {% for character_mn in character.killed.all%}
+        {% if character_mn.id == monster.id%}
 		<tr>
 			<td>{{character.name}}</td>
+			<td><form action="remove_killer" method="post">
+				{% csrf_token %}
+				<button type="submit">Remove Killer</button>
+				<input type="hidden" name="character" value="{{character.id}}">
+				<input type="hidden" name="monster" value="{{monster.id}}">
+				</form></td>
 		</tr>
 		{% endif %}
 		{% endfor %}
@@ -26,9 +33,9 @@
 			<th>Assign Killers: </th>
 		</tr>
 		{% for character in characters %}
-		{% if room.currently_in.all %}
-		{% for character_rm in room.currently_in.all %}
-		{% if not character_rm.id == character.id %}
+		{% if character.killed.all %}
+		{% for character_mn in character.killed.all %}
+		{% if not character_mn.id == monster.id %}
 		<tr>
 			<td>{{character.name}}</td>
 			<td>
@@ -36,14 +43,14 @@
 				{% csrf_token %}
 				<button type="submit">Assign character</button>
 				<input type="hidden" name="character" value="{{character.id}}">
-				<input type="hidden" name="room" value="{{room.id}}">
+				<input type="hidden" name="monster" value="{{monster.id}}">
 				</form>
 			</td>
 		</tr>
 		{%endif%}
 		{% endfor %}
 		{% else %}
-		{% if not character_rm.id == character.id %}
+		{% if not character_mn.id == monster.id %}
 		<tr>
 			<td>{{character.name}}</td>
 			<td>
@@ -51,7 +58,7 @@
 				{% csrf_token %}
 				<button type="submit">Assign character</button>
 				<input type="hidden" name="character" value="{{character.id}}">
-				<input type="hidden" name="room" value="{{room.id}}">
+				<input type="hidden" name="monster" value="{{monster.id}}">
 				</form>
 			</td>
 		</tr>

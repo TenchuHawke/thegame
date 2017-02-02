@@ -9,12 +9,19 @@
 	<table>
 		<tr>
 			<th>Traps: </th>
+			<th>Remove Traps </th>
 		</tr>
 		{% for trap in traps %}
 		{% for trap_rm in room.trap.all %}
 		{% if trap_rm.id == trap.id %}
 		<tr>
 			<td>{{trap.name}}</td>
+			<td><form action="remove_trap" method="post">
+				{% csrf_token %}
+				<button type="submit">Remove Trap</button>
+				<input type="hidden" name="trap" value="{{trap.id}}">
+				<input type="hidden" name="room" value="{{room.id}}">
+				</form></td>
 		</tr>
 		{% endif %}
 		{% endfor %}

@@ -8,13 +8,20 @@
 	<h1>{{room.name}}</h1>
 	<table>
 		<tr>
-			<th>Treasures: </th>
+			<th>Current Treasures: </th>
+			<th>Remove Treasure: </th>
 		</tr>
 		{% for treasure in treasures %}
 		{% for treasure_rm in room.treasure.all %}
 		{% if treasure_rm.id == treasure.id %}
 		<tr>
 			<td>{{treasure.name}}</td>
+			<td><form action="remove_treasure" method="post">
+				{% csrf_token %}
+				<button type="submit">Remove Treasure</button>
+				<input type="hidden" name="treasure" value="{{treasure.id}}">
+				<input type="hidden" name="room" value="{{room.id}}">
+				</form></td>
 		</tr>
 		{% endif %}
 		{% endfor %}

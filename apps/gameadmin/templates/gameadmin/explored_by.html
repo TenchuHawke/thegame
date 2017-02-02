@@ -1,7 +1,7 @@
 {% extends "game/base.html" %} {% include '/gameadmin/base.html' %}
 {% block title %}Create{% endblock %}
 {% block loads %}{% load static %} {% endblock %}
-{% block css %} <link rel="stylesheet" type="text/css" href="{% static 'game/css/add.css' %}" /> {% endblock %}
+{% block css %} <link rel="stylesheet" type="text/css" href="{% static 'gameadmin/css/add.css' %}" /> {% endblock %}
 {%block header %}Past Explorers of the Room {% endblock %}
 {% block content %}
 <div id="wrapper">
@@ -9,12 +9,19 @@
 	<table>
 		<tr>
 			<th>Past Explorers: </th>
+			<th>Remove Explorers: </th>
 		</tr>
 		{% for character in characters %}
 		{% for character_rm in room.explored_by.all %}
 		{% if character_rm.id == character.id %}
 		<tr>
 			<td>{{character.name}}</td>
+			<td><form action="remove_explorer" method="post">
+				{% csrf_token %}
+				<button type="submit">Remove Explorer</button>
+				<input type="hidden" name="character" value="{{character.id}}">
+				<input type="hidden" name="room" value="{{room.id}}">
+				</form></td>
 		</tr>
 		{% endif %}
 		{% endfor %}
