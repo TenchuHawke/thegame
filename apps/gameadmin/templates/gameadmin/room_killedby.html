@@ -8,7 +8,7 @@
 	<h1>{{room.name}}</h1>
 	<table>
 		<tr>
-			<th>Current Visitors: </th>
+			<th>Current Killers: </th>
 		</tr>
 		{% for character in characters %}
 		{% for character_rm in room.currently_in.all %}
@@ -22,8 +22,8 @@
 	</table>
 	<table>
 		<tr>
-			<th>Available Characters: </th>
-			<th>Assign Characters: </th>
+			<th>Available Killers: </th>
+			<th>Assign Killers: </th>
 		</tr>
 		{% for character in characters %}
 		{% if room.currently_in.all %}
@@ -32,7 +32,7 @@
 		<tr>
 			<td>{{character.name}}</td>
 			<td>
-				<form action="assign_visitor" method="post">
+				<form action="assign_killer" method="post">
 				{% csrf_token %}
 				<button type="submit">Assign character</button>
 				<input type="hidden" name="character" value="{{character.id}}">
@@ -47,7 +47,7 @@
 		<tr>
 			<td>{{character.name}}</td>
 			<td>
-				<form action="assign_visitor" method="post">
+				<form action="assign_killer" method="post">
 				{% csrf_token %}
 				<button type="submit">Assign character</button>
 				<input type="hidden" name="character" value="{{character.id}}">
@@ -59,6 +59,6 @@
 		{%endif%}
 		{% endfor %}
 	</table>
-	<a href="gameadmin/admin">Go Back</a>
+	<a href="/admin">Go Back</a>
 </div>
 {% endblock %}

@@ -48,6 +48,12 @@ def assign_monster(request):
 
     return redirect('/admin')
 
+def room_killer(request):
+    context = {
+        'room': Rooms.objects.get(id=request.POST['room_id']),
+        'traps': Traps.objects.all(),
+        }
+    return render(request, 'game/room_traps.html', context)
 
 def room_trap(request):
     context = {
