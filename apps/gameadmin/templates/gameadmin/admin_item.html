@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+{% load static %}
+
+<head>
+    <meta charset="utf-8">
+    <title>MegaAdd</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'gameadmin/css/megaadd.css' %}" />
+    <script src="{% static 'gameadmin/js/megaadd.js' %}"></script>
+</head>
+    <body>
+        <h2>Items</h2>
+        <form class="box" action="add_item" method="post">
+            <table>
+                <tr>
+                    <td class="left">Name: </td>
+                    <td class="right"><input type="text" name="name"></td>
+                </tr>
+                <tr>
+                    <td class="left">Strength Bonus: </td>
+                    <td class="right"><input type="number" name="strbonus"></td>
+                </tr>
+                <tr>
+                    <td class="left">Dexterity Bonus: </td>
+                    <td class="right"><input type="number" name="dexbonus"></td>
+                </tr>
+                <tr>
+                    <td class="left">Intelligence Bonus:</td>
+                    <td class="right"><input type="number" name="intbonus"></td>
+                </tr>
+                <tr>
+                    <td class="left">Health Bonus: </td>
+                    <td class="right"><input type="number" name="hthbonus"></td>
+                </tr>
+                <tr>
+                    <td class="left">Consumable: </td>
+                    <td class="right"><select name="consumable">
+                    <option value="False">False</option>
+                    <option value="True">True</option>
+                    </select></td>
+                    </td>
+            </table>
+            {% csrf_token %}
+            <button type="submit" name="button">add Items</button>
+        </form>
+        <table class="stats">
+            <tr>
+                <th class="textleft">Name</th>
+                <th>Strength Bonus</th>
+                <th>Dexterity Bonus</th>
+                <th>Intelligence Bonus</th>
+                <th>Health Bonus</th>
+                <th>Consumable?</th>
+                <th>Edit Item</th>
+                <th>Owner: </th>
+            </tr>
+            {% for item in items %}
+            <tr>
+                <td class="textleft">{{item.name}}</td>
+                <td>{{item.strbonus}}</td>
+                <td>{{item.dexbonus}}</td>
+                <td>{{item.intbonus}}</td>
+                <td>{{item.hthbonus}}</td>
+                <td><form class="box" action="edit_item/{{item.id}}" method="post">
+                {% csrf_token %}
+                <button type="submit" name="button" value="{{item.id}}">Edit Item</button></td>
+                <td>{{item.consumable}}</td>
+                <td>
+                    <table class="innertable">
+                        {% for item in items %}
+                        <tr>
+                            {% for character in characters %} 
+                            {% if item.id == character.owner.id %}
+                            <td class="textleft">
+                                {{item.name}} </td>
+
+                            {%endif%} {% endfor %} {% endfor %}
+                        </tr>
+                        <tr>
+                            <td>
+                                <form action="character_item" method="post">
+                                    {% csrf_token %}
+                                    <button type="submit" name="">Add/Remove Owner</button>
+                                    <input type="hidden" name="item_id" value="{{item.id}}"></td>
+                            </form>
+
+                        </tr>
+
+                    </table>
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+    </body>
+</html>

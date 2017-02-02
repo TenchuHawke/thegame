@@ -23,7 +23,6 @@
 					<option value="RO">Rogue (+5 dexterity)</option>
 					<option value="WI">Wizard (+5 intelligence)</option>
 				</select></td>
-				<td><a href="updatechar">&nbsp Update</a></td>
 			</tr>
 			<tr>
 				<td align="left">Stats: </td>
@@ -57,8 +56,8 @@
 			<!-- <br><br><p>3 Rolls Left</p> -->
 		</div>
 		<div id="bottom">
-			<a href="{% url 'Mainmenu:index">Home</a>
-			<a href="{% url 'Login:logout">Quit</a>
+			<a href="{% url 'Mainmenu:index' %}">Home</a>
+			<a href="{% url 'Login:logout' %}">Quit/Logout</a>
 		</div>
 	</div>
 	{% if messages %}

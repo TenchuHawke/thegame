@@ -25,10 +25,13 @@ def create(request):
 			return redirect(reverse('Mainmenu:show'))
 		else:
 			return redirect('/game')
-	return redirect('/showcreate')
+	return redirect(reverse('Mainmenu:show'))
 
 def delete(request):
     return render(request, 'login/base.html')
+
+def admin_menu(request):
+	return render(request, 'gameadmin/adminmenu.html')
 
 def hall(request):
     return render(request, 'mainmenu/hall.html')
