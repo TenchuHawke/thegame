@@ -11,17 +11,13 @@
 
 <body>
 <h2>Users</h2>
-<form class="box" action="admin/updateCharacter" method="post">
-
-    {% csrf_token %}
-    <!-- #TODO (add user function) -->
     <a href="/mainmenu/admin_menu">Admin Menu</a>
     <table>
         <tr>
             <th>Name</th>
             <th>E-Mail</th>
             <th>User Level</th>
-            <th></th>
+            <th>Edit:</th>
             <th>Characters</th>
 
         </tr>
@@ -30,12 +26,12 @@
             <td class="textleft">{{user.username}}</td>
             <td class="textleft">{{user.email}}</td>
             <td>{{user.userlevel}}</td>
-            <td><form action="/admin/edit_user" method="post">
+            <td><form action="edit_user/{{user.id}}" method="post">
                 {% csrf_token %}
                 <button class="right" type="submit">Edit User</button>
-                <input type="hidden" name="user" value="{{user}}">
+                <input type="hidden" name="user" value="{{user.id}}">
             </form>
-</td>
+            </td>
             <td>
                 <table class="innertable">
                     {% for character in characters %}
@@ -45,10 +41,10 @@
                             {{character.name}}
                         </td>
                         <td>
-                            <form action="/admin/edit_character" method="post">
+                            <form action="edit_character/{{character.id}}" method="post">
                                 {% csrf_token %}
                                 <button class="right" type="submit">Edit Character</button>
-                                <input type="hidden" name="character" value="{{character}}">
+                                <input type="hidden" name="character" value="{{character.id}}">
                             </form>
                         </td>
                     </tr>
