@@ -62,7 +62,6 @@ def room_treasure(request):
     return render(request, 'gameadmin/room_treasure.html', context)
 
 def room_visitor(request):
-    print request.POST
     context = {
         'room': Rooms.objects.get(id=request.POST['room_id']),
         'characters': Characters.objects.all(),
@@ -381,7 +380,6 @@ def edit_room(request, id):
 
 def update_user(request):
     if request.method == "POST":
-        print request.POST
         response_from_models = Users.objects.update_user(request.POST)
         if not response_from_models['status']:
             for error in response_from_models['errors']:
@@ -390,7 +388,6 @@ def update_user(request):
 
 def update_character(request):
     if request.method == "POST":
-        print request.POST
         response_from_models = Characters.objects.update_character(request.POST)
         if not response_from_models['status']:
             for error in response_from_models['errors']:
@@ -399,7 +396,6 @@ def update_character(request):
 
 def update_monster(request):
     if request.method == "POST":
-        print request.POST
         response_from_models = Monsters.objects.update_monster(request.POST)
         if not response_from_models['status']:
             for error in response_from_models['errors']:
@@ -408,7 +404,6 @@ def update_monster(request):
 
 def update_item(request):
     if request.method == "POST":
-        print request.POST
         response_from_models = Items.objects.update_item(request.POST)
         if not response_from_models['status']:
             for error in response_from_models['errors']:
@@ -417,7 +412,6 @@ def update_item(request):
 
 def update_treasure(request):
     if request.method == "POST":
-        print request.POST
         response_from_models = Treasures.objects.update_treasure(request.POST)
         if not response_from_models['status']:
             for error in response_from_models['errors']:
@@ -426,7 +420,6 @@ def update_treasure(request):
 
 def update_trap(request):
     if request.method == "POST":
-        print request.POST
         response_from_models = Traps.objects.update_trap(request.POST)
         if not response_from_models['status']:
             for error in response_from_models['errors']:
@@ -435,20 +428,8 @@ def update_trap(request):
 
 def update_room(request):
     if request.method == "POST":
-        print request.POST
         response_from_models = Rooms.objects.update_room(request.POST)
         if not response_from_models['status']:
             for error in response_from_models['errors']:
                 messages.error(request, error)
     return redirect('edit_room/'+request.POST['id'])
-
-
-
-
-
-
-
-
-
-
-

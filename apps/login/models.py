@@ -8,7 +8,6 @@ EMAIL_REGEX = re.compile(r'^[a-z0-9.+_-]+@[a-z0-9._-]+\.[a-z]+$')
 class UserManager(models.Manager):
     def add_user(self, postData):
         errors = []
-        print postData
         # TODO change validations
         if not postData['password2']:
             errors.append('Password can not be blank.')
@@ -48,7 +47,6 @@ class UserManager(models.Manager):
         if not postData['username']:
             errors.append("Username can't be blank.")
         else:
-            print postData
             user = Users.objects.filter(username = postData['username'])
             if user:
                 # check passwords
@@ -71,7 +69,7 @@ class UserManager(models.Manager):
         if len(postData['username'])<3:
             errors.append('Must enter valid username')
         user = Users.objects.filter(username=postData['username']).exclude(id=postData['id'])
-        
+
         if user:
             errors.append('Username already exists')
 
@@ -81,11 +79,11 @@ class UserManager(models.Manager):
             errors.append('Email already exists')
 
         modelResponse={}
-        
+
         if errors:
             modelResponse['status'] = False
             modelResponse['errors'] = errors
-        
+
         else:
             user = Users.objects.get(id=postData['id'])
             user.username = postData['username']
