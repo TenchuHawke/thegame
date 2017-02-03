@@ -296,3 +296,18 @@ def admin_users(request):
         'characters': Characters.objects.all().order_by('name'),
         }
     return render(request, 'gameadmin/admin_user.html', context)
+
+
+def edit_user(request, id):
+    context = {
+    'users': Users.objects.get(id=id)
+    }
+    return render(request, 'gameadmin/edit_user.html', context)
+
+
+
+
+
+
+
+

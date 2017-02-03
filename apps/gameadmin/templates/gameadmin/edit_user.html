@@ -1,0 +1,52 @@
+{% extends "gameadmin/base.html" %} {% include '/gameadmin/base.html' %}
+{% block title %}User Admin{% endblock %}
+{% block loads %}{% load static %} {% endblock %}
+{% block css %} <link rel="stylesheet" type="text/css" href="{% static 'gameadmin/css/edit.css' %}" /> {% endblock %}
+{% block scripts %}<script src="{% static 'gameadmin/js/sorttable.js' %}"></script>{% endblock %}
+{%block header %}User Admin {% endblock %}
+{% block content %}
+<div id="wrapper">	
+	<div id="header">
+		<h1>{{users.username}}</h1>
+		<a href="/mainmenu/admin_menu">Admin Menu</a>
+	</div>
+	<div id="current">	
+		<h2>Current Information:</h2>
+		<table>
+			<tr>	
+				<th>Name:</th>
+				<th>E-Mail:</th>
+				<th>User Level:</th>
+			</tr>
+			
+			<tr>
+				<td>{{users.username}}</td>
+				<td>{{users.email}}</td>
+				<td>{{users.userlevel}}</td>
+			</tr>
+			
+		</table>
+	</div>
+	<div id="edits">
+		<h2>Make Changes Below:</h2>
+		<table id="abc">
+			<tr>
+				<th>Name:</th>
+				<th>E-Mail:</th>
+				<th>User Level:</th>
+				<th>Submit:</th>
+			</tr>
+			<tr>
+			
+				<form action="update_user/{{user.id}}" method="post">
+				<th><input type="text" name="username" value="{{users.username}}"></th>
+				<th><input type="email" name="email" value="{{users.email}}"></th>
+				<th><input type="number" name="userlevel" value="{{users.userlevel}}"></th>
+				<th>{% csrf_token %}<input type="submit" name="submit" value="Save Changes">
+				<input type="hidden" name="item_id" value="{{item.id}}"></th>
+				</form>
+			</tr>
+		</table>
+	</div>
+</div>
+{% endblock %}

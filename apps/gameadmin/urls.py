@@ -47,7 +47,7 @@ urlpatterns = [
     url(r'^admin_treasure$', views.admin_treasure, name='admin_treasure'),
     url(r'^admin_users$', views.admin_users, name='admin_users'),
     #Edit URLS
-    # url(r'^edit_user/(?P<id>\d+)$', views.edit_user, name='edit_user'),
+    url(r'^edit_user/(?P<id>\d+)$', views.edit_user, name='edit_user'),
     # url(r'^edit_character/(?P<id>\d+)$', views.edit_character, name='edit_character'),
     # url(r'^edit_monster/(?P<id>\d+)$', views.edit_monster, name='edit_monster'),
     # url(r'^edit_item/(?P<id>\d+)$', views.edit_item, name='edit_item'),
