@@ -62,10 +62,11 @@ urlpatterns = [
     #Update URLS
     url(r'^update_user$', views.update_user, name='update_user'),
     url(r'^update_character$', views.update_character, name='update_character'),
-
-
-
-
+    url(r'^update_monster$', views.update_monster, name='update_monster'),
+    url(r'^update_item$', views.update_item, name='update_item'),
+    url(r'^update_treasure$', views.update_treasure, name='update_treasure'),
+    url(r'^update_trap$', views.update_trap, name='update_trap'),
+    url(r'^update_room$', views.update_room, name='update_room'),
     #Catch All (DONT MOVE)
     url(r'^$', views.index,  name='index'),
 ]

@@ -20,9 +20,6 @@
                 <th>Intelligence</th>
                 <th>Health</th>
                 <th class="textleft">Image</th>
-                <th>Edit Monster </th>
-                <th>Delete Monster</th>
-                <th class="textleft">Killed By: </th>
                 
             </tr>
 
@@ -34,34 +31,6 @@
                 <td>{{monster.intelligence}}</td>
                 <td>{{monster.health}}</td>
                 <td class="textleft">{{monster.image}}</td>
-                <td><form class="box" action="edit_monster/{{monster.id}}" method="post">
-                {% csrf_token %}
-                <button type="submit" name="button" value="{{monster.id}}">Edit Monster</button></form></td>
-                <td><form class="box" action="/admin/delete_monster" method="post">
-                {% csrf_token %}
-                <button type="submit" name="monster" value="{{monster.id}}">Delete Monster</button></form></td>
-                <td class="textleft">
-                    <table class="innertable">
-                        <tr>
-                            <th>{{monster.killed_by.name}}</th>
-                            
-                        </tr>
-                        {% for character in characters %}
-                        <tr>
-                             {% for character_mn in character.killed.all%} 
-                             {% if character_mn.id == monster.id%}
-                            <td class="textleft">{{character.name}}</td>
-                            {% endif %} {% endfor %} {% endfor %}
-                            <td>
-                                <form action="room_killer" method="post">
-                                    {% csrf_token %}
-                                    <button type="submit" name="">Add Killer</button>
-                                    <input type="hidden" name="monster_id" value="{{monster.id}}">
-                                </form>
-                            </td>
-                        </tr>
-                    </table>
-                </td>
             </tr>
         </table>
 	</div>
@@ -70,7 +39,6 @@
 	<h2 class="this">Make Changes Below</h2>
 	
         <table class="edit_characters">
-            <form class="box" action="update_monster" method="post">
             	<tr>
                     <th>Name: </th>
                     <th>Class: </th>
@@ -83,6 +51,7 @@
 					<th>Save?:</th>
                 </tr>
                 <tr>
+                <form class="box" action="{% url 'Admin:update_monster' %}" method="post">
                     <td><input class="nametext" type="text" name="name" value="{{monster.name}}"></td>
                     <td class="right"><select name="mclass">
                         <option value="BR">Brute (+5 Strength)</option>
@@ -92,7 +61,7 @@
                     </select></td>
                     <td><select name="killed_by">
                     	{% for character in characters %}
-                    	<option>{{character.name}}</option>
+                    	<option value="{{character.id}}">{{character.name}}</option>
                     	{% endfor %}
                     </select>
                     </td>
@@ -101,10 +70,22 @@
                     <td><input class="num" type="text" name="intelligence" value="{{monster.intelligence}}"></td>
                     <td><input class="num" type="text" name="health" value="{{monster.health}}"></td>
                     <td class="nametext"><input type="text" name="image" value="{{monster.image}}"></td>
-                    <td class="right">{% csrf_token %}<input type="submit" name="submit" value="Save Changes"><input type="hidden" name="{{items.id}}" value="{{items.id}}"></td>
+                    <td class="right">{% csrf_token %}<input type="submit" name="submit" value="Save Changes"><input type="hidden" name="id" value="{{monster.id}}"></td>
+                </form>
                 </tr>
-        	</form>
         </table>
 	</div>
+    <div>
+        <a href="{% url 'Admin:admin_monsters' %}">Go Back</a>
+        {% if messages %}
+                    <ul class="messages">
+                        {% for message in messages %}
+                            <li {% if message.tags %} class=" {{ message.tags }}" {% endif%}>
+                                {{ message }}
+                            </li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+    </div>
 </div>
 {% endblock %}

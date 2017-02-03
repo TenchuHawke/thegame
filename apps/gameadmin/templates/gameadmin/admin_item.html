@@ -1,16 +1,12 @@
-<!DOCTYPE html>
-<html>
-{% load static %}
-
-<head>
-    <meta charset="utf-8">
-    <title>MegaAdd</title>
-    <link rel="stylesheet" type="text/css" href="{% static 'gameadmin/css/megaadd.css' %}" />
-    <script src="{% static 'gameadmin/js/megaadd.js' %}"></script>
-</head>
-    <body>
+{% extends "gameadmin/base.html" %} {% include '/gameadmin/base.html' %}
+{% block title %}Items Admin{% endblock %}
+{% block loads %}{% load static %} {% endblock %}
+{% block css %} <link rel="stylesheet" type="text/css" href="{% static 'gameadmin/css/admin.css' %}" /> {% endblock %}
+{% block scripts %}<script src="{% static 'gameadmin/js/sorttable.js' %}"></script>{% endblock %}
+{%block header %}Items Admin {% endblock %}
+{% block content %}
         <a href="/mainmenu/admin_menu">Admin Menu</a>
-        <h2>Items</h2>
+        <h2>Add Item</h2>
         <form class="box" action="add_item" method="post">
             <table>
                 <tr>
@@ -42,8 +38,9 @@
                     </td>
             </table>
             {% csrf_token %}
-            <button type="submit" name="button">add Items</button>
+            <button class="add" type="submit" name="button">add Items</button>
         </form>
+        <h2>Current Items</h2>
         <table class="stats">
             <tr>
                 <th>ID:</th>
@@ -99,5 +96,4 @@
             </tr>
             {% endfor %}
         </table>
-    </body>
-</html>
+{% endblock %}

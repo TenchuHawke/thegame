@@ -38,7 +38,7 @@ def admin_menu(request):
 
 def hall(request):
 	context = {
-	'characters':Characters.objects.filter(level>0).order_by('gold'),
+	'characters':Characters.objects.filter(level__gt=0).order_by('-gold'),
 	}
 	return render(request, 'mainmenu/hall.html', context)
 
