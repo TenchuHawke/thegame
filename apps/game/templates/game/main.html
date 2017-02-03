@@ -1,9 +1,8 @@
 {% extends "game/game.html" %} {% include '/game/game.html' %} {% block title %}Endless Dungeon!{% endblock %} {% block loads %}{% load static %} {% endblock %} {% block css %}
-<link rel="stylesheet" type="text/css" href="{% static 'game/css/main.css' %}" /> {% endblock %} {%block header %} Exloring {{location.name}}! {% endblock %}
-{% block content %}
+<link rel="stylesheet" type="text/css" href="{% static 'game/css/main.css' %}" /> {% endblock %} {%block header %} Exloring {{location.name}}! {% endblock %} {% block content %}
 <div id="wrapper">
     <div id="contents">
-        <a href="/admin">Go Back</a>
+        <a href="/mainmenu">Go Back</a>
         <div id="room">
 
             <h1>{{location.name}}</h1>
@@ -22,8 +21,7 @@
                     {% endfor %}
                 </ul>
                 <br>
-                <br>
-                 {% endif %}
+                <br> {% endif %}
             </div>
             <div id='graveyard'>
                 {% if corpses %}
@@ -34,21 +32,16 @@
                     {% endfor %}
                 </ul>
                 <br>
-                <br>
-                {% endif %}
+                <br> {% endif %}
             </div>
             <div id='resting'>
                 {% if monsters %}
                 <br>
                 <br>
                 <p>You notice the following monsters, blocking the way:</p>
-                {% for monster in monsters %}
-                {{monster.name}}
-                {% endfor %}
+                {% for monster in monsters %} {{monster.name}} {% endfor %}
                 <br>
-                <br>
-                {% endif %}
-                {% if monsters_dead %}
+                <br> {% endif %} {% if monsters_dead %}
                 <br>
                 <br>
                 <p>There are some dead monsters here:</p>
@@ -56,8 +49,7 @@
                 <li>{{monster.name}}</li>
                 {% endfor %}
                 <br>
-                <br>
-                {% endif %}
+                <br> {% endif %}
             </div>
             <div id='treasure'>
                 {% if treasure %}
@@ -65,9 +57,9 @@
                 <br>
                 <p>You see </p>
                 <ul>
-                {% for treasure in treasures %}
-                <li>{{treasure.name}}</li>
-                {% endfor %}
+                    {% for treasure in treasures %}
+                    <li>{{treasure.name}}</li>
+                    {% endfor %}
                 </ul>
                 {% endif %}
             </div>
@@ -79,7 +71,23 @@
                 <ul>
                     {% for exit in exits %}
                     <li>
-                        {{exit.exitdirection}}{% if exit.explored_by.id == hero.id %} - leads to:  {{exit.leads_to.name}}{% endif %}
+                        {{exit.exitdirection}} {{exit.leads_to__0__name}} {% for explored in exit.comes_from.explored_by.all %} {% if explored.id == hero.id %} - leads to: {{exit.comes_from.name}}{% endif %} {% endfor %}
+                    </li>
+                    {% endfor %}
+                </ul>
+                {% endif %}
+
+            </div>
+            <div id="peeks">
+                {% if peeks %}
+                <br>
+                <br>
+                <p>You peek ahead in different directions:</p>
+                <ul>
+                    {% for peek in peeks %}
+                    <li>
+                        {{peek.exitdirection}} {% for explored in peek.comes_from.explored_by.all %} {% if explored.id == hero.id %} - leads to: {{peek.comes_from.name}},{{peek.comes_from.description}}. {% else %} - You peek ahead and see: {{peek.comes_from.peek_description}}.
+                        {% endif %} {% endfor %}
                     </li>
                     {% endfor %}
                 </ul>
@@ -91,9 +99,30 @@
 </div>
 {% endblock %} {% block character %}
 <table>
-    <h1>{{hero.name}}</h1>
-    <h2>{{hero.cclass}}</h2>
-    <h2>{{hero.strength}}</h2>
-    <h2>{{hero.dexterity}}</h2>
-    <h2>{{hero.intelligence}}</h2>
-</table> {% endblock %}
+    <tr>
+        <th colspan="2">
+            <h1>{{hero.name}}</h1></th>
+    </tr>
+    <tr>
+        <td>
+            <h3>Class:</h3></td>
+        <td>
+            <h3>{% if hero.cclass == "FI" %}Fighter {% elif hero.cclass == "RO"%} Rogue {% else %} Wizard {% endif %}</h3>
+        </td>
+    </tr>
+    <tr>
+        <td><h3>Stregth:</h3></td><td><h3>{{stats.strength}}</h3></td>
+    </tr>
+    <tr>
+        <td><h3>Dexterity:</h3></td><td><h3>{{stats.dexterity}}</h3></td>
+    </tr>
+    <tr>
+        <td><h3>intelligence:</h3></td><td><h3>{{stats.intelligence}}</h3></td>
+    </tr>
+    <tr>
+        <td colspan="2"><h2>Health:</h2></td>
+    </tr>
+    <tr>
+        <td colspan="2"><h1>{{stats.health}}</h1></td>
+    </tr>
+    </table> {% endblock %}

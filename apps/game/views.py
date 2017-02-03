@@ -8,27 +8,54 @@ from random import randint
 def index(request):
     return render(request, 'game/game.html')
 
+
+def calculate_stats(request, character):
+    strength = character.strength
+    dexterity = character.dexterity
+    intelligence = character.intelligence
+    health = character.health
+    for item in character.owner.all():
+        if not item.consumable:
+            strength+=int(item.strbonus)
+            dexterity+=int(item.dexbonus)
+            intelligence+=int(item.intbonus)
+            health+=int(item.hthbonus)
+    return_to_view = {
+    'strength': strength,
+    'dexterity': dexterity,
+    'intelligence': intelligence,
+    'health': health,
+    }
+    return return_to_view
+
+
 def main(request):
-    request.session['character_id']="3"
-    request.session['room_id']="2"
+    # request.session['character_id']="3"
+    hero=Characters.objects.get(id=request.session['character_id'])
+    stats=calculate_stats(request, hero)
+
+    request.session['room_id']=Rooms.objects.get(currently_in__id=hero.id).id
     hero=request.session['character_id']
     room=request.session['room_id']
+
     context = {
     # 'users': Users.objects.filter(id=request.session['']).order_by('username'),
         'location': Rooms.objects.get(id=room),
         'hero': Characters.objects.get(id=hero),
-        'characters': Characters.objects.filter(populating__id=room).exclude(killed_by__isnull=False).order_by('name'),
-        'corpses': Characters.objects.filter(populating__id=room).exclude(killed_by__isnull=True).order_by('name'),
+        'characters': Characters.objects.filter(populating__id=room).exclude(killed_by__isnull=True).order_by('name').exclude(id=hero),
+        'corpses': Characters.objects.filter(populating__id=room).exclude(killed_by__isnull=False).order_by('name'),
         'monsters': Monsters.objects.filter(denizen__id=room).order_by('name').exclude(killed_by__id=hero),
         'monsters_dead': Monsters.objects.filter(denizen__id=room).order_by('name').filter(killed_by__id=hero),
-        'peeks': Rooms.objects.filter(exits__comes_from__id=room),
+        'peeks': Exits.objects.filter(leads_to__id=room),
         'items': Items.objects.filter(owned_by__id=hero).order_by('name'),
         'traps': Traps.objects.filter(dangers__id=room).order_by('name'),
         'treasures': Treasures.objects.filter(reward__id=room).order_by('name'),
         'exits': Exits.objects.filter(leads_to__id=room),
         'rooms': Rooms.objects.all(),
+        'stats': stats,
         }
     return render(request, 'game/main.html', context)
+
 
 def start_combat(request):
     hero=Characters.objects.get(id=request.session['character_id']),
@@ -40,3 +67,24 @@ def start_combat(request):
         'combat': combat
     }
     return render(request, 'game/combat.html, session')
+
+
+def start_game(request):
+    if request.method == "POST":
+        request.session['character_id'] = request.POST['character']
+        if len(Rooms.objects.filter(currently_in__id=request.session['character_id']))==0:
+            character=Characters.objects.get(id=request.session['character_id'])
+            room=Rooms.objects.get(id=2)
+            room.currently_in.add(character)
+        return redirect("/game/")
+    return redirect("/mainmenu/select_character")
+
+
+def move(request):
+    if request.method == "POST":
+        hero=Characters.objects.get(id=request.session['character_id'])
+        room=Rooms.objects.get(id=request.POST['room'])
+        desination = Rooms.objects.get(id=request.POST['destination'])
+        Character.objects.move(hero, room, destination)
+        return redirect('main')
+    return redirect('start_game')

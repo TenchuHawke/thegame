@@ -12,7 +12,5 @@ urlpatterns = [
 	url(r'^create$', views.create),
 	url(r'^admin_menu$', views.admin_menu, name='admin_menu'),
 	url(r'^select_character$', views.select_character, name='select_character'),
-	url(r'^start_game$', views.start_game, name='start_game'),
-
 
 ]
