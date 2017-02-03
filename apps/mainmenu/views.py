@@ -3,12 +3,13 @@ from django.contrib import messages
 from random import randint
 import random
 from django.core.urlresolvers import reverse
-from ..game.models import Characters
+from ..game.models import Characters, Rooms
 from ..login.models import Users
 
 
 def index(request):
-    return render(request, 'mainmenu/index.html')
+	request.session['starting_room']=Rooms.objects.get(id=1).id
+	return render(request, 'mainmenu/index.html')
 
 
 def showcreate(request):
@@ -19,12 +20,16 @@ def create(request):
 	if request.method=='POST':
 		user = Users.objects.get(id=request.session['user_id'])
 		response_from_models=Characters.objects.add_char(request.POST, user)
-		if not response_from_models['status']:
+		if response_from_models['status']:
+			hero=response_from_models["character"]
+			room=Rooms.objects.get(id=request.session['starting_room'])
+			room.explored_by.add(hero)
+			room.currently_in.add(hero)
+			request.session['character_id']=hero.id
+
+		else:
 			for error in response_from_models['errors']:
 				messages.info(request, error)
-			return redirect(reverse('Mainmenu:show'))
-		else:
-			return redirect('/game')
 	return redirect(reverse('Mainmenu:show'))
 
 

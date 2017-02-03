@@ -1,0 +1,112 @@
+{% extends "gameadmin/base.html" %} {% include '/gameadmin/base.html' %}
+{% block title %}Character Admin{% endblock %}
+{% block loads %}{% load static %} {% endblock %}
+{% block css %} <link rel="stylesheet" type="text/css" href="{% static 'gameadmin/css/admin.css' %}" /> {% endblock %}
+{% block scripts %}<script src="{% static 'gameadmin/js/sorttable.js' %}"></script>{% endblock %}
+{%block header %}Character Admin{% endblock %}
+{% block content %}
+        <a href="/mainmenu/admin_menu">Admin Menu</a>
+        <form class="box" action="/mainmenu/create" method="post">
+            {% csrf_token %}
+            <div >
+                <h2>Add Character</h2>
+                <table class="addchar">
+                    <tr>
+                        <td align="left">Name: </td>
+                        <td align="right"><input type="text" name="char_name" class="boxa"></td>
+                    </tr>
+                    <tr>
+                        <td align="left">Class: </td>
+                        <td align="right"><select name="add_class">
+            					<option value="FI">Fighter (+5 strength)</option>
+            					<option value="RO">Rogue (+5 dexterity)</option>
+            					<option value="WI">Wizard (+5 intelligence)</option>
+            				</select></td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">Base Stats: (No mods) </td>
+                    </tr>
+                    <tr>
+                        <td align="left"></td>
+                        <td align="right">Strength: <input type="text" name="strength" value="1"></td>
+                    </tr>
+                    <tr>
+                        <td align="left"></td>
+                        <td align="right">Dexterity:<input type="text" name="dext" value="1"></td>
+                    </tr>
+                    <tr>
+                        <td align="left"></td>
+                        <td align="right">Intelligence:<input type="text" name="intel" value="1"></td>
+                    </tr>
+                    <tr>
+                        <td align="left"></td>
+                        <td align="right">Health:<input type="text" name="health" value="1"></td>
+                    </tr>
+                    <tr>
+                        <td align="left">Owned By:</td>
+                        <td align="right"><select name="owned_by">
+                        {%for user in users%}
+                        <option value={{user.id}}>{{user.username}}
+
+                        </option>
+                        {% endfor %}
+
+                    </select>
+                        </td>
+                    </tr>
+                </table>
+                <br>
+            </div>
+
+            <button type="submit" name="button" id="submit">Add Character</button>
+            <br>
+            <br>
+            <hr>
+            <h2>Current Characters</h2>
+            <table class="stats">
+                <tr>
+                    <th>ID</th>
+                    <th class="textleft">Name</th>
+                    <th>Class</th>
+                    <th>Strength</th>
+                    <th>Dexterity</th>
+                    <th>Intelligence</th>
+                    <th>Health</th>
+                    <th>Gold</th>
+                    <th>Level</th>
+                    <th>Edit</th>
+                    <th>Delete</th>
+                    <th class="textleft">Owned By</th>
+                </tr>
+                {% for character in characters %}
+                <tr>
+                    <td>{{character.id}}</td>
+                    <td class="textleft">{{character.name}}</td>
+                    <td>{{character.cclass}}</td>
+                    <td>{{character.strength}}</td>
+                    <td>{{character.dexterity}}</td>
+                    <td>{{character.intelligence}}</td>
+                    <td>{{character.health}}</td>
+                    <td>{{character.gold}}</td>
+                    <td>{{character.level}}</td>
+                    <td>
+                        <form action="edit_character/{{character.id}}" method="post">
+                        
+                        <button id="edit" type="submit">Edit Character</button>
+                        {% csrf_token %}
+                        <input type="hidden" name="character" value="{{character.id}}">
+                        </form>
+                    </td>
+                    <td>
+                        <form action="/admin/delete_character" method="post">
+                        {% csrf_token %}
+                        <button id="delete" type="submit">Delete Character</button>
+                        <input type="hidden" name="character" value="{{character.id}}">
+                        </form>
+                    </td>
+                    <td class="textleft">{{character.owned_by.username}}</td>
+                </tr>
+                {% endfor %}
+            </table>
+        </form>
+{% endblock %}

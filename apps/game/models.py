@@ -21,7 +21,6 @@ class RoomManager(models.Manager):
             errors.append('Trap already exists')
 
         modelResponse={}
-        
         if errors:
             modelResponse['status'] = False
             modelResponse['errors'] = errors
@@ -34,6 +33,11 @@ class RoomManager(models.Manager):
             room.save()
             modelResponse['status'] = True
         return modelResponse
+
+
+    def fill_room(self, room, hero):
+        pass
+
 
 class MonsterManager(models.Manager):
     def add_monster(self, postData):
@@ -101,7 +105,7 @@ class TrapManager(models.Manager):
             errors.append('Trap already exists')
 
         modelResponse={}
-        
+
         if errors:
             modelResponse['status'] = False
             modelResponse['errors'] = errors
@@ -132,7 +136,7 @@ class TreasureManager(models.Manager):
             errors.append('Treasure already exists')
 
         modelResponse={}
-        
+
         if errors:
             modelResponse['status'] = False
             modelResponse['errors'] = errors
@@ -185,7 +189,7 @@ class ItemManager(models.Manager):
             errors.append('Item already exists')
 
         modelResponse={}
-        
+
         if errors:
             modelResponse['status'] = False
             modelResponse['errors'] = errors
@@ -270,6 +274,63 @@ class CharacaterManager(models.Manager):
             modelResponse['status'] = True
         return modelResponse
         
+
+
+    def calculate_stats(self, character):
+        strength = character.strength
+        dexterity = character.dexterity
+        intelligence = character.intelligence
+        health = character.health
+        for item in character.owner.all():
+            if not item.consumable:
+                strength+=int(item.strbonus)
+                dexterity+=int(item.dexbonus)
+                intelligence+=int(item.intbonus)
+                health+=int(item.hthbonus)
+        strdiff= int(strength)-int(character.strength)
+        strdiff= '{:+}'.format(strdiff)
+        dexdiff= int(dexterity)-int(character.dexterity)
+        dexdiff= '{:+}'.format(dexdiff)
+        intdiff= int(intelligence)-int(character.intelligence)
+        intdiff= '{:+}'.format(intdiff)
+        hthdiff= int(health)-int(character.health)
+        hthdiff= '{:+}'.format(hthdiff)
+
+        return_to_view = {
+        'strength': strength,
+        'dexterity': dexterity,
+        'intelligence': intelligence,
+        'health': health,
+        'strdiff': strdiff,
+        'dexdiff': dexdiff,
+        'intdiff': intdiff,
+        'hthdiff': hthdiff,
+        }
+        return (return_to_view)
+
+    def move(self, hero, room, destination):
+        errors=[]
+        response_from_models={}
+        count=0
+        for monster in room.monster.all:
+            if monster.killed_by==hero:
+                count=count+1
+        if len(room.monster)>count:
+            errors.append("There is a monster blocking your way")
+        if errors:
+            response_from_models['status']=False
+            response_from_models['errors']=errors
+        else:
+            response_from_models['status']=True
+            room.explored_by.add(hero)
+            room.currently_in.delete(hero)
+            destination.currently_in.add(hero)
+        return
+
+
+
+
+
 
 class Characters(models.Model):
     FIGHTER = 'FI'
