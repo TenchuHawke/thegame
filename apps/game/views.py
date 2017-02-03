@@ -10,35 +10,7 @@ def index(request):
 
 
 def calculate_stats(request, character):
-    strength = character.strength
-    dexterity = character.dexterity
-    intelligence = character.intelligence
-    health = character.health
-    for item in character.owner.all():
-        if not item.consumable:
-            strength+=int(item.strbonus)
-            dexterity+=int(item.dexbonus)
-            intelligence+=int(item.intbonus)
-            health+=int(item.hthbonus)
-    strdiff= int(strength)-int(character.strength)
-    strdiff= '{:+}'.format(strdiff)
-    dexdiff= int(dexterity)-int(character.dexterity)
-    dexdiff= '{:+}'.format(dexdiff)
-    intdiff= int(intelligence)-int(character.intelligence)
-    intdiff= '{:+}'.format(intdiff)
-    hthdiff= int(health)-int(character.health)
-    hthdiff= '{:+}'.format(hthdiff)
-
-    return_to_view = {
-    'strength': strength,
-    'dexterity': dexterity,
-    'intelligence': intelligence,
-    'health': health,
-    'strdiff': strdiff,
-    'dexdiff': dexdiff,
-    'intdiff': intdiff,
-    'hthdiff': hthdiff,
-    }
+    return_to_view=Characters.objects.calculate_stats(character)
     return return_to_view
 
 
@@ -46,7 +18,6 @@ def main(request):
     # request.session['character_id']="3"
     hero=Characters.objects.get(id=request.session['character_id'])
     stats=calculate_stats(request, hero)
-
     request.session['room_id']=Rooms.objects.get(currently_in__id=hero.id).id
     hero=request.session['character_id']
     room=request.session['room_id']
@@ -82,6 +53,42 @@ def start_combat(request):
     return render(request, 'game/combat.html, session')
 
 
+def combat_round(request):
+    pass
+    # TODO combat round logic
+
+def victory(request):
+    pass
+    # TODO win result
+
+def defeat(request):
+    pass
+    # TODO win result
+
+def engage_trap(request):
+    pass
+    # TODO trap page
+
+def reward(request):
+    pass
+    # TODO get Treasure
+
+def equip_item(request):
+    pass
+    # TODO equip item
+
+def death(request):
+    pass
+    # TODO character death
+
+def flee(request):
+    pass
+    # TODO run away!!!
+
+def explored(request):
+    pass
+    # TODO explored room.
+
 def start_game(request):
     if request.method == "POST":
         request.session['character_id'] = request.POST['character']
@@ -98,6 +105,8 @@ def move(request):
         hero=Characters.objects.get(id=request.session['character_id'])
         room=Rooms.objects.get(id=request.POST['room'])
         desination = Rooms.objects.get(id=request.POST['destination'])
-        Character.objects.move(hero, room, destination)
-        return redirect('main')
-    return redirect('start_game')
+        response_from_models=Character.objects.move(hero, room, destination)
+        if not response_from_models['status']:
+            for error in response_from_models['errors']:
+                messages.error(request.error)
+    return redirect('/game/main')

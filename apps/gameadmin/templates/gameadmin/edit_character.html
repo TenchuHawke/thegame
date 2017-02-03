@@ -5,12 +5,12 @@
 {% block scripts %}<script src="{% static 'gameadmin/js/sorttable.js' %}"></script>{% endblock %}
 {%block header %}Admin - Edit Character {% endblock %}
 {% block content %}
-<div id="body">	
+<div id="body">
 	<div id="header">
 		<h1>{{characters.name}}</h1>
 		<a href="/mainmenu/admin_menu">Admin Menu</a>
 	</div>
-	<div id="current">	
+	<div id="current">
 		<h2>Current Information:</h2>
 		<table class="edit_characters">
 			<tr>
@@ -24,6 +24,7 @@
                 <th>Current Health:</th>
                 <th>Gold: </th>
                 <th>Level: </th>
+								<th>Killed By:</th>
                 <th>Owned By: </th>
             </tr>
             <tr>
@@ -37,6 +38,8 @@
                 <td>{{characters.current_health}}</td>
                 <td>{{characters.gold}}</td>
                 <td>{{characters.level}}</td>
+								<td>{{characters.killed_by}}
+								</td>
                 <th>{{characters.owned_by.username}}</th>
             </tr>
         </table>
@@ -54,6 +57,7 @@
 	            <th>Current Health:</th>
 	            <th>Gold: </th>
 	            <th>Level: </th>
+							<th>Killed By:</th>
 	            <th>Submit: </th>
 	        </tr>
 	        <tr>
@@ -72,9 +76,10 @@
 				<td><input class="char" type="text" name="current_health" value="{{characters.current_health}}"></td>
 				<td><input class="char" type="number" name="gold" value="{{characters.gold}}"></td>
 				<td><input class="char" type="number" name="level" value="{{characters.level}}"></td>
+				<td><input class="char" type="text" name="killed_by" value="{{characters.killed_by}}"></td>
 				<td>{% csrf_token %}<input type="submit" name="submit" value="Save Changes">
 				<input type="hidden" name="id" value="{{characters.id}}"></form></td>
-				
+
 			</tr>
 		</table>
 	</div>

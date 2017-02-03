@@ -63,6 +63,17 @@
                 </ul>
                 {% endif %}
             </div>
+            <div id="messages">
+      				{% if messages %}
+      					<ul class="messages">
+      						{% for message in messages %}
+      							<li {% if message.tags %} class=" {{ message.tags }}" {% endif%}>
+      								{{ message }}
+      							</li>
+      						{% endfor %}
+      					</ul>
+      				{% endif %}
+      			</div>
             <div id="exits">
                 {% if exits %}
                 <br>
@@ -70,8 +81,9 @@
                 <p>You can leave by the following paths:</p>
                 <ul>
                     {% for exit in exits %}
+                    {% for exit_lt in exit.leads_to.all %}
                     <li>
-                        {{exit.exitdirection}} {{exit.leads_to__0__name}} {% for explored in exit.comes_from.explored_by.all %} {% if explored.id == hero.id %} - leads to: {{exit.comes_from.name}}{% endif %} {% endfor %}
+                        {{exit.exitdirection}} {{exit.leads_to__exit_lt__name}} {% for explored in exit.comes_from.explored_by.all %} {% if explored.id == hero.id %} - leads to: {{exit.comes_from.name}}{% else %} - You peek ahead and see: {{peek.comes_from.peek_description}}.{% endfor %}
                     </li>
                     {% endfor %}
                 </ul>
@@ -86,7 +98,7 @@
                 <ul>
                     {% for peek in peeks %}
                     <li>
-                        {{peek.exitdirection}} {% for explored in peek.comes_from.explored_by.all %} {% if explored.id == hero.id %} - leads to: {{peek.comes_from.name}},{{peek.comes_from.description}}. {% else %} - You peek ahead and see: {{peek.comes_from.peek_description}}.
+                        {{peek.exitdirection}} {% for explored in peek.comes_from.explored_by.all %} {% if explored.id == hero.id %} - leads to: {{peek.comes_from.name}},{{peek.comes_from.description}}. {% else %}
                         {% endif %} {% endfor %}
                     </li>
                     {% endfor %}
