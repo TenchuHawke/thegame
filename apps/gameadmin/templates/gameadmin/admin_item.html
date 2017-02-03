@@ -53,6 +53,7 @@
                 <th>Health Bonus</th>
                 <th>Consumable?</th>
                 <th>Edit Item</th>
+                <th>Delete Item</th>
                 <th>Owner: </th>
             </tr>
             {% for item in items %}
@@ -64,13 +65,16 @@
                 <td>{{item.hthbonus}}</td>
                 <td><form class="box" action="edit_item/{{item.id}}" method="post">
                 {% csrf_token %}
-                <button type="submit" name="button" value="{{item.id}}">Edit Item</button></td>
+                <button type="submit" name="button" value="{{item.id}}">Edit Item</button></form></td>
+                <td><form class="box" action="delete_item" method="post">
+                {% csrf_token %}
+                <button type="submit" name="item" value="{{item.id}}">Delete Item</button></form></td>
                 <td>{{item.consumable}}</td>
                 <td>
                     <table class="innertable">
                         {% for item in items %}
                         <tr>
-                            {% for character in characters %} 
+                            {% for character in characters %}
                             {% if item.id == character.owner.id %}
                             <td class="textleft">
                                 {{item.name}} </td>

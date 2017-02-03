@@ -37,18 +37,25 @@
                         <th>Gold</th>
                         <th>Item</th>
                         <th>Edit Treasure: </th>
+                        <th>Delete Treasure:</th>
                         <th class="textleft">Location</th>
                     </tr>
                     {% for treasure in treasures %}
                     <tr>
-                        <td><form class="box" action="edit_treasure/{{treasure.id}}" method="post">
-                        {% csrf_token %}
-                        <button type="submit" name="button" value="{{treasure.id}}">Edit Treasure</button></td>
                         <td class="textleft">{{treasure.name}}</td>
                         <td>{{treasure.gold}}</td>
+                        <td>{{treasure.item.name}}</td>
                         <td>
-                            {{treasure.item.name}}
-                            <td>
+                            <form class="box" action="edit_treasure/{{treasure.id}}" method="post">
+                            {% csrf_token %}
+                            <button type="submit" name="button" value="{{treasure.id}}">Edit Treasure</button></form>
+                        </td>
+
+                        <td><form class="box" action="delete_treasure" method="post">
+                                {% csrf_token %}
+                                <button type="submit" name="treasure" value="{{treasure.id}}"> Delete Treasure</button></form>
+                        </td>
+                        <td>
                                 <table class="innertable">
                                     <tr>
                                         <th class="textleft">In rooms:</th>

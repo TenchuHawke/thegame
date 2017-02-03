@@ -129,14 +129,14 @@ def delete_monster(request):
 
 def delete_item(request):
     if request.method == "POST":
-        Items.objects.add_item(request.POST)
-    return redirect('/admin')
+        Items.objects.filter(id=request.POST['item']).delete()
+    return redirect('/admin/admin_items')
 
 
 def delete_treasure(request):
     if request.method == "POST":
-        Treasures.objects.add_treasure(request.POST)
-    return redirect('/admin')
+        Treasures.objects.filter(id=request.POST['treasure']).delete()
+    return redirect('/admin/admin_treasure')
 
 def delete_user(request):
     if request.method == "POST":
@@ -180,7 +180,7 @@ def add_monster(request):
 def add_treasure(request):
     if request.method == "POST":
         Treasures.objects.add_treasure(request.POST)
-    return redirect('/admin')
+    return redirect('/admin/admin_treasure')
 
 def add_trap(request):
     if request.method == "POST":
