@@ -1,11 +1,11 @@
 {% extends "gameadmin/base.html" %} {% include '/gameadmin/base.html' %}
 {% block title %}Admin Traps{% endblock %}
 {% block loads %}{% load static %} {% endblock %}
-{% block css %} <link rel="stylesheet" type="text/css" href="{% static 'gameadmin/css/add.css' %}" /> {% endblock %}
+{% block css %} <link rel="stylesheet" type="text/css" href="{% static 'gameadmin/css/admin.css' %}" /> {% endblock %}
 {%block header %}Admin Traps{% endblock %}
 {% block content %}
         <a href="/mainmenu/admin_menu">Admin Menu</a>
-        <h2>Traps</h2>
+        <h2>Add Trap</h2>
         <form class="box" action="add_trap" method="post">
             <table>
                 <tr>
@@ -28,8 +28,9 @@
        
             </table>
             {% csrf_token %}
-            <button type="submit" name="button">Add Trap</button>
+            <button type="submit" name="button" class="add">Add Trap</button>
             </form>
+            <h2>Current Traps</h2>
             <table class="stats">
                 <tr>
                     <th>ID:</th>

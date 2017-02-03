@@ -35,17 +35,21 @@
 	          	<th>Submit</th>
             </tr>
             <tr>
-            	<form action="update_room/{{rooms.id}}" method="post">
+            	<form action="{% url 'Admin:update_room' %}" method="post">
             	<td><input type="text" class="user" name="name" value="{{rooms.name}}"></td>
             	<td><textarea name="description" placeholder="{{rooms.description}}"></textarea></td>
             	<td><textarea name="peek_description" placeholder="{{rooms.peek_description}}"></textarea></td>
             	<td><input type="text" name="terrain_type" class="user" value="{{rooms.terrain_type}}"></td>
             	<td>{% csrf_token %}
-            	<input type="submit" name="submit" value="Save Changes"><input type="hidden" name="rooms_id" value="{{rooms.id}}"></td>
+            	<input type="submit" name="submit" value="Save Changes"><input type="hidden" name="id" value="{{rooms.id}}"></td>
 				</form>
 			</tr>
 		</table>
 	</div>
+    <div>
+        <a href="{% url 'Admin:admin_rooms' %}">Go Back</a>
+
+    </div>
 
 
 

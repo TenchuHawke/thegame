@@ -1,9 +1,9 @@
 {% extends "gameadmin/base.html" %} {% include '/gameadmin/base.html' %}
-{% block title %}Admin - Edit Item{% endblock %}
+{% block title %}Admin - Edit Treasure{% endblock %}
 {% block loads %}{% load static %} {% endblock %}
 {% block css %} <link rel="stylesheet" type="text/css" href="{% static 'gameadmin/css/edit.css' %}" /> {% endblock %}
 {% block scripts %}<script src="{% static 'gameadmin/js/sorttable.js' %}"></script>{% endblock %}
-{%block header %}Admin - Edit Item {% endblock %}
+{%block header %}Admin - Edit Treasure {% endblock %}
 {% block content %}
 <div id="body">	
 	<div id="header">
@@ -28,7 +28,7 @@
         </table>
     </div>
     	<h2>Make Changes Below</h2>
-   		<form class="box" action="update_treasure" method="post">
+   		<form class="box" action="{% url 'Admin:update_treasure' %}" method="post">
             <table>
                 <tr>
                     <th>Name: </th>
@@ -37,20 +37,29 @@
                     <th>Submit: </th>
                 </tr>
                 <tr>
-                    <td><input type="text" name="name"></td>
-                    <td><input type="number" name="gold"></td>
+                    <td><input type="text" name="name" value="{{treasures.name}}"></td>
+                    <td><input type="number" name="gold" value="{{treasures.gold}}"></td>
                     <td><select name="item">{% for items in items %}
                         <option value="{{items.id}}">{{items.name}}</option>{% endfor %}
                         </select></td>
                     <td>{% csrf_token %}
             		<button type="submit" name="button">Save Treasure</button>
-            		<input type="hidden" name="treasure" value="{{treasure.id}}">
+            		<input type="hidden" name="id" value="{{treasures.id}}"></td>
                 </tr>
             </table>
-        </td>
+       </form>
 </div>
 <div>
 	<a href="{% url 'Admin:admin_treasure' %}">Go Back</a>
+    {% if messages %}
+                    <ul class="messages">
+                        {% for message in messages %}
+                            <li {% if message.tags %} class=" {{ message.tags }}" {% endif%}>
+                                {{ message }}
+                            </li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
 
 </div>
 

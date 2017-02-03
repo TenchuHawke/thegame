@@ -36,8 +36,8 @@
 				<th>Submit:</th>
 			</tr>
 			<tr>
-				<form action="update_trap/{{traps.id}}" method="post">
-				<th><input class="user" type="text" name="trap" value="{{traps.name}}"></th>
+				<form action="{% url 'Admin:update_trap' %}" method="post">
+				<th><input class="user" type="text" name="name" value="{{traps.name}}"></th>
 				<th><select id="selectchar" name="class" value="{{traps.tclass}}">
 					<option>PZ</option>
 					<option>PS</option>
@@ -46,10 +46,22 @@
 				</select></th>
 				<th><input class="user" type="number" name="strength" value="{{traps.strength}}"></th>
 				<th>{% csrf_token %}<input class="users" type="submit" name="submit" value="Save Changes">
-				<input type="hidden" name="traps_id" value="{{traps.id}}"></th>
+				<input type="hidden" name="id" value="{{traps.id}}"></th>
 				</form>
 			</tr>
 		</table>
+	</div>
+	<div>
+		<a href="{% url 'Admin:admin_traps' %}">Go Back</a>
+		{% if messages %}
+                    <ul class="messages">
+                        {% for message in messages %}
+                            <li {% if message.tags %} class=" {{ message.tags }}" {% endif%}>
+                                {{ message }}
+                            </li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
 	</div>
 </div>
 {% endblock %}

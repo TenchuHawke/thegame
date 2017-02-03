@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect
+from django.core.urlresolvers import reverse
 from django.contrib import messages
 from django.template import Context
 from random import randint
@@ -89,28 +90,28 @@ def assign_monster(request):
         monsterin = Monsters.objects.get(id=request.POST['monster'])
         room.monster.add(monsterin)
 
-    return redirect('/admin')
+    return redirect(reverse ('Admin:admin_monsters'))
 
 def assign_killer(request):
     if request.method == "POST":
         monster = Monsters.objects.get(id=request.POST['monster'])
         character = Characters.objects.get(id=request.POST['character'])
         monster.killed_by.add(character)
-    return redirect('/admin')
+    return redirect(reverse ('Admin:admin_monsters'))
 
 def assign_trap(request):
     if request.method == "POST":
         room = Rooms.objects.get(id=request.POST['room'])
         trap = Traps.objects.get(id=request.POST['trap'])
         room.trap.add(trap)
-    return redirect('/admin')
+    return redirect(reverse ('Admin:admin_rooms'))
 
 def assign_explorer(request):
     if request.method == "POST":
         room = Rooms.objects.get(id=request.POST['room'])
         character = Characters.objects.get(id=request.POST['character'])
         room.explored_by.add(character)
-    return redirect('/admin')
+    return redirect(reverse ('Admin:admin_rooms'))
 
 
 def assign_visitor(request):
@@ -118,14 +119,14 @@ def assign_visitor(request):
         room = Rooms.objects.get(id=request.POST['room'])
         character = Characters.objects.get(id=request.POST['character'])
         room.currently_in.add(character)
-    return redirect('/admin')
+    return redirect(reverse ('Admin:admin_rooms'))
 
 def assign_treasure(request):
     if request.method == "POST":
         room = Rooms.objects.get(id=request.POST['room'])
         treasure = Treasures.objects.get(id=request.POST['treasure'])
         room.treasure.add(treasure)
-    return redirect('/admin')
+    return redirect(reverse ('Admin:admin_rooms'))
 
 def assign_item(request):
     if request.method == "POST":
@@ -244,21 +245,21 @@ def remove_visitor(request):
         room = Rooms.objects.get(id=request.POST['room'])
         character = Characters.objects.get(id=request.POST['character'])
         room.currently_in.remove(character)
-    return redirect('/admin')
+    return redirect(reverse ('Admin:admin_rooms'))
 
 def remove_explorer(request):
     if request.method == "POST":
         room = Rooms.objects.get(id=request.POST['room'])
         character = Characters.objects.get(id=request.POST['character'])
         room.explored_by.remove(character)
-    return redirect('/admin')
+    return redirect(reverse ('Admin:admin_rooms'))
 
 def remove_trap(request):
     if request.method == "POST":
         room = Rooms.objects.get(id=request.POST['room'])
         trap = Traps.objects.get(id=request.POST['trap'])
         room.trap.remove(trap)
-    return redirect('/admin')
+    return redirect(reverse ('Admin:room_trap'))
 
 def remove_character(request):
     if request.method == "POST":
@@ -395,6 +396,57 @@ def update_character(request):
             for error in response_from_models['errors']:
                 messages.error(request, error)
     return redirect('edit_character/'+request.POST['id'])
+
+def update_monster(request):
+    if request.method == "POST":
+        print request.POST
+        response_from_models = Monsters.objects.update_monster(request.POST)
+        if not response_from_models['status']:
+            for error in response_from_models['errors']:
+                messages.error(request, error)
+    return redirect('edit_monster/'+request.POST['id'])
+
+def update_item(request):
+    if request.method == "POST":
+        print request.POST
+        response_from_models = Items.objects.update_item(request.POST)
+        if not response_from_models['status']:
+            for error in response_from_models['errors']:
+                messages.error(request, error)
+    return redirect('edit_item/'+request.POST['id'])
+
+def update_treasure(request):
+    if request.method == "POST":
+        print request.POST
+        response_from_models = Treasures.objects.update_treasure(request.POST)
+        if not response_from_models['status']:
+            for error in response_from_models['errors']:
+                messages.error(request, error)
+    return redirect('edit_treasure/'+request.POST['id'])
+
+def update_trap(request):
+    if request.method == "POST":
+        print request.POST
+        response_from_models = Traps.objects.update_trap(request.POST)
+        if not response_from_models['status']:
+            for error in response_from_models['errors']:
+                messages.error(request, error)
+    return redirect('edit_trap/'+request.POST['id'])
+
+def update_room(request):
+    if request.method == "POST":
+        print request.POST
+        response_from_models = Rooms.objects.update_room(request.POST)
+        if not response_from_models['status']:
+            for error in response_from_models['errors']:
+                messages.error(request, error)
+    return redirect('edit_room/'+request.POST['id'])
+
+
+
+
+
+
 
 
 

@@ -43,3 +43,12 @@ h1 {
 a {
 	margin-left: 1000px;
 }
+
+.add {
+	margin-left: 650px;
+	height: 30px;
+	border-radius: 5px;
+	margin-top: 20px;
+	margin-bottom: 20px;
+
+}

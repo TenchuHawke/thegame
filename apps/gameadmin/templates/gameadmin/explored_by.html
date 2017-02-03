@@ -1,4 +1,4 @@
-{% extends "game/base.html" %} {% include '/gameadmin/base.html' %}
+{% extends "gameadmin/base.html" %} {% include '/gameadmin/base.html' %}
 {% block title %}Create{% endblock %}
 {% block loads %}{% load static %} {% endblock %}
 {% block css %} <link rel="stylesheet" type="text/css" href="{% static 'gameadmin/css/add.css' %}" /> {% endblock %}
@@ -66,6 +66,6 @@
 		{%endif%}
 		{% endfor %}
 	</table>
-	<a href="/admin">Go Back</a>
+	<a href="{% url 'Admin:admin_rooms' %}">Go Back</a>
 </div>
 {% endblock %}
