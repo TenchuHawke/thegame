@@ -29,7 +29,7 @@ table td {
 	text-align: center;
 }
 
-table h2 {
+h2 {
 	text-align: center;
 	font-size: 40px;
 }
@@ -50,3 +50,28 @@ table.innertable {
 table.innertable td{
 	width: 500px;
 }
+
+.addchar {
+	text-align: center;
+	width: 350px;
+}
+.stats {
+	width: 1000px;
+	border: 1px solid black;
+}
+.stats tr, td, th {
+	height: 30px;
+	border: 1px solid black;
+}
+
+#submit {
+	margin-left: 650px;
+	border: 1px solid black;
+}
+#edit {
+	border: 1px solid black;
+}
+
+
+
+

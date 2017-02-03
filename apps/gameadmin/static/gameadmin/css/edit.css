@@ -20,7 +20,7 @@ h2 {
 table {
 	margin-bottom: 20px;
 	text-align: center;
-	width: 500px;
+	width: 600px;
 }
 
 table, th, td {
@@ -31,3 +31,17 @@ table td {
 	height: 30px;
 }
 
+.abc {
+	width: 880px;
+}
+
+.abc tr {
+	height: 50px;
+}
+input {
+	height: 25px;
+	width: 180px;
+	border: 1px solid black;
+	text-align: center;
+	font-size: 15px;
+}

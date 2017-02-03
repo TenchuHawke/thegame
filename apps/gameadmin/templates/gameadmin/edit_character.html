@@ -1,0 +1,101 @@
+{% extends "gameadmin/base.html" %} {% include '/gameadmin/base.html' %}
+{% block title %}Character Admin{% endblock %}
+{% block loads %}{% load static %} {% endblock %}
+{% block css %} <link rel="stylesheet" type="text/css" href="{% static 'gameadmin/css/admin.css' %}" /> {% endblock %}
+{% block scripts %}<script src="{% static 'gameadmin/js/sorttable.js' %}"></script>{% endblock %}
+{%block header %}Admin - Edit Character {% endblock %}
+{% block content %}
+<div id="wrapper">	
+	<div id="header">
+		<h{{character.}}>{{character.name}}</h{{character.}}>
+		<a href="/mainmenu/admin_menu">Admin Menu</a>
+	</div>
+	<div id="current">	
+		<h2>Current Information:</h2>
+		<table>
+			<tr>
+                <th>Name: </th>
+                <th>Class: </th>
+                <th>Strength: </th>
+                <th>Dexterity: </th>
+                <th>Intelligence: </th>
+                <th>Health: </th>
+                <th>Gold: </th>
+                <th>Level: </th>
+                <th>Edit: </th>
+                <th>Owned By: </th>
+            </tr>
+            <tr>
+        		<td>{{character.name}}</td>
+                <td>{{character.cclass}}</td>
+                <td>{{character.strength}}</td>
+                <td>{{character.dexterity}}</td>
+                <td>{{character.intelligence}}</td>
+                <td>{{character.health}}</td>
+                <td>{{character.gold}}</td>
+                <td>{{character.level}}</td>
+            </tr>
+        </table>
+    </div>
+    <div id="edits">
+    	<h2>Make Changes Below</h2>
+    	<table>
+    		<tr>
+	    		<th>Name: </th>
+	            <th>Class: </th>
+	            <th>Strength: </th>
+	            <th>Dexterity: </th>
+	            <th>Intelligence: </th>
+	            <th>Health: </th>
+	            <th>Gold: </th>
+	            <th>Level: </th>
+	            <th>Submit: </th>
+	        </tr>
+	        <tr>
+	        	<form action="update_character/{{character.id}}" method="post">
+				<th><input type="text" name="name" value="{{character.name}}"></th>
+				<th><select>
+					<option value="FI">Fighter</option>
+					<option value="RO">Rogue</option>
+					<option value="WI">Wizard</option>
+					</select>
+					</th>
+				<th><input type="text" name="strength" value="{{character.strength}}"></th>
+				<th><input type="text" name="dext" value="{{character.dexterity}}"></th>
+				<th><input type="text" name="intel" value="{{character.intelligence}}"></th>
+				<th><input type="text" name="health" value="{{character.health}}"></th>
+				<th><input type="number" name="gold" value="{{character.gold}}"></th>
+				<th><input type="number" name="level" value="{{character.level}}"></th>
+				<th>{% csrf_token %}<input type="submit" name="submit" value="Save Changes">
+				<input type="hidden" name="character_id" value="{{character.id}}"></th>
+				</form>
+			</tr>
+		</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{% endblock %}

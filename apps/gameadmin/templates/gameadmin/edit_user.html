@@ -1,9 +1,9 @@
 {% extends "gameadmin/base.html" %} {% include '/gameadmin/base.html' %}
-{% block title %}User Admin{% endblock %}
+{% block title %}Admin - Edit User{% endblock %}
 {% block loads %}{% load static %} {% endblock %}
 {% block css %} <link rel="stylesheet" type="text/css" href="{% static 'gameadmin/css/edit.css' %}" /> {% endblock %}
 {% block scripts %}<script src="{% static 'gameadmin/js/sorttable.js' %}"></script>{% endblock %}
-{%block header %}User Admin {% endblock %}
+{%block header %}Admin - Edit User{% endblock %}
 {% block content %}
 <div id="wrapper">	
 	<div id="header">
@@ -29,7 +29,7 @@
 	</div>
 	<div id="edits">
 		<h2>Make Changes Below:</h2>
-		<table id="abc">
+		<table class="abc">
 			<tr>
 				<th>Name:</th>
 				<th>E-Mail:</th>
