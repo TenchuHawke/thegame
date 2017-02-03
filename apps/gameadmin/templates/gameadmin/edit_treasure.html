@@ -1,0 +1,62 @@
+{% extends "gameadmin/base.html" %} {% include '/gameadmin/base.html' %}
+{% block title %}Admin - Edit Item{% endblock %}
+{% block loads %}{% load static %} {% endblock %}
+{% block css %} <link rel="stylesheet" type="text/css" href="{% static 'gameadmin/css/edit.css' %}" /> {% endblock %}
+{% block scripts %}<script src="{% static 'gameadmin/js/sorttable.js' %}"></script>{% endblock %}
+{%block header %}Admin - Edit Item {% endblock %}
+{% block content %}
+<div id="body">	
+	<div id="header">
+		<h1>{{treasures.name}}</h1>
+		<a href="/mainmenu/admin_menu">Admin Menu</a>
+	</div>
+	<div id="current">	
+		<h2>Current Information:</h2>
+		<table class="edit_characters">
+            <tr>
+                <th>Name</th>
+                <th>Gold</th>
+                <th>Item</th>
+            </tr>
+            
+            <tr>
+                <td>{{treasures.name}}</td>
+                <td>{{treasures.gold}}</td>
+                <td>{{treasures.item.name}}</td>
+            </tr>
+
+        </table>
+    </div>
+    	<h2>Make Changes Below</h2>
+   		<form class="box" action="update_treasure" method="post">
+            <table>
+                <tr>
+                    <th>Name: </th>
+                    <th>Gold: </th>
+                    <th>Item: </th>
+                    <th>Submit: </th>
+                </tr>
+                <tr>
+                    <td><input type="text" name="name"></td>
+                    <td><input type="number" name="gold"></td>
+                    <td><select name="item">{% for items in items %}
+                        <option value="{{items.id}}">{{items.name}}</option>{% endfor %}
+                        </select></td>
+                    <td>{% csrf_token %}
+            		<button type="submit" name="button">Save Treasure</button>
+            		<input type="hidden" name="treasure" value="{{treasure.id}}">
+                </tr>
+            </table>
+        </td>
+</div>
+<div>
+	<a href="{% url 'Admin:admin_treasure' %}">Go Back</a>
+
+</div>
+
+
+
+                   
+
+
+{% endblock %}

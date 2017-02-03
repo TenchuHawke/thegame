@@ -21,6 +21,7 @@
 				<button type="submit">Remove Trap</button>
 				<input type="hidden" name="character" value="{{character.id}}">
 				<input type="hidden" name="item" value="{{item.id}}">
+				<!-- <input type="hidden" name="item.id" value="{{item.id}}"> -->
 				</form></td>
 		</tr>
 		{% endif %}
@@ -66,6 +67,6 @@
 		{%endif%}
 		{% endfor %}
 	</table>
-	<a href="/admin">Go Back</a>
+	<a href="{% url 'Admin:admin_items' %}">Go Back</a>
 </div>
 {% endblock %}
