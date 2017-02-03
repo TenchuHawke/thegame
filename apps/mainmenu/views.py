@@ -34,7 +34,10 @@ def admin_menu(request):
 	return render(request, 'gameadmin/adminmenu.html')
 
 def hall(request):
-    return render(request, 'mainmenu/hall.html')
+	context = {
+	'characters':Characters.objects.all().order_by('gold'),
+	}
+	return render(request, 'mainmenu/hall.html', context)
 
 def update(request):
 	# Not being used right now

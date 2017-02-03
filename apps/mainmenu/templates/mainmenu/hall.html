@@ -19,15 +19,13 @@
 				<th>User</th>
 				<th>Gold</th>
 			</tr>
+			{% for character in characters %}
 			<tr>
-				<td>Testing</td>
-				<td>Testing</td>
-				<td>Testing</td>
+				<td>{{character.name}}</td>
+				<td>{{character.owned_by.username}}</td>
+				<td>{{character.gold}}</td>
 			</tr>
-			<tr>
-				<td>Another Test</td>
-				<td>Another Test</td>
-				<td>Another Test</td>
+			{% endfor %}
 		</table>
 	</div>
 </div>
