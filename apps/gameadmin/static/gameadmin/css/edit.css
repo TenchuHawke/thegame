@@ -135,16 +135,22 @@ h3 {
 input {
 	text-align: center;
 }
+#nametext {
+	width: 100px;
+}
+.num {
+	width: 50px;
+}
 
 .stats2 td {
 	height: 20px;
 }
-.currentmons {
-	width: 800px;
+/*.stats3 {
+	width: 500px;
 	text-align: center;
-}
-.currentmons th {
-	width: 100px;
+}*/
+.stats3 th {
+	width: 200px;
 }
 .stats2 th {
 	width: 200px;
