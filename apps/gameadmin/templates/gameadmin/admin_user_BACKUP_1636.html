@@ -6,6 +6,22 @@
 {%block header %}User Admin {% endblock %}
 {% block content %}
 
+<<<<<<< HEAD
+<form class="box" action="admin/updateCharacter" method="post">
+
+    {% csrf_token %}
+    <!-- #TODO (add user function) -->
+=======
+<head>
+    <meta charset="utf-8">
+    <title>MegaAdd</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'gameadmin/css/megaadd.css' %}" />
+    <script src="{% static 'gameadmin/js/megaadd.js' %}"></script>
+</head>
+
+<body>
+<h2>Users</h2>
+>>>>>>> b30be893c388ce3c8eb5e1babe7beb7a7365c016
     <a href="/mainmenu/admin_menu">Admin Menu</a>
     <table>
         <tr>
@@ -43,11 +59,19 @@
                         <td class="left" align="left">
                             {{character.name}}
                         </td>
+<<<<<<< HEAD
+                        <td align="right">
+                            <form class="right" action="/admin/edit_character" method="post">
+                                {% csrf_token %}
+                                <button class="right"type="submit">Edit Character</button>
+                                <input type="hidden" name="character" value="{{character}}">
+=======
                         <td>
                             <form action="edit_character/{{character.id}}" method="post">
                                 {% csrf_token %}
-                                <button class="right"type="submit">Edit Character</button>
+                                <button class="right" type="submit">Edit Character</button>
                                 <input type="hidden" name="character" value="{{character.id}}">
+>>>>>>> b30be893c388ce3c8eb5e1babe7beb7a7365c016
                             </form>
                         </td>
                     </tr>

@@ -1,0 +1,22 @@
+
+table.sortable thead {
+
+    background-color:#eee;
+
+    color:#666666;
+
+    font-weight: bold;
+
+    cursor: default;
+}
+a{
+	position: absolute;
+	right:300px;
+	top:125px;
+}
+.textleft{
+	text-align: left;
+}
+.innertable{
+	vertical-align: top;
+}
