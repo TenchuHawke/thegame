@@ -43,7 +43,11 @@
             <div id="content">
                 {% block content %}
                 <p><h3><a href="/game/main">Start Playing</a></h3></p>
-                <p><h3><a href="/mainmenu/">Back to Main Menu</a></h3></p> 
+                <p><h3><a href="/mainmenu/">Back to Main Menu</a></h3></p>
+                {% endblock %}
+            </div>
+            <div id="hero">
+                {% block character %}
                 {% endblock %}
             </div>
         </div>

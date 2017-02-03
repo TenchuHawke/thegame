@@ -15,7 +15,7 @@
 		{{character.name}}
 	</td>
 	<td align="right">
-		<form action="/mainmenu/start_game" method="post">
+		<form action="/game/start_game" method="post">
 			{% csrf_token %}
 			<button class="right"type="submit">Select and Start</button>
 			<input type="hidden" name="character" value="{{character.id}}">
