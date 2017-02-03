@@ -2,7 +2,7 @@ from django.conf.urls import url
 from django.conf.urls import url
 from . import views
 urlpatterns = [
-    
+
     # Delete URLS
     url(r'^delete_monster$', views.delete_monster, name='delete_monster'),
     url(r'^delete_item$', views.delete_item, name='delete_item'),
@@ -48,12 +48,12 @@ urlpatterns = [
     url(r'^admin_users$', views.admin_users, name='admin_users'),
     #Edit URLS
     url(r'^edit_user/(?P<id>\d+)$', views.edit_user, name='edit_user'),
-    # url(r'^edit_character/(?P<id>\d+)$', views.edit_character, name='edit_character'),
-    # url(r'^edit_monster/(?P<id>\d+)$', views.edit_monster, name='edit_monster'),
-    # url(r'^edit_item/(?P<id>\d+)$', views.edit_item, name='edit_item'),
-    # url(r'^edit_treasure/(?P<id>\d+)$', views.edit_treasure, name='edit_treasure'),
-    # url(r'^edit_trap/(?P<id>\d+)$', views.edit_trap, name='edit_trap'),
-    # url(r'^edit_room/(?P<id>\d+)$', views.edit_room, name='edit_room'),
+    url(r'^edit_character/(?P<id>\d+)$', views.edit_character, name='edit_character'),
+    url(r'^edit_monster/(?P<id>\d+)$', views.edit_monster, name='edit_monster'),
+    url(r'^edit_item/(?P<id>\d+)$', views.edit_item, name='edit_item'),
+    url(r'^edit_treasure/(?P<id>\d+)$', views.edit_treasure, name='edit_treasure'),
+    url(r'^edit_trap/(?P<id>\d+)$', views.edit_trap, name='edit_trap'),
+    url(r'^edit_room/(?P<id>\d+)$', views.edit_room, name='edit_room'),
 
     #Catch All (DONT MOVE)
     url(r'^', views.index,  name='index'),
