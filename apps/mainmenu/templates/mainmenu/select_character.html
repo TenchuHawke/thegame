@@ -1,0 +1,25 @@
+{% extends "login/base.html" %} {% include '/login/base.html' %}
+{% block title %}Create{% endblock %}
+{% block loads %}{% load static %} {% endblock %}
+{% block css %} <link rel="stylesheet" type="text/css" href="{% static 'mainmenu/css/hall.css' %}" /> {% endblock %}
+
+{% block content %}
+
+
+{% for character in characters %}
+<table>
+<tr>
+	<td class="left" align="left">
+		{{character.name}}
+	</td>
+	<td align="right">
+		<form action="/mainmenu/start_game" method="post">
+			{% csrf_token %}
+			<button class="right"type="submit">Select and Start</button>
+			<input type="hidden" name="character" value="{{character.id}}">
+		</form>
+	</td>
+</tr>
+{% endfor %}
+</table>
+{% endblock %}
