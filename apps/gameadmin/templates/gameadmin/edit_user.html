@@ -38,15 +38,27 @@
 			</tr>
 			<tr>
 			
-				<form action="update_user/{{user.id}}" method="post">
+				<form action="{% url 'Admin:update_user' %}" method="post">
 				<th><input class="user" type="text" name="username" value="{{users.username}}"></th>
 				<th><input class="user" type="email" name="email" value="{{users.email}}"></th>
 				<th><input class="user" type="number" name="userlevel" value="{{users.userlevel}}"></th>
 				<th>{% csrf_token %}<input class="user" type="submit" name="submit" value="Save Changes">
-				<input type="hidden" name="item_id" value="{{item.id}}"></th>
+				<input type="hidden" name="id" value="{{users.id}}"></th>
 				</form>
 			</tr>
 		</table>
 	</div>
+	<a href="{% url 'Admin:admin_users' %}">Go Back</a>
+	<div id="messages">
+				{% if messages %}
+					<ul class="messages">
+						{% for message in messages %}
+							<li {% if message.tags %} class=" {{ message.tags }}" {% endif%}>
+								{{ message }}
+							</li>
+						{% endfor %}
+					</ul>
+				{% endif %}
+			</div>
 </div>
 {% endblock %}

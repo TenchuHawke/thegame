@@ -42,6 +42,7 @@ urlpatterns = [
     url(r'^remove_visitor$', views.remove_visitor, name='remove_visitor'),
     url(r'^remove_explorer$', views.remove_explorer, name='remove_explorer'),
     url(r'^remove_trap$', views.remove_trap, name='remove_trap'),
+    url(r'^remove_character$', views.remove_character, name='remove_character'),
     #Admin URLS
     url(r'^admin_characters$', views.admin_characters, name='admin_characters'),
     url(r'^admin_items$', views.admin_items, name='admin_items'),
@@ -58,7 +59,13 @@ urlpatterns = [
     url(r'^edit_treasure/(?P<id>\d+)$', views.edit_treasure, name='edit_treasure'),
     url(r'^edit_trap/(?P<id>\d+)$', views.edit_trap, name='edit_trap'),
     url(r'^edit_room/(?P<id>\d+)$', views.edit_room, name='edit_room'),
+    #Update URLS
+    url(r'^update_user$', views.update_user, name='update_user'),
+    url(r'^update_character$', views.update_character, name='update_character'),
+
+
+
 
     #Catch All (DONT MOVE)
-    url(r'^', views.index,  name='index'),
+    url(r'^$', views.index,  name='index'),
 ]

@@ -42,7 +42,7 @@ class UserManager(models.Manager):
         return modelResponse
 
     def check_user(self, postData):
-
+        # TODO ('lowercase username')
         errors = []
         modelResponse={}
         if not postData['username']:
@@ -63,6 +63,38 @@ class UserManager(models.Manager):
             modelResponse['status']=False
             modelResponse['errors']=errors
         return modelResponse
+
+    def update_user(self, postData):
+        errors = []
+        if not EMAIL_REGEX.match(postData['email']):
+            errors.append('Must use a valid email, all lowercase please')
+        if len(postData['username'])<3:
+            errors.append('Must enter valid username')
+        user = Users.objects.filter(username=postData['username']).exclude(id=postData['id'])
+        
+        if user:
+            errors.append('Username already exists')
+
+        user = Users.objects.filter(email=postData['email']).exclude(id=postData['id'])
+
+        if user:
+            errors.append('Email already exists')
+
+        modelResponse={}
+        
+        if errors:
+            modelResponse['status'] = False
+            modelResponse['errors'] = errors
+        
+        else:
+            user = Users.objects.get(id=postData['id'])
+            user.username = postData['username']
+            user.email = postData['email']
+            user.userlevel = postData['userlevel']
+            user.save()
+            modelResponse['status'] = True
+        return modelResponse
+
 
 
 class Users(models.Model):

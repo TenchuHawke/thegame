@@ -21,6 +21,7 @@
                 <th>Dexterity: </th>
                 <th>Intelligence: </th>
                 <th>Health: </th>
+                <th>Current Health:</th>
                 <th>Gold: </th>
                 <th>Level: </th>
                 <th>Owned By: </th>
@@ -33,6 +34,7 @@
                 <td>{{characters.dexterity}}</td>
                 <td>{{characters.intelligence}}</td>
                 <td>{{characters.health}}</td>
+                <td>{{characters.current_health}}</td>
                 <td>{{characters.gold}}</td>
                 <td>{{characters.level}}</td>
                 <th>{{characters.owned_by.username}}</th>
@@ -49,12 +51,13 @@
 	            <th>Dexterity: </th>
 	            <th>Intelligence: </th>
 	            <th>Health: </th>
+	            <th>Current Health:</th>
 	            <th>Gold: </th>
 	            <th>Level: </th>
 	            <th>Submit: </th>
 	        </tr>
 	        <tr>
-	        	<form action="update_character/{{characters.id}}" method="post">
+	        	<form action="{% url 'Admin:update_character' %}" method="post">
 				<td><input class="user" type="text" name="name" value="{{characters.name}}"></td>
 				<td><select id="selectchar">
 					<option value="FI">FI</option>
@@ -66,18 +69,20 @@
 				<td><input class="char" type="text" name="dext" value="{{characters.dexterity}}"></td>
 				<td><input class="char" type="text" name="intel" value="{{characters.intelligence}}"></td>
 				<td><input class="char" type="text" name="health" value="{{characters.health}}"></td>
+				<td><input class="char" type="text" name="current_health" value="{{characters.current_health}}"></td>
 				<td><input class="char" type="number" name="gold" value="{{characters.gold}}"></td>
 				<td><input class="char" type="number" name="level" value="{{characters.level}}"></td>
 				<td>{% csrf_token %}<input type="submit" name="submit" value="Save Changes">
-				<input type="hidden" name="character_id" value="{{characters.id}}"></form></td>
+				<input type="hidden" name="id" value="{{characters.id}}"></form></td>
 				
 			</tr>
 		</table>
 	</div>
+	<div>
+		<a href="{% url 'Admin:admin_characters' %}">Go Back</a>
 
 
-
-
+	</div>
 
 
 

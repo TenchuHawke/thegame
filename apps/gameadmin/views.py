@@ -132,7 +132,11 @@ def assign_item(request):
         character = Characters.objects.get(id=request.POST['character'])
         item = Items.objects.get(id=request.POST['item'])
         item.owned_by.add(character)
-    return redirect('/admin')
+    context = {
+        'item': Items.objects.get(id=request.POST['item']),
+        'characters': Characters.objects.all(),
+        }
+    return render(request, 'gameadmin/character_item.html', context)
 
 # DELETE
 
@@ -256,6 +260,16 @@ def remove_trap(request):
         room.trap.remove(trap)
     return redirect('/admin')
 
+def remove_character(request):
+    if request.method == "POST":
+        character = Characters.objects.get(id=request.POST['character'])
+        item = Items.objects.get(id=request.POST['item'])
+        character.owner.remove(item)
+    context = {
+        'item': Items.objects.get(id=request.POST['item']),
+        'characters': Characters.objects.all(),
+        }
+    return render(request, 'gameadmin/character_item.html', context)
 # ADMIN EDIT PAGES
 
 
@@ -348,6 +362,7 @@ def edit_item(request, id):
 def edit_treasure(request, id):
     context = {
     'treasures': Treasures.objects.get(id=id),
+    'items': Items.objects.all(),
     }
     return render(request, 'gameadmin/edit_treasure.html', context)
 
@@ -362,3 +377,26 @@ def edit_room(request, id):
     'rooms': Rooms.objects.get(id=id),
     }
     return render(request, 'gameadmin/edit_room.html', context)
+
+def update_user(request):
+    if request.method == "POST":
+        print request.POST
+        response_from_models = Users.objects.update_user(request.POST)
+        if not response_from_models['status']:
+            for error in response_from_models['errors']:
+                messages.error(request, error)
+    return redirect('edit_user/'+request.POST['id'])
+
+def update_character(request):
+    if request.method == "POST":
+        print request.POST
+        response_from_models = Characters.objects.update_character(request.POST)
+        if not response_from_models['status']:
+            for error in response_from_models['errors']:
+                messages.error(request, error)
+    return redirect('edit_character/'+request.POST['id'])
+
+
+
+
+
