@@ -1,12 +1,12 @@
 {% extends "gameadmin/base.html" %} {% include '/gameadmin/base.html' %}
 {% block title %}Rooms Admin{% endblock %}
 {% block loads %}{% load static %} {% endblock %}
-{% block css %} <link rel="stylesheet" type="text/css" href="{% static 'gameadmin/css/admin.css' %}" /> {% endblock %}
+{% block css %} <link rel="stylesheet" type="text/css" href="{% static 'gameadmin/css/adminrooms.css' %}" /> {% endblock %}
 {% block scripts %}<script src="{% static 'gameadmin/js/sorttable.js' %}"></script>{% endblock %}
 {%block header %}Rooms Admin {% endblock %}
 {% block content %}
         <a href="/mainmenu/admin_menu">Admin Menu</a>
-        <h2>Rooms</h2>
+        <h1>Add Room</h1>
         <form class="box" action="add_room" method="post">
             <table>
                 <tr>
@@ -26,8 +26,9 @@
                 </tr>
             </table>
             {% csrf_token %}
-            <button type="submit" name="button">add Room</button>
+            <button id="add" type="submit" name="button">Add Room</button>
         </form>
+        <h1>Current Rooms</h1>
         <table class="stats">
             <tr>
                 <th>Name</th>
@@ -43,7 +44,26 @@
             </tr>
             <tr>
                 {% for room in rooms %}
-                <td class="textleft">{{room.name}}</td>
+                <td>
+                    <table class="innertable">
+                        <tr>
+                            <td>{{room.name}}</td>
+                        </tr>
+                        <tr>
+                            <td><form action="edit_room/{{room.id}}">
+                                {% csrf_token %}
+                                <button type="submit">Edit Room</button>
+                            </form></td>
+                        </tr>
+                        <tr>
+                            <td><form action="delete_room">
+                                {% csrf_token %}
+                                <button type="submit">Delete Room</button>
+                                <input type="hidden" name="room_id" value="{{room.id}}">
+                            </form></td>
+                        </tr>
+                    </table>
+                </td>
                 <td class="textleft">{{room.description}}</td>
                 <td class="textleft">{{room.peek_description}}</td>
                 <td>
@@ -208,5 +228,5 @@
             </tr>
             {% endfor %}
         </table>
-    </body>
-</html>
+
+{% endblock %}

@@ -33,7 +33,6 @@
             <td>
                 <table class="innertable">
                     {% for character in characters %}
-                    {% if character.owned_by == user %}
                     <tr>
                         <td class="left" align="left">
                             {{character.name}}
@@ -41,12 +40,11 @@
                         <td align="right">
                             <form action="edit_character/{{character.id}}" method="post">
                                 {% csrf_token %}
-                                <button class="right"type="submit">Edit Character</button>
+                                <button class="right" type="submit">Edit Character</button>
                                 <input type="hidden" name="character" value="{{character.id}}">
                             </form>
                         </td>
                     </tr>
-                    {% endif %}
                     {% endfor %}
                 </table>
             </td>

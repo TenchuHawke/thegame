@@ -1,0 +1,45 @@
+.stats {
+	width: 1300px;
+	text-align: center;
+	vertical-align: top;
+}
+.stats th {
+	width: 400px;
+}
+/*.stats tr {
+	height: 20px;
+}*/
+
+.stats th, tr, td {
+	border: 1px solid black;
+}
+.linktype{
+	/*for making buttons look like links*/
+  border:none;
+  outline:none;
+  background:none;
+  cursor:pointer;
+  color:#0000EE;
+  padding:0;
+  font-family:inherit;
+  font-size:inherit;
+  display:block;
+ }
+
+.innertable td {
+	border: 0px;
+
+}
+#add {
+	margin-left: 650px;
+	margin-top: 15px;
+	margin-bottom: 15px;	
+}
+h1 {
+	text-align: center;
+	margin-bottom: 10px;
+}
+
+a {
+	margin-left: 1000px;
+}

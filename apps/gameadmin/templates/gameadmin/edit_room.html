@@ -1,0 +1,55 @@
+{% extends "gameadmin/base.html" %} {% include '/gameadmin/base.html' %}
+{% block title %}Admin - Edit Rooms{% endblock %}
+{% block loads %}{% load static %} {% endblock %}
+{% block css %} <link rel="stylesheet" type="text/css" href="{% static 'gameadmin/css/edit.css' %}" /> {% endblock %}
+{% block scripts %}<script src="{% static 'gameadmin/js/sorttable.js' %}"></script>{% endblock %}
+{%block header %}Edit Rooms{% endblock %}
+{% block content %}
+<h2>{{rooms.name}}</h2>
+<a id="room" href="/mainmenu/admin_menu">Admin Menu</a>
+    <div id="first"> 
+    	<h3>Current Information</h3>   
+        <table class="current">
+            <tr>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Peek_Description</th>
+              	<th>Terrain Type</th>
+            </tr>
+            <tr>
+               <td>{{rooms.name}}</td>
+               <td>{{rooms.description}}</td>
+               <td>{{rooms.peek_description}}</td>
+               <td>{{rooms.terrain_type}}</td>
+            </tr>
+        </table>
+    </div>
+    <div id="second">
+		<h3>Make Changes Below:</h3>
+    	<table class="change">
+    		<tr>
+				<th>Name</th>
+	            <th>Description</th>
+	            <th>Peek_Description</th>
+	          	<th>Terrain Type</th>
+	          	<th>Submit</th>
+            </tr>
+            <tr>
+            	<form action="edit_room/{{rooms.id}}" method="post">
+            	<td><input type="text" class="user" name="name" value="{{rooms.name}}"></td>
+            	<td><textarea name="description" placeholder="{{rooms.description}}"></textarea></td>
+            	<td><textarea name="peek_description" placeholder="{{rooms.peek_description}}"></textarea></td>
+            	<td><input type="text" name="terrain_type" class="user" value="{{rooms.terrain_type}}"></td>
+            	<td>{% csrf_token %}
+            	<input type="submit" name="submit" value="Save Changes"><input type="hidden" name="rooms_id" value="{{rooms.id}}"></td>
+				</form>
+			</tr>
+		</table>
+	</div>
+
+
+
+
+
+
+{% endblock %}
