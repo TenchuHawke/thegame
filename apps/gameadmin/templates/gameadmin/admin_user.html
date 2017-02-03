@@ -7,16 +7,10 @@
 {% block content %}
 
     <a href="/mainmenu/admin_menu">Admin Menu</a>
-    <table>
-        <tr>
-            <td><h2>Users</h2></td>
-        </tr>
-        <tr>
-
-        </tr>
-
+   <h2> Users </h2>
     <table class='sortable'>
         <tr>
+            <th>ID</th>
             <th>Name</th>
             <th>E-Mail</th>
             <th>User Level</th>
@@ -26,6 +20,7 @@
         </tr>
         {% for user in users %}
         <tr>
+            <td>{{user.id}}</td>
             <td class="textleft">{{user.username}}</td>
             <td class="textleft">{{user.email}}</td>
             <td>{{user.userlevel}}</td>
@@ -43,7 +38,7 @@
                         <td class="left" align="left">
                             {{character.name}}
                         </td>
-                        <td>
+                        <td align="right">
                             <form action="edit_character/{{character.id}}" method="post">
                                 {% csrf_token %}
                                 <button class="right"type="submit">Edit Character</button>

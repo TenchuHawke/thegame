@@ -16,8 +16,9 @@ body {
 	margin-top: 20px;
 	text-decoration: underline;
 	display: inline-block;
-	margin-left: 360px;
-	margin-right: 180px;
+	margin-left: 340px;
+	margin-right: 150px;
+	font-size: 20px;
 }
 
 #links {
@@ -36,13 +37,20 @@ table {
 	width: 800px;
 	text-align: center;
 }
+table td {
+	width: 500px;
+	color: white;
+	height: 35px;
+	font-size: 20px;
+}
 
 table, th, td {
 	border: 1px solid orange;
 }
 table th {
-	font-size: 25px;
+	font-size: 30px;
 	font-weight: bold;
+	color: red;
 }
 a, a:visited, a:hover, a:active {
   color: white;

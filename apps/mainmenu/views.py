@@ -34,7 +34,10 @@ def admin_menu(request):
 	return render(request, 'gameadmin/adminmenu.html')
 
 def hall(request):
-    return render(request, 'mainmenu/hall.html')
+	context = {
+	'characters':Characters.objects.all().order_by('gold'),
+	}
+	return render(request, 'mainmenu/hall.html', context)
 
 def update(request):
 	# Not being used right now
@@ -83,3 +86,17 @@ def roll(request):
 			'hea': health
 			}
 	return render(request, 'mainmenu/newchar.html', context)
+
+def select_character(request):
+    print request.session['user_id']
+    context = {
+        'characters': Characters.objects.filter(owned_by__id=request.session['user_id']).order_by('name'),
+        }
+    return render(request, 'mainmenu/select_character.html', context)
+
+def start_game(request):
+    if request.method == "POST":
+        request.session['character_id']= request.POST['character']
+        print request.session['character_id']
+        return redirect("/game/")
+    return redirect("/mainmenu/select_character")

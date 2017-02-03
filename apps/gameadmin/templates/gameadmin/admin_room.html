@@ -1,14 +1,10 @@
-<!DOCTYPE html>
-<html>
-{% load static %}
-
-<head>
-    <meta charset="utf-8">
-    <title>MegaAdd</title>
-    <link rel="stylesheet" type="text/css" href="{% static 'gameadmin/css/megaadd.css' %}" />
-    <script src="{% static 'gameadmin/js/megaadd.js' %}"></script>
-</head>
-    <body>
+{% extends "gameadmin/base.html" %} {% include '/gameadmin/base.html' %}
+{% block title %}Rooms Admin{% endblock %}
+{% block loads %}{% load static %} {% endblock %}
+{% block css %} <link rel="stylesheet" type="text/css" href="{% static 'gameadmin/css/admin.css' %}" /> {% endblock %}
+{% block scripts %}<script src="{% static 'gameadmin/js/sorttable.js' %}"></script>{% endblock %}
+{%block header %}Rooms Admin {% endblock %}
+{% block content %}
         <a href="/mainmenu/admin_menu">Admin Menu</a>
         <h2>Rooms</h2>
         <form class="box" action="add_room" method="post">

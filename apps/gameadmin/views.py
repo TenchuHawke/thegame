@@ -296,3 +296,46 @@ def admin_users(request):
         'characters': Characters.objects.all().order_by('name'),
         }
     return render(request, 'gameadmin/admin_user.html', context)
+
+
+def edit_user(request, id):
+    context = {
+    'users': Users.objects.get(id=id)
+    }
+    return render(request, 'gameadmin/edit_user.html', context)
+
+def edit_character(request, id):
+    context = {
+    'characters': Characters.objects.get(id=id),
+    }
+    return render(request, 'gameadmin/edit_character.html', context)
+
+def edit_monster(request, id):
+    context = {
+    'monsters': Monsters.objects.get(id=id),
+    }
+    return render(request, 'gameadmin/edit_monster.html', context)
+
+def edit_item(request, id):
+    context = {
+    'items': Items.objects.get(id=id),
+    }
+    return render(request, 'gameadmin/edit_item.html', context)
+
+def edit_treasure(request, id):
+    context = {
+    'treasures': Treasures.objects.get(id=id),
+    }
+    return render(request, 'gameadmin/edit_treasure.html', context)
+
+def edit_trap(request, id):
+    context = {
+    'traps': Traps.objects.get(id=id),
+    }
+    return render(request, 'gameadmin/edit_trap.html', context)
+
+def edit_room(request, id):
+    context = {
+    'rooms': Rooms.objects.get(id=id),
+    }
+    return render(request, 'gameadmin/edit_room.html', context)

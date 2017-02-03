@@ -15,8 +15,65 @@ a{
 	top:125px;
 }
 .textleft{
-	text-align: left;
+	text-align: center;
 }
-.innertable{
+.innertable {
 	vertical-align: top;
 }
+table.sortable {
+	width: 1000px;
+
+}
+table td {
+	width: 500px;
+	text-align: center;
+}
+
+h2 {
+	text-align: center;
+	font-size: 40px;
+}
+.sortable {
+	border: 1px solid black;
+}
+.sortable th {
+	border: 1px solid black;
+}
+.sortable td {
+	border: 1px solid black;
+}
+
+table.innertable {
+	width: 300px;
+}
+
+table.innertable td{
+	width: 500px;
+}
+
+.addchar {
+	text-align: center;
+	width: 350px;
+}
+.stats {
+	width: 1000px;
+	border: 1px solid black;
+}
+.stats tr, td, th {
+	height: 30px;
+	border: 1px solid black;
+}
+
+#submit {
+	margin-left: 650px;
+	border: 1px solid black;
+}
+#edit {
+	border: 1px solid black;
+}
+.admin_monster {
+	width: 300px;
+}
+
+
+
