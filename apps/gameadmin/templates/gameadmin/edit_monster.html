@@ -1,9 +1,9 @@
 {% extends "gameadmin/base.html" %} {% include '/gameadmin/base.html' %}
-{% block title %}Admin - Edit User{% endblock %}
+{% block title %}Admin - Edit Monster{% endblock %}
 {% block loads %}{% load static %} {% endblock %}
 {% block css %} <link rel="stylesheet" type="text/css" href="{% static 'gameadmin/css/edit.css' %}" /> {% endblock %}
 {% block scripts %}<script src="{% static 'gameadmin/js/sorttable.js' %}"></script>{% endblock %}
-{%block header %}Admin - Edit User{% endblock %}
+{%block header %}Admin - Edit Monster{% endblock %}
 {% block content %}
 <div id="body"> 
  <a href="/mainmenu/admin_menu">Admin Menu</a>
@@ -69,7 +69,7 @@
 	<div>
 	<h2 class="this">Make Changes Below</h2>
 	
-        <table class="currentmons">
+        <table class="edit_characters">
             <form class="box" action="update_monster" method="post">
             	<tr>
                     <th>Name: </th>
@@ -83,7 +83,7 @@
 					<th>Save?:</th>
                 </tr>
                 <tr>
-                    <td><input type="text" name="name" value="{{monster.name}}"></td>
+                    <td><input class="nametext" type="text" name="name" value="{{monster.name}}"></td>
                     <td class="right"><select name="mclass">
                         <option value="BR">Brute (+5 Strength)</option>
                         <option value="AS">Assasin (+5 Dexterity)</option>
@@ -96,11 +96,11 @@
                     	{% endfor %}
                     </select>
                     </td>
-                    <td><input type="text" name="strength" value="{{monster.strength}}"></td>
-                    <td><input type="text" name="dexterity" value="{{monster.dexterity}}"></td>
-                    <td><input type="text" name="intelligence" value="{{monster.intelligence}}"></td>
-                    <td><input type="text" name="health" value="{{monster.health}}"></td>
-                    <td class="right"><input type="text" name="image" value="{{monster.image}}"></td>
+                    <td><input class="num" type="text" name="strength" value="{{monster.strength}}"></td>
+                    <td><input class="num" type="text" name="dexterity" value="{{monster.dexterity}}"></td>
+                    <td><input class="num" type="text" name="intelligence" value="{{monster.intelligence}}"></td>
+                    <td><input class="num" type="text" name="health" value="{{monster.health}}"></td>
+                    <td class="nametext"><input type="text" name="image" value="{{monster.image}}"></td>
                     <td class="right">{% csrf_token %}<input type="submit" name="submit" value="Save Changes"><input type="hidden" name="{{items.id}}" value="{{items.id}}"></td>
                 </tr>
         	</form>
