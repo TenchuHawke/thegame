@@ -15,7 +15,7 @@ def calculate_stats(request, character):
 
 
 def main(request):
-    request.session['character_id']="2"
+    # request.session['character_id']="2"
     hero=Characters.objects.get(id=request.session['character_id'])
     stats=calculate_stats(request, hero)
     request.session['room_id']=Rooms.objects.get(currently_in__id=hero.id).id
