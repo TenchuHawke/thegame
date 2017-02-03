@@ -8,17 +8,11 @@
 	<h1>{{room.name}}</h1>
 
   <div id="contents">
-    <h3>{{room.description}}</h3>
-    <div>
-      <p>Heroes that are resting here, watching:</p>
-      <p>
-        {% for character in characters %}
-        {% if character.populating.id == room.id %}
-        {{character.name}}
-        {% endif %}
-        {% endfor %}
+		{{Hero}}
 
-
+		{% for monster in monsters %}
+		{% for monster_kb in monster.killed_by.all %}
+		{% if not }
 
 
     </div>

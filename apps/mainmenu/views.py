@@ -3,7 +3,7 @@ from django.contrib import messages
 from random import randint
 import random
 from django.core.urlresolvers import reverse
-from .models import Characters
+from ..game.models import Characters
 from ..login.models import Users
 
 
@@ -27,53 +27,28 @@ def create(request):
 			return redirect('/game')
 	return redirect(reverse('Mainmenu:show'))
 
+
 def delete(request):
     return render(request, 'login/base.html')
+
 
 def admin_menu(request):
 	return render(request, 'gameadmin/adminmenu.html')
 
+
 def hall(request):
 	context = {
-	'characters':Characters.objects.all().order_by('gold'),
+	'characters':Characters.objects.filter(level>0).order_by('gold'),
 	}
 	return render(request, 'mainmenu/hall.html', context)
 
 def update(request):
-	# Not being used right now
-	if request.method=="POST":
-		if request.POST['fighter']=="Fighter":
-			request.session['fighter']="Fighter"
-			context = {
-			'str': random.randint(1,10),
-			'dex': random.randint(1,10),
-			'int': random.randint(1,10),
-			'hea': random.randint(1,10),
-			'name': request.POST['char_name']
-			}
-			return redirect(reverse('Mainmenu:create'), context)
-		if request.POST['rogue']=="Rogue":
-			request.session['rogue']="Rogue"
-			context = {
-			'str': random.randint(1,10),
-			'dex': random.randint(1,10),
-			'int': random.randint(1,10),
-			'hea': random.randint(1,10),
-			'name': request.POST['char_name']
-			}
-			return redirect(reverse('Mainmenu:create'), context)
-		if request.POST['wizard']=="Wizard":
-			request.session['wizard']="Wizard"
-			context = {
-			'str': random.randint(1,10),
-			'dex': random.randint(1,10),
-			'int': random.randint(1,10),
-			'hea': random.randint(1,10),
-			'name': request.POST['char_name']
-			}
-			return redirect(reverse('Mainmenu:create'), context)
-	else:
-		return redirect(reverse('Mainmenu:create'))
+	context = {
+	'characters':Characters.objects.filter(level>0).order_by('gold'),
+	}
+	return render(request, 'mainmenu/hall.html', context)
+
+
 def roll(request):
 	strength= (random.randrange(1,5) + random.randrange(1,5) + random.randrange(1,5))
 	dexterity= (random.randrange(1,5) + random.randrange(1,5) + random.randrange(1,5))
@@ -86,6 +61,7 @@ def roll(request):
 			'hea': health
 			}
 	return render(request, 'mainmenu/newchar.html', context)
+
 
 def select_character(request):
     context = {
