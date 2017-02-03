@@ -120,10 +120,10 @@
                 <ul>
 {% for exit in exits %}
                     <li>
-                        {{exit.exitdirection}} - leads to:{{exit.comes_from.all}}
+                        {{exit.exitdirection}} - leads to: {{exit.comes_from.peek_description}}
 {% for explored in exit.comes_from.explored_by.all %}
 {% if explored.id == hero.id %}
-which you know to be:{{exit.comes_from.name}}
+which you know to be:&nbsp{{exit.comes_from.name}}
 {% endif %}
 {% endfor %}
                     </li>
