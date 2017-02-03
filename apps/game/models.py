@@ -70,7 +70,7 @@ class MonsterManager(models.Manager):
             errors.append('Monster Name already exists')
 
         modelResponse={}
-        
+
         if errors:
             modelResponse['status'] = False
             modelResponse['errors'] = errors
@@ -87,7 +87,7 @@ class MonsterManager(models.Manager):
             monster.save()
             modelResponse['status'] = True
         return modelResponse
-        
+
 
 class TrapManager(models.Manager):
     def add_trap(self, postData):
@@ -254,7 +254,7 @@ class CharacaterManager(models.Manager):
             errors.append('Character Name already exists')
 
         modelResponse={}
-        
+
         if errors:
             modelResponse['status'] = False
             modelResponse['errors'] = errors
@@ -273,7 +273,7 @@ class CharacaterManager(models.Manager):
             character.save()
             modelResponse['status'] = True
         return modelResponse
-        
+
 
 
     def calculate_stats(self, character):
@@ -312,19 +312,21 @@ class CharacaterManager(models.Manager):
         errors=[]
         response_from_models={}
         count=0
-        for monster in room.monster.all:
-            if monster.killed_by==hero:
-                count=count+1
-        if len(room.monster)>count:
-            errors.append("There is a monster blocking your way")
-        if errors:
-            response_from_models['status']=False
-            response_from_models['errors']=errors
-        else:
-            response_from_models['status']=True
-            room.explored_by.add(hero)
-            room.currently_in.delete(hero)
-            destination.currently_in.add(hero)
+        # TODO monster blocking
+        # if len(room.monster)>0:
+        #     for monster in room.monster.all:
+        #         if monster.killed_by==hero:
+        #             count=count+1
+        #     if len(room.monster)>count:
+        #         errors.append("There is a monster blocking your way")
+        #     if errors:
+        #         response_from_models['status']=False
+        #         response_from_models['errors']=errors
+        # else:
+        response_from_models['status']=True
+        room.explored_by.add(hero)
+        room.currently_in.remove(hero)
+        destination.currently_in.add(hero)
         return
 
 

@@ -104,9 +104,12 @@ def move(request):
     if request.method == "POST":
         hero=Characters.objects.get(id=request.session['character_id'])
         room=Rooms.objects.get(id=request.POST['room'])
-        desination = Rooms.objects.get(id=request.POST['destination'])
-        response_from_models=Character.objects.move(hero, room, destination)
-        if not response_from_models['status']:
-            for error in response_from_models['errors']:
-                messages.error(request.error)
+        destination = Rooms.objects.get(id=request.POST['destination'])
+        print hero.id
+        print room.id
+        print destination.id
+        response_from_models=Characters.objects.move(hero, room, destination)
+        # if not response_from_models['status']:
+        #     for error in response_from_models['errors']:
+        #         messages.error(request.error)
     return redirect('/game/main')
