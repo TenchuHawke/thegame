@@ -9,6 +9,8 @@ urlpatterns = [
     url(r'^delete_room$', views.delete_room, name='delete_room'),
     url(r'^delete_trap$', views.delete_trap, name='delete_trap'),
     url(r'^delete_treasure$', views.delete_treasure, name='delete_treasure'),
+    url(r'^delete_user$', views.delete_user, name='delete_user'),
+    url(r'^delete_character$', views.delete_character, name='delete_character'),
     #Assign URLS
     url(r'^assign_monster$', views.assign_monster, name='assign_monster'),
     url(r'^assign_trap$', views.assign_trap, name='assign_trap'),
