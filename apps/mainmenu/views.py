@@ -8,7 +8,7 @@ from ..login.models import Users
 
 
 def index(request):
-	request.session['starting_room']=Rooms.objects.get(id=1).id
+	request.session['starting_room']="1"
 	return render(request, 'mainmenu/index.html')
 
 
@@ -26,7 +26,7 @@ def create(request):
 			room.explored_by.add(hero)
 			room.currently_in.add(hero)
 			request.session['character_id']=hero.id
-
+			return redirect('/game')
 		else:
 			for error in response_from_models['errors']:
 				messages.info(request, error)
