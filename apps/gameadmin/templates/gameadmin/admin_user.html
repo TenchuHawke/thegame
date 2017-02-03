@@ -10,6 +10,7 @@
    <h2> Users </h2>
     <table class='sortable'>
         <tr>
+            <th>ID</th>
             <th>Name</th>
             <th>E-Mail</th>
             <th>User Level</th>
@@ -19,6 +20,7 @@
         </tr>
         {% for user in users %}
         <tr>
+            <td>{{user.id}}</td>
             <td class="textleft">{{user.username}}</td>
             <td class="textleft">{{user.email}}</td>
             <td>{{user.userlevel}}</td>
