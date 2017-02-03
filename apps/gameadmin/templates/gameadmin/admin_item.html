@@ -46,6 +46,7 @@
         </form>
         <table class="stats">
             <tr>
+                <th>ID:</th>
                 <th class="textleft">Name</th>
                 <th>Strength Bonus</th>
                 <th>Dexterity Bonus</th>
@@ -58,6 +59,7 @@
             </tr>
             {% for item in items %}
             <tr>
+                <td>{{item.id}}</td>
                 <td class="textleft">{{item.name}}</td>
                 <td>{{item.strbonus}}</td>
                 <td>{{item.dexbonus}}</td>

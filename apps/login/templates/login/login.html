@@ -1,12 +1,8 @@
-{% extends "login/base.html" %}
-
-{% block title %}Login Registration Page{% endblock %}
-{% block loads %}{% load static %}
-{% endblock %}
-{% block css %}
-	<link rel="stylesheet" type="text/css" href="{% static 'login/css/login.css' %}"/>
-{% endblock %}
-
+{% extends "gameadmin/base.html" %} {% include '/gameadmin/base.html' %}
+{% block title %}Login & Registrations{% endblock %}
+{% block loads %}{% load static %} {% endblock %}
+{% block css %} <link rel="stylesheet" type="text/css" href="{% static 'login/css/login.css' %}"/>{% endblock %}
+{%block header %}Login & Register{% endblock %}
 {% block content %}
 
 	<div id="wrapper">

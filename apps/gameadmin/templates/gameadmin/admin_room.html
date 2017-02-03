@@ -31,6 +31,7 @@
         <h1>Current Rooms</h1>
         <table class="stats">
             <tr>
+                <th>ID</th>
                 <th>Name</th>
                 <th>Description</th>
                 <th>Peek_Description</th>
@@ -44,22 +45,24 @@
             </tr>
             <tr>
                 {% for room in rooms %}
+                <td>{{room.id}}</td>
                 <td>
+                        
                     <table class="innertable">
                         <tr>
                             <td>{{room.name}}</td>
                         </tr>
                         <tr>
-                            <td><form action="edit_room/{{room.id}}">
+                            <td><form action="edit_room/{{room.id}}" method="post">
                                 {% csrf_token %}
                                 <button type="submit">Edit Room</button>
                             </form></td>
                         </tr>
                         <tr>
-                            <td><form action="delete_room">
+                            <td><form action="delete_room" method="post">
                                 {% csrf_token %}
                                 <button type="submit">Delete Room</button>
-                                <input type="hidden" name="room_id" value="{{room.id}}">
+                                <input type="hidden" name="room" value="{{room.id}}">
                             </form></td>
                         </tr>
                     </table>

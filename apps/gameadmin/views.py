@@ -150,13 +150,13 @@ def delete_character(request):
 
 def delete_trap(request):
     if request.method == "POST":
-        Traps.objects.add_trap(request.POST)
-    return redirect('/admin')
+        Traps.objects.filter(id=request.POST['trap']).delete()
+    return redirect('/admin/admin_traps')
 
 def delete_room(request):
     if request.method == "POST":
-        Rooms.objects.add_room(request.POST)
-    return redirect('/admin')
+        Rooms.objects.filter(id=request.POST['room']).delete()
+    return redirect('/admin/admin_rooms')
 
 # ADD
 def add_exit(request):
@@ -175,7 +175,7 @@ def add_exit(request):
 def add_monster(request):
     if request.method == "POST":
         Monsters.objects.add_monster(request.POST)
-    return redirect('/admin')
+    return redirect('/admin/admin_monsters')
 
 def add_treasure(request):
     if request.method == "POST":
@@ -185,12 +185,12 @@ def add_treasure(request):
 def add_trap(request):
     if request.method == "POST":
         Traps.objects.add_trap(request.POST)
-    return redirect('/admin')
+    return redirect('/admin/admin_traps')
 
 def add_room(request):
     if request.method == "POST":
         Rooms.objects.add_room(request.POST)
-    return redirect('/admin')
+    return redirect('/admin/admin_rooms')
 
 def add_item(request):
     if request.method == "POST":
@@ -319,7 +319,8 @@ def edit_character(request, id):
 
 def edit_monster(request, id):
     context = {
-    'monsters': Monsters.objects.get(id=id),
+    'monster': Monsters.objects.get(id=id),
+    'characters': Characters.objects.all()
     }
     return render(request, 'gameadmin/edit_monster.html', context)
 
@@ -327,7 +328,7 @@ def edit_item(request, id):
     context = {
     'items': Items.objects.get(id=id),
     }
-    return render(request, 'gameadmin/edit_item.html', context)
+    return render(request, 'gameadmin/edit_items.html', context)
 
 def edit_treasure(request, id):
     context = {
@@ -339,7 +340,7 @@ def edit_trap(request, id):
     context = {
     'traps': Traps.objects.get(id=id),
     }
-    return render(request, 'gameadmin/edit_trap.html', context)
+    return render(request, 'gameadmin/edit_traps.html', context)
 
 def edit_room(request, id):
     context = {

@@ -5,3 +5,106 @@
 {% block scripts %}<script src="{% static 'gameadmin/js/sorttable.js' %}"></script>{% endblock %}
 {%block header %}Admin - Edit User{% endblock %}
 {% block content %}
+<div id="body"> 
+ <a href="/mainmenu/admin_menu">Admin Menu</a>
+        <h2>{{monster.name}}</h2>
+
+	<div>
+	<h2 class="this">Current Information</h2>
+     <table class="stats2">
+            <tr>
+                <th class="textleft">Name</th>
+                <th>Class</th>
+                <th>Strength</th>
+                <th>Dexterity</th>
+                <th>Intelligence</th>
+                <th>Health</th>
+                <th class="textleft">Image</th>
+                <th>Edit Monster </th>
+                <th>Delete Monster</th>
+                <th class="textleft">Killed By: </th>
+                
+            </tr>
+
+            <tr>
+                <td class="textleft">{{monster.name}}</td>
+                <td>{{monster.mclass}}</td>
+                <td>{{monster.strength}}</td>
+                <td>{{monster.dexterity}}</td>
+                <td>{{monster.intelligence}}</td>
+                <td>{{monster.health}}</td>
+                <td class="textleft">{{monster.image}}</td>
+                <td><form class="box" action="edit_monster/{{monster.id}}" method="post">
+                {% csrf_token %}
+                <button type="submit" name="button" value="{{monster.id}}">Edit Monster</button></form></td>
+                <td><form class="box" action="/admin/delete_monster" method="post">
+                {% csrf_token %}
+                <button type="submit" name="monster" value="{{monster.id}}">Delete Monster</button></form></td>
+                <td class="textleft">
+                    <table class="innertable">
+                        <tr>
+                            <th>{{monster.killed_by.name}}</th>
+                            
+                        </tr>
+                        {% for character in characters %}
+                        <tr>
+                             {% for character_mn in character.killed.all%} 
+                             {% if character_mn.id == monster.id%}
+                            <td class="textleft">{{character.name}}</td>
+                            {% endif %} {% endfor %} {% endfor %}
+                            <td>
+                                <form action="room_killer" method="post">
+                                    {% csrf_token %}
+                                    <button type="submit" name="">Add Killer</button>
+                                    <input type="hidden" name="monster_id" value="{{monster.id}}">
+                                </form>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+	</div>
+
+	<div>
+	<h2 class="this">Make Changes Below</h2>
+	
+        <table class="currentmons">
+            <form class="box" action="update_monster" method="post">
+            	<tr>
+                    <th>Name: </th>
+                    <th>Class: </th>
+					<th>Killed By: </th>
+					<th>Strength:</th>
+					<th>Dexterity:</th>
+					<th>Intelligence:</th>
+					<th>Health:</th>
+					<th>Image:</th>
+					<th>Save?:</th>
+                </tr>
+                <tr>
+                    <td><input type="text" name="name" value="{{monster.name}}"></td>
+                    <td class="right"><select name="mclass">
+                        <option value="BR">Brute (+5 Strength)</option>
+                        <option value="AS">Assasin (+5 Dexterity)</option>
+                        <option value="MA">Mage (+5 Intelligence)</option>
+                        <option value="EL">Elite (+5 All Stats)</option>
+                    </select></td>
+                    <td><select name="killed_by">
+                    	{% for character in characters %}
+                    	<option>{{character.name}}</option>
+                    	{% endfor %}
+                    </select>
+                    </td>
+                    <td><input type="text" name="strength" value="{{monster.strength}}"></td>
+                    <td><input type="text" name="dexterity" value="{{monster.dexterity}}"></td>
+                    <td><input type="text" name="intelligence" value="{{monster.intelligence}}"></td>
+                    <td><input type="text" name="health" value="{{monster.health}}"></td>
+                    <td class="right"><input type="text" name="image" value="{{monster.image}}"></td>
+                    <td class="right">{% csrf_token %}<input type="submit" name="submit" value="Save Changes"><input type="hidden" name="{{items.id}}" value="{{items.id}}"></td>
+                </tr>
+        	</form>
+        </table>
+	</div>
+</div>
+{% endblock %}
