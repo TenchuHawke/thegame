@@ -6,6 +6,10 @@
 {%block header %}User Admin {% endblock %}
 {% block content %}
 
+<form class="box" action="admin/updateCharacter" method="post">
+
+    {% csrf_token %}
+    <!-- #TODO (add user function) -->
     <a href="/mainmenu/admin_menu">Admin Menu</a>
     <table>
         <tr>
@@ -20,7 +24,7 @@
             <th>Name</th>
             <th>E-Mail</th>
             <th>User Level</th>
-            <th>Edit:</th>
+            <th></th>
             <th>Characters</th>
 
         </tr>
@@ -29,12 +33,12 @@
             <td class="textleft">{{user.username}}</td>
             <td class="textleft">{{user.email}}</td>
             <td>{{user.userlevel}}</td>
-            <td><form action="edit_user/{{user.id}}" method="post">
+            <td><form action="/admin/edit_user" method="post">
                 {% csrf_token %}
                 <button class="right" type="submit">Edit User</button>
-                <input type="hidden" name="user" value="{{user.id}}">
+                <input type="hidden" name="user" value="{{user}}">
             </form>
-            </td>
+</td>
             <td>
                 <table class="innertable">
                     {% for character in characters %}
@@ -43,11 +47,11 @@
                         <td class="left" align="left">
                             {{character.name}}
                         </td>
-                        <td>
-                            <form action="edit_character/{{character.id}}" method="post">
+                        <td align="right">
+                            <form class="right" action="/admin/edit_character" method="post">
                                 {% csrf_token %}
                                 <button class="right"type="submit">Edit Character</button>
-                                <input type="hidden" name="character" value="{{character.id}}">
+                                <input type="hidden" name="character" value="{{character}}">
                             </form>
                         </td>
                     </tr>

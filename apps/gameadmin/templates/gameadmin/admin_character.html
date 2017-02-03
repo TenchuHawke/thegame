@@ -9,10 +9,11 @@
     <script src="{% static 'gameadmin/js/megaadd.js' %}"></script>
 </head>
     <body>
+        <a href="/mainmenu/admin_menu">Admin Menu</a>
         <h2>Characters</h2>
         <form class="box" action="/mainmenu/create" method="post">
             {% csrf_token %}
-            <div id="inputfield">
+            <div >
                 <table>
                     <tr>
                         <td class="left">Name: </td>
@@ -27,7 +28,7 @@
             				</select></td>
                     </tr>
                     <tr>
-                        <td width=100px>Base Stats: (No mods) </td>
+                        <td colspan="2">Base Stats: (No mods) </td>
                     </tr>
                     <tr>
                         <td class="left"></td>
@@ -60,10 +61,12 @@
                 </table>
                 <br>
             </div>
-            <div id="fieldlist">
 
-            </div>
             <button type="submit" name="button">add Character</button>
+            <br>
+            <br>
+            <hr>
+            
             <table class="stats">
                 <tr>
                     <th class="textleft">Name</th>
