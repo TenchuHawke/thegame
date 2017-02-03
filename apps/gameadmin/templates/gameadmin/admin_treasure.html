@@ -36,10 +36,14 @@
                         <th class="textleft">Name</th>
                         <th>Gold</th>
                         <th>Item</th>
+                        <th>Edit Treasure: </th>
                         <th class="textleft">Location</th>
                     </tr>
                     {% for treasure in treasures %}
                     <tr>
+                        <td><form class="box" action="edit_treasure/{{treasure.id}}" method="post">
+                        {% csrf_token %}
+                        <button type="submit" name="button" value="{{treasure.id}}">Edit Treasure</button></td>
                         <td class="textleft">{{treasure.name}}</td>
                         <td>{{treasure.gold}}</td>
                         <td>

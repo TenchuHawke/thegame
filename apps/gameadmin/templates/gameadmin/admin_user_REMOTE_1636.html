@@ -1,21 +1,18 @@
-{% extends "gameadmin/base.html" %} {% include '/gameadmin/base.html' %}
-{% block title %}User Admin{% endblock %}
-{% block loads %}{% load static %} {% endblock %}
-{% block css %} <link rel="stylesheet" type="text/css" href="{% static 'gameadmin/css/admin.css' %}" /> {% endblock %}
-{% block scripts %}<script src="{% static 'gameadmin/js/sorttable.js' %}"></script>{% endblock %}
-{%block header %}User Admin {% endblock %}
-{% block content %}
+<!DOCTYPE html>
+<html>
+{% load static %}
 
+<head>
+    <meta charset="utf-8">
+    <title>MegaAdd</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'gameadmin/css/megaadd.css' %}" />
+    <script src="{% static 'gameadmin/js/megaadd.js' %}"></script>
+</head>
+
+<body>
+<h2>Users</h2>
     <a href="/mainmenu/admin_menu">Admin Menu</a>
     <table>
-        <tr>
-            <td><h2>Users</h2></td>
-        </tr>
-        <tr>
-
-        </tr>
-
-    <table class='sortable'>
         <tr>
             <th>Name</th>
             <th>E-Mail</th>
@@ -40,13 +37,13 @@
                     {% for character in characters %}
                     {% if character.owned_by == user %}
                     <tr>
-                        <td class="left" align="left">
+                        <td class="left">
                             {{character.name}}
                         </td>
                         <td>
                             <form action="edit_character/{{character.id}}" method="post">
                                 {% csrf_token %}
-                                <button class="right"type="submit">Edit Character</button>
+                                <button class="right" type="submit">Edit Character</button>
                                 <input type="hidden" name="character" value="{{character.id}}">
                             </form>
                         </td>
@@ -58,10 +55,6 @@
         </tr>
         {% endfor %}
     </table>
-
 </form>
-</tr>
-</table>
 
-
-{% endblock %}
+</body>

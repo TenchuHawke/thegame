@@ -1,9 +1,14 @@
+body {
+	background-color: grey;
+}
 #wrapper {
 	width: 900px;
 	border: 5px rgb(29, 51, 107) solid;
 	border-radius: 10px;
 	min-height: 600px;
 	margin:auto;
+	background-color: black;
+	color: orange;
 
 }
 #header {
@@ -11,7 +16,9 @@
 	/*text-decoration: underline;*/
 	display: inline-block;
 	font-size: 30px;
-	font-family: "Comic Sans MS", cursive, sans-serif
+	font-family: "Comic Sans MS", cursive, sans-serif;
+	margin-top: 15px;
+	color: orange;
 }
 h1 {
 	margin-bottom: 5px;
@@ -19,6 +26,7 @@ h1 {
 
 #menu {
 	text-align: center;
+	margin-top: 20px;
 
 }
 ul  {
