@@ -12,7 +12,7 @@
 	</div>
 	<div id="current">	
 		<h2>Current Information:</h2>
-		<table>
+		<table class="top">
 			<tr>	
 				<th>Name:</th>
 				<th>E-Mail:</th>
@@ -39,10 +39,10 @@
 			<tr>
 			
 				<form action="update_user/{{user.id}}" method="post">
-				<th><input type="text" name="username" value="{{users.username}}"></th>
-				<th><input type="email" name="email" value="{{users.email}}"></th>
-				<th><input type="number" name="userlevel" value="{{users.userlevel}}"></th>
-				<th>{% csrf_token %}<input type="submit" name="submit" value="Save Changes">
+				<th><input class="user" type="text" name="username" value="{{users.username}}"></th>
+				<th><input class="user" type="email" name="email" value="{{users.email}}"></th>
+				<th><input class="user" type="number" name="userlevel" value="{{users.userlevel}}"></th>
+				<th>{% csrf_token %}<input class="user" type="submit" name="submit" value="Save Changes">
 				<input type="hidden" name="item_id" value="{{item.id}}"></th>
 				</form>
 			</tr>

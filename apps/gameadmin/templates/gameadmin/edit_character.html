@@ -1,18 +1,18 @@
 {% extends "gameadmin/base.html" %} {% include '/gameadmin/base.html' %}
-{% block title %}Character Admin{% endblock %}
+{% block title %}Admin - Edit Character{% endblock %}
 {% block loads %}{% load static %} {% endblock %}
-{% block css %} <link rel="stylesheet" type="text/css" href="{% static 'gameadmin/css/admin.css' %}" /> {% endblock %}
+{% block css %} <link rel="stylesheet" type="text/css" href="{% static 'gameadmin/css/edit.css' %}" /> {% endblock %}
 {% block scripts %}<script src="{% static 'gameadmin/js/sorttable.js' %}"></script>{% endblock %}
 {%block header %}Admin - Edit Character {% endblock %}
 {% block content %}
-<div id="wrapper">	
+<div id="body">	
 	<div id="header">
-		<h{{character.}}>{{character.name}}</h{{character.}}>
+		<h1>{{characters.name}}</h1>
 		<a href="/mainmenu/admin_menu">Admin Menu</a>
 	</div>
 	<div id="current">	
 		<h2>Current Information:</h2>
-		<table>
+		<table class="edit_characters">
 			<tr>
                 <th>Name: </th>
                 <th>Class: </th>
@@ -22,24 +22,24 @@
                 <th>Health: </th>
                 <th>Gold: </th>
                 <th>Level: </th>
-                <th>Edit: </th>
                 <th>Owned By: </th>
             </tr>
             <tr>
-        		<td>{{character.name}}</td>
-                <td>{{character.cclass}}</td>
-                <td>{{character.strength}}</td>
-                <td>{{character.dexterity}}</td>
-                <td>{{character.intelligence}}</td>
-                <td>{{character.health}}</td>
-                <td>{{character.gold}}</td>
-                <td>{{character.level}}</td>
+        		<td>{{characters.name}}</td>
+                <td>{{characters.cclass}}</td>
+                <td>{{characters.strength}}</td>
+                <td>{{characters.dexterity}}</td>
+                <td>{{characters.intelligence}}</td>
+                <td>{{characters.health}}</td>
+                <td>{{characters.gold}}</td>
+                <td>{{characters.level}}</td>
+                <th>{{characters.owned_by.username}}</th>
             </tr>
         </table>
     </div>
     <div id="edits">
     	<h2>Make Changes Below</h2>
-    	<table>
+    	<table class="change_characters">
     		<tr>
 	    		<th>Name: </th>
 	            <th>Class: </th>
@@ -52,25 +52,26 @@
 	            <th>Submit: </th>
 	        </tr>
 	        <tr>
-	        	<form action="update_character/{{character.id}}" method="post">
-				<th><input type="text" name="name" value="{{character.name}}"></th>
-				<th><select>
-					<option value="FI">Fighter</option>
-					<option value="RO">Rogue</option>
-					<option value="WI">Wizard</option>
+	        	<form action="update_character/{{characters.id}}" method="post">
+				<td><input class="user" type="text" name="name" value="{{characters.name}}"></td>
+				<td><select id="selectchar">
+					<option value="FI">FI</option>
+					<option value="RO">RO</option>
+					<option value="WI">WI</option>
 					</select>
-					</th>
-				<th><input type="text" name="strength" value="{{character.strength}}"></th>
-				<th><input type="text" name="dext" value="{{character.dexterity}}"></th>
-				<th><input type="text" name="intel" value="{{character.intelligence}}"></th>
-				<th><input type="text" name="health" value="{{character.health}}"></th>
-				<th><input type="number" name="gold" value="{{character.gold}}"></th>
-				<th><input type="number" name="level" value="{{character.level}}"></th>
-				<th>{% csrf_token %}<input type="submit" name="submit" value="Save Changes">
-				<input type="hidden" name="character_id" value="{{character.id}}"></th>
-				</form>
+					</td>
+				<td><input class="char" type="text" name="strength" value="{{characters.strength}}"></td>
+				<td><input class="char" type="text" name="dext" value="{{characters.dexterity}}"></td>
+				<td><input class="char" type="text" name="intel" value="{{characters.intelligence}}"></td>
+				<td><input class="char" type="text" name="health" value="{{characters.health}}"></td>
+				<td><input class="char" type="number" name="gold" value="{{characters.gold}}"></td>
+				<td><input class="char" type="number" name="level" value="{{characters.level}}"></td>
+				<td>{% csrf_token %}<input type="submit" name="submit" value="Save Changes">
+				<input type="hidden" name="character_id" value="{{characters.id}}"></form></td>
+				
 			</tr>
 		</table>
+	</div>
 
 
 

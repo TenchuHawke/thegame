@@ -71,7 +71,9 @@ table.innertable td{
 #edit {
 	border: 1px solid black;
 }
-
+.admin_monster {
+	width: 300px;
+}
 
 
 
