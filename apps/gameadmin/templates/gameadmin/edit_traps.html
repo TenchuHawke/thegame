@@ -1,0 +1,55 @@
+{% extends "gameadmin/base.html" %} {% include '/gameadmin/base.html' %}
+{% block title %}Admin - Edit Traps{% endblock %}
+{% block loads %}{% load static %} {% endblock %}
+{% block css %} <link rel="stylesheet" type="text/css" href="{% static 'gameadmin/css/edit.css' %}" /> {% endblock %}
+{%block header %}Edit Traps{% endblock %}
+{% block content %}
+<div id="edittrap">	
+	<div id="header">
+		<h1>{{traps.name}}</h1>
+		<a href="/mainmenu/admin_menu">Admin Menu</a>
+	</div>
+	<div id="current">	
+		<h2>Current Information:</h2>
+		<table class="top">
+			<tr>	
+				<th>Name:</th>
+				<th>Class</th>
+				<th>Strength</th>
+			</tr>
+			
+			<tr>
+				<td>{{traps.name}}</td>
+				<td>{{traps.tclass}}</td>
+				<td>{{traps.strength}}</td>
+			</tr>
+			
+		</table>
+	</div>
+	<div id="edits">
+		<h2>Make Changes Below:</h2>
+		<table class="abc">
+			<tr>
+				<th>Name:</th>
+				<th>Class</th>
+				<th>Strength</th>
+				<th>Submit:</th>
+			</tr>
+			<tr>
+				<form action="update_trap/{{traps.id}}" method="post">
+				<th><input class="user" type="text" name="trap" value="{{traps.name}}"></th>
+				<th><select id="selectchar" name="class" value="{{traps.tclass}}">
+					<option>PZ</option>
+					<option>PS</option>
+					<option>RF</option>
+					<option>CL</option>
+				</select></th>
+				<th><input class="user" type="number" name="strength" value="{{traps.strength}}"></th>
+				<th>{% csrf_token %}<input class="users" type="submit" name="submit" value="Save Changes">
+				<input type="hidden" name="traps_id" value="{{traps.id}}"></th>
+				</form>
+			</tr>
+		</table>
+	</div>
+</div>
+{% endblock %}

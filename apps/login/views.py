@@ -8,7 +8,7 @@ name = re.compile(r'^[a-zA-Z]')
 
 
 def index(request):
-    return render(request, 'login/base.html')
+    return render(request, 'login/login.html')
 
 
 def main(request):

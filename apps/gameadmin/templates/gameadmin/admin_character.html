@@ -65,6 +65,7 @@
             <h2>Current Characters</h2>
             <table class="stats">
                 <tr>
+                    <th>ID</th>
                     <th class="textleft">Name</th>
                     <th>Class</th>
                     <th>Strength</th>
@@ -79,6 +80,7 @@
                 </tr>
                 {% for character in characters %}
                 <tr>
+                    <td>{{character.id}}</td>
                     <td class="textleft">{{character.name}}</td>
                     <td>{{character.cclass}}</td>
                     <td>{{character.strength}}</td>

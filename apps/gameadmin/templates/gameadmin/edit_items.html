@@ -1,0 +1,67 @@
+{% extends "gameadmin/base.html" %} {% include '/gameadmin/base.html' %}
+{% block title %}Admin - Edit Item{% endblock %}
+{% block loads %}{% load static %} {% endblock %}
+{% block css %} <link rel="stylesheet" type="text/css" href="{% static 'gameadmin/css/edit.css' %}" /> {% endblock %}
+{% block scripts %}<script src="{% static 'gameadmin/js/sorttable.js' %}"></script>{% endblock %}
+{%block header %}Admin - Edit Item {% endblock %}
+{% block content %}
+<div id="body">	
+	<div id="header">
+		<h1>{{items.name}}</h1>
+		<a href="/mainmenu/admin_menu">Admin Menu</a>
+	</div>
+	<div id="current">	
+		<h2>Current Information:</h2>
+		<table class="edit_characters">
+			<tr>
+                <th>ID:</th>
+                <th>Name: </th>
+                <th>Strength Bonus: </th>
+                <th>Dexterity Bonus: </th>
+                <th>Intelligence Bonus: </th>
+                <th>Health Bonus: </th>
+				<th>Consumable?:</th>
+            </tr>
+            <tr>
+            	<td>{{items.id}}</td>
+        		<td>{{items.name}}</td>
+                <td>{{items.strbonus}}</td>
+                <td>{{items.desbonus}}</td>
+                <td>{{items.intbonus}}</td>
+                <td>{{items.hthbonus}}</td>
+                <td>{{items.consumable}}</td>
+            </tr>
+        </table>
+    </div>
+    <div id="edits">
+    	<h2>Make Changes Below</h2>
+    	<table class="change_characters">
+    		<tr>
+	    		<th>ID:</th>
+                <th>Name: </th>
+                <th>Strength Bonus: </th>
+                <th>Dexterity Bonus: </th>
+                <th>Intelligence Bonus: </th>
+                <th>Health Bonus: </th>
+				<th>Consumable?:</th>
+				<th>Submit:</th>
+	        </tr>
+	        <tr>
+	        	<form action="update_item/{{items.id}}" method="post">
+	        	<td>{{items.id}}</td>
+				<td><input class="user" type="text" name="item" value="{{items.name}}"></td>
+				<td><input type="number" name="strbonus" value="{{items.strbonus}}"></td>
+				<td><input type="number" name="desbonus" value="{{items.desbonus}}"></td>
+				<td><input type="number" name="intbonus" value="{{items.intbonus}}"></td>
+				<td><input type="number" name="hthbonus" value="{{items.hthbonus}}"></td>
+				<td><select name="consumable">
+                    <option value="False">False</option>
+                    <option value="True">True</option>
+                    </select></td>
+				<td>{% csrf_token %}<input type="submit" name="submit" value="Save Changes">
+				<input type="hidden" name="{{items.id}}" value="{{items.id}}"></form></td>
+				
+			</tr>
+		</table>
+	</div>
+{% endblock %}

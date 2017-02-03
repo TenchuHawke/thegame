@@ -1,22 +1,31 @@
+body {
+	background-color: grey;
+}
 #wrapper {
 	width: 900px;
 	border: 5px rgb(29, 51, 107) solid;
 	border-radius: 10px;
 	height: 600px;
+	margin:auto;
+	background-color: black;
+	color: orange;
 
 }
 
 #header {
 	text-align: center;
-	text-decoration: underline;
+	margin-top: 20px;
 	
 }
-
+h2 {
+	margin-top: 20px;
+}
 #login {
 	text-align: center;
 }
 #login1 {
 	display: inline-block;
+	margin-top: 20px;
 }
 .box {
 	height: 20px;
@@ -29,17 +38,26 @@
 #submita {
 	border-radius: 5px;
 	font-size: 15px;
-	margin-top: 5px;
+	margin-top: 15px;
+	border-radius: 5px;
+	background-color: black;
+	box-shadow: 2px 2px orange;
+	color: white;
 }
 
 #register {
 	text-align: left;
-	margin-left: 280px;
+	margin-top: 30px;
+
+}
+#register td {
+	font-size: 20px;
 
 }
 #registering {
 	text-align: center;
 	display: block;
+	margin-top: 30px;
 }
 
 .boxa {
@@ -54,6 +72,20 @@
 #submitb {
 	border-radius: 5px;
 	font-size: 15px;
-	margin-left: 130px;
-	margin-top: 5px;
+	margin-left: 415px;
+	margin-top: 15px;
+	border-radius: 5px;
+	background-color: black;
+	box-shadow: 2px 2px orange;
+	color: white;
 }
+input {
+	border: 3px solid orange;
+	font-family: "Comic Sans MS", cursive, sans-serif;
+}
+
+
+
+
+
+
