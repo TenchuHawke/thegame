@@ -26,7 +26,7 @@
             	<td>{{items.id}}</td>
         		<td>{{items.name}}</td>
                 <td>{{items.strbonus}}</td>
-                <td>{{items.desbonus}}</td>
+                <td>{{items.dexbonus}}</td>
                 <td>{{items.intbonus}}</td>
                 <td>{{items.hthbonus}}</td>
                 <td>{{items.consumable}}</td>
@@ -47,11 +47,11 @@
 				<th>Submit:</th>
 	        </tr>
 	        <tr>
-	        	<form action="update_item/{{items.id}}" method="post">
+	        	<form action="{% url 'Admin:update_item' %}" method="post">
 	        	<td>{{items.id}}</td>
 				<td><input class="user" type="text" name="item" value="{{items.name}}"></td>
 				<td><input type="number" name="strbonus" value="{{items.strbonus}}"></td>
-				<td><input type="number" name="desbonus" value="{{items.desbonus}}"></td>
+				<td><input type="number" name="dexbonus" value="{{items.dexbonus}}"></td>
 				<td><input type="number" name="intbonus" value="{{items.intbonus}}"></td>
 				<td><input type="number" name="hthbonus" value="{{items.hthbonus}}"></td>
 				<td><select name="consumable">
@@ -59,10 +59,22 @@
                     <option value="True">True</option>
                     </select></td>
 				<td>{% csrf_token %}<input type="submit" name="submit" value="Save Changes">
-				<input type="hidden" name="{{items.id}}" value="{{items.id}}"></form></td>
-				
+				<input type="hidden" name="id" value="{{items.id}}"></td>
+				</form>
 			</tr>
 		</table>
+    </div>    
+        <div>
         <a href="{% url 'Admin:admin_items' %}">Go Back</a>
-	</div>
+        {% if messages %}
+                    <ul class="messages">
+                        {% for message in messages %}
+                            <li {% if message.tags %} class=" {{ message.tags }}" {% endif%}>
+                                {{ message }}
+                            </li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+        </div>
+</div>
 {% endblock %}

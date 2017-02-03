@@ -1,17 +1,13 @@
-<!DOCTYPE html>
-<html>
-{% load static %}
-
-<head>
-    <meta charset="utf-8">
-    <title>MegaAdd</title>
-    <link rel="stylesheet" type="text/css" href="{% static 'gameadmin/css/megaadd.css' %}" />
-    <script src="{% static 'gameadmin/js/megaadd.js' %}"></script>
-</head>
-    <body>
+{% extends "gameadmin/base.html" %} {% include '/gameadmin/base.html' %}
+{% block title %}Treasure Admin{% endblock %}
+{% block loads %}{% load static %} {% endblock %}
+{% block css %} <link rel="stylesheet" type="text/css" href="{% static 'gameadmin/css/admin.css' %}" /> {% endblock %}
+{% block scripts %}<script src="{% static 'gameadmin/js/sorttable.js' %}"></script>{% endblock %}
+{%block header %}Treasure Admin {% endblock %}
+{% block content %}
         <a href="/mainmenu/admin_menu">Admin Menu</a>
 
-            <h2>Treasure</h2>
+            <h2>Add Treasure</h2>
             <form class="box" action="add_treasure" method="post">
                 <table>
                     <tr>
@@ -31,8 +27,9 @@
                 </table>
 
                 {% csrf_token %}
-                <button type="submit" name="button">add Treasure</button>
+                <button class="add" type="submit" name="button">Add Treasure</button>
                 </form>
+                <h2>Current Treasures</h2>
                 <table class="stats">
                     <tr>
                         <th class="textleft">Name</th>
@@ -77,5 +74,4 @@
                 </table>
             </form>
 
-    </body>
-</html>
+{% endblock %}

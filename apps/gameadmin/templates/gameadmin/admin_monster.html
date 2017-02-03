@@ -6,7 +6,7 @@
 {%block header %}Monster Admin {% endblock %}
 {% block content %}
         <a href="/mainmenu/admin_menu">Admin Menu</a>
-        <h2>Monsters</h2>
+        <h2>Add Monster</h2>
         <form class="box" action="add_monster" method="post">
             <table id="admin_monster">
                 <tr>
@@ -51,8 +51,9 @@
                 </tr>
             </table>
             {% csrf_token %}
-            <button type="submit" name="button">add Monster</button>
+            <button type="submit" name="button" class="add">Add Monster</button>
         </form>
+        <h2>Current Monsters</h2>
         <table class="stats">
             <tr>
                 <th class="textleft">Name</th>

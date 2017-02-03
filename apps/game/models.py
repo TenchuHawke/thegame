@@ -13,6 +13,28 @@ class RoomManager(models.Manager):
         terrain_type = postData['terrain_type'],
         )
 
+    def update_room(self, postData):
+        errors = []
+        room = Rooms.objects.filter(name=postData['name']).exclude(id=postData['id'])
+        print postData
+        if room:
+            errors.append('Trap already exists')
+
+        modelResponse={}
+        if errors:
+            modelResponse['status'] = False
+            modelResponse['errors'] = errors
+        else:
+            room = Rooms.objects.get(id=postData['id'])
+            room.name = postData['name']
+            room.description = postData['description']
+            room.peek_description = postData['peek_description']
+            room.terrain_type = postData['terrain_type']
+            room.save()
+            modelResponse['status'] = True
+        return modelResponse
+
+
     def fill_room(self, room, hero):
         pass
 
@@ -41,6 +63,31 @@ class MonsterManager(models.Manager):
         image = postData['image'],
         )
 
+    def update_monster(request, postData):
+        errors = []
+        monster = Monsters.objects.filter(name=postData['name']).exclude(id=postData['id'])
+        if monster:
+            errors.append('Monster Name already exists')
+
+        modelResponse={}
+        
+        if errors:
+            modelResponse['status'] = False
+            modelResponse['errors'] = errors
+        else:
+            monster = Monsters.objects.get(id=postData['id'])
+            monster.name = postData['name']
+            monster.mclass = postData['mclass']
+            monster.killed_by = postData['killed_by']
+            monster.strength = postData['strength']
+            monster.dexterity = postData['dexterity']
+            monster.intelligence = postData['intelligence']
+            monster.health = postData['health']
+            monster.image = postData['image']
+            monster.save()
+            modelResponse['status'] = True
+        return modelResponse
+        
 
 class TrapManager(models.Manager):
     def add_trap(self, postData):
@@ -50,6 +97,26 @@ class TrapManager(models.Manager):
         strength = postData['strength'],
         )
 
+    def update_trap(self, postData):
+        errors = []
+        trap = Treasures.objects.filter(name=postData['name']).exclude(id=postData['id'])
+        print postData
+        if trap:
+            errors.append('Trap already exists')
+
+        modelResponse={}
+
+        if errors:
+            modelResponse['status'] = False
+            modelResponse['errors'] = errors
+        else:
+            trap = Traps.objects.get(id=postData['id'])
+            trap.name = postData['name']
+            trap.tclass = postData['class']
+            trap.strength = postData['strength']
+            trap.save()
+            modelResponse['status'] = True
+        return modelResponse
 
 class TreasureManager(models.Manager):
     def add_treasure(self, postData):
@@ -60,6 +127,27 @@ class TreasureManager(models.Manager):
         item = item,
         )
 
+    def update_treasure(self, postData):
+        errors = []
+        treasure = Treasures.objects.filter(name=postData['name']).exclude(id=postData['id'])
+        teaitem = Items.objects.get(id=postData['item'])
+        print postData
+        if treasure:
+            errors.append('Treasure already exists')
+
+        modelResponse={}
+
+        if errors:
+            modelResponse['status'] = False
+            modelResponse['errors'] = errors
+        else:
+            treasure = Treasures.objects.get(id=postData['id'])
+            treasure.name = postData['name']
+            treasure.gold = postData['gold']
+            treasure.item = teaitem
+            treasure.save()
+            modelResponse['status'] = True
+        return modelResponse
 
 
 class ExitManager(models.Manager):
@@ -93,6 +181,29 @@ class ItemManager(models.Manager):
         consumable = postData['consumable'],
         )
 
+    def update_item(self, postData):
+        errors = []
+        item = Items.objects.filter(name=postData['item']).exclude(id=postData['id'])
+        print postData
+        if item:
+            errors.append('Item already exists')
+
+        modelResponse={}
+
+        if errors:
+            modelResponse['status'] = False
+            modelResponse['errors'] = errors
+        else:
+            item = Items.objects.get(id=postData['id'])
+            item.name = postData['item']
+            item.strbonus = postData['strbonus']
+            item.dexbonus = postData['dexbonus']
+            item.intbonus = postData['intbonus']
+            item.hthbonus = postData['hthbonus']
+            item.consumable = postData['consumable']
+            item.save()
+            modelResponse['status'] = True
+        return modelResponse
 
 class CombatManager(models.Manager):
     def add_combat(self, room, hero, monsters):
@@ -134,6 +245,35 @@ class CharacaterManager(models.Manager):
             modelResponse['status']=True
             modelResponse['character']=char
         return modelResponse
+
+
+    def update_character(self, postData):
+        errors = []
+        character = Characters.objects.filter(name=postData['name']).exclude(id=postData['id'])
+        if character:
+            errors.append('Character Name already exists')
+
+        modelResponse={}
+        
+        if errors:
+            modelResponse['status'] = False
+            modelResponse['errors'] = errors
+        else:
+            character = Characters.objects.get(id=postData['id'])
+            character.name = postData['name']
+            character.cclass = postData['cclass']
+            character.strength = postData['strength']
+            character.dexterity = postData['dext']
+            character.intelligence = postData['intel']
+            character.health = postData['health']
+            character.current_health = postData['current_health']
+            character.gold = postData['gold']
+            character.killed_by = postData['killed_by']
+            character.level = postData['level']
+            character.save()
+            modelResponse['status'] = True
+        return modelResponse
+        
 
 
     def calculate_stats(self, character):

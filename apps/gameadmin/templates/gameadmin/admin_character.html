@@ -74,6 +74,7 @@
                     <th>Health</th>
                     <th>Gold</th>
                     <th>Level</th>
+                    <th>Killed By</th>
                     <th>Edit</th>
                     <th>Delete</th>
                     <th class="textleft">Owned By</th>
@@ -89,13 +90,9 @@
                     <td>{{character.health}}</td>
                     <td>{{character.gold}}</td>
                     <td>{{character.level}}</td>
+                    <td>{{character.killed_by}}</td>
                     <td>
-                        <form action="edit_character/{{character.id}}" method="post">
-                        
-                        <button id="edit" type="submit">Edit Character</button>
-                        {% csrf_token %}
-                        <input type="hidden" name="character" value="{{character.id}}">
-                        </form>
+                        <a id="editlink" href="edit_character/{{character.id}}">Edit Character</a>
                     </td>
                     <td>
                         <form action="/admin/delete_character" method="post">
