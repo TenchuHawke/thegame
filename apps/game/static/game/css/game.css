@@ -47,3 +47,17 @@
 #logout {
     margin-top: 15px;
 }
+
+#contents{
+    display: inline-block;
+    max-width: 60%;
+    margin: 20px 20px 0px 50px;
+    vertical-align: top;
+}
+
+#hero{
+    display: inline-block;
+    max-width: 30%;
+    margin: 20px 50px 0px 20px;
+    vertical-align: top;
+}

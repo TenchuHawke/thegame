@@ -26,7 +26,7 @@
                  {# TODO logged in logic#}
                  <p></p>
                  <p></p>
-                 <form action="/login/logout" method="post">
+                 <form action="login/logout" method="post">
                      {% csrf_token %}
                      <button type="submit" name="login" id="logout">Log out</button>
 
@@ -37,8 +37,7 @@
                 <p></p>
                 <p></p>
                 {# TODO not logged in logic#}
-                <form action="/login" method="post">
-                    {% csrf_token %}
+                <form action="/login">
                     <button type="submit" name="login">Log in</button>
 
                 </form>

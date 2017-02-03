@@ -3,7 +3,7 @@ from django.contrib import messages
 from models import Users, Characters, Monsters, Rooms, Items, Traps, Treasures, Exits
 from django.template import Context
 from random import randint
-
+import string
 
 def index(request):
     return render(request, 'game/game.html')
@@ -20,11 +20,24 @@ def calculate_stats(request, character):
             dexterity+=int(item.dexbonus)
             intelligence+=int(item.intbonus)
             health+=int(item.hthbonus)
+    strdiff= int(strength)-int(character.strength)
+    strdiff= '{:+}'.format(strdiff)
+    dexdiff= int(dexterity)-int(character.dexterity)
+    dexdiff= '{:+}'.format(dexdiff)
+    intdiff= int(intelligence)-int(character.intelligence)
+    intdiff= '{:+}'.format(intdiff)
+    hthdiff= int(health)-int(character.health)
+    hthdiff= '{:+}'.format(hthdiff)
+
     return_to_view = {
     'strength': strength,
     'dexterity': dexterity,
     'intelligence': intelligence,
     'health': health,
+    'strdiff': strdiff,
+    'dexdiff': dexdiff,
+    'intdiff': intdiff,
+    'hthdiff': hthdiff,
     }
     return return_to_view
 

@@ -36,6 +36,8 @@ class CharacaterManager(models.Manager):
         return modelResponse
 
 
+
+
 class Characters(models.Model):
     FIGHTER = 'FI'
     ROGUE = 'RO'

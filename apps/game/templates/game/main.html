@@ -100,29 +100,45 @@
 {% endblock %} {% block character %}
 <table>
     <tr>
-        <th colspan="2">
+        <th colspan="2" class="center">
             <h1>{{hero.name}}</h1></th>
     </tr>
     <tr>
         <td>
-            <h3>Class:</h3></td>
-        <td>
+            <h3 class="left">Class:</h3></td>
+        <td class="right">
             <h3>{% if hero.cclass == "FI" %}Fighter {% elif hero.cclass == "RO"%} Rogue {% else %} Wizard {% endif %}</h3>
         </td>
     </tr>
     <tr>
-        <td><h3>Stregth:</h3></td><td><h3>{{stats.strength}}</h3></td>
+        <td class="left"><h3>Stregth:</h3></td><td class="right"><h3>{{stats.strength}}{% if not stats.strdiff == '+0' %}<span {% if stats.strdiff > 0 %}class = "positive" {% else %} class = "negative" {% endif %}>({{stats.strdiff}})<span>{% endif %}</h3></td>
     </tr>
     <tr>
-        <td><h3>Dexterity:</h3></td><td><h3>{{stats.dexterity}}</h3></td>
+        <td class="left"><h3>Dexterity:</h3></td><td class="right"><h3>{{stats.dexterity}}{% if not stats.dexdiff == '+0' %}<span {% if stats.dexdiff > 0 %}class = "positive" {% else %} class = "negative" {% endif %}>({{stats.dexdiff}})<span>{% endif %}</h3></td>
     </tr>
     <tr>
-        <td><h3>intelligence:</h3></td><td><h3>{{stats.intelligence}}</h3></td>
+        <td class="left"><h3>intelligence:</h3></td><td class="right"><h3>{{stats.intelligence}}{% if not stats.intdiff == '+0' %}<span {% if stats.intdiff > 0 %}class = "positive" {% else %} class = "negative" {% endif %}>({{stats.intdiff}})<span>{% endif %}</h3></td>
     </tr>
     <tr>
-        <td colspan="2"><h2>Health:</h2></td>
+        <td colspan="2" class="center"><h2>Health:</h2></td>
     </tr>
     <tr>
-        <td colspan="2"><h1>{{stats.health}}</h1></td>
+        <td colspan="2" class="center"><h1>{{stats.health}}{% if not stats.hthdiff == '+0' %}<span {% if stats.hthdiff > 0 %}class = "positive" {% else %} class = "negative" {% endif %}>({{stats.hthdiff}})<span>{% endif %}</h3></h1></td>
+    </tr>
+    <tr>
+
+    </tr>
+    <tr>
+        <td class="left"><h3>Gold</h3></td><td class="right">{{hero.gold}}</td>
+    </tr>
+    <tr>
+        <table>
+            <th colspan="2"><h2>Items</h2></th>
+            {% for item in items %}
+            <tr>
+            <td>{{item.name}}</td>
+            </tr>
+            {% endfor %}
+        </table>
     </tr>
     </table> {% endblock %}

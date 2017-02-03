@@ -20,10 +20,11 @@ def index(request):
     return render(request, 'gameadmin/megaadd.html', context)
 
 
+
+# first half of assigning objects display all options for X_Y
 def room_exit(request):
     context = {
         'room': Rooms.objects.get(id=request.POST['room_id']),
-        # 'room': Rooms.objects.get(id="2"),
         'exits': Exits.objects.all(),
         'rooms': Rooms.objects.all(),
         }
@@ -74,6 +75,12 @@ def room_explorer(request):
         }
     return render(request, 'gameadmin/explored_by.html', context)
 
+def character_item(request):
+    context = {
+        'item': Items.objects.get(id=request.POST['item_id']),
+        'characters': Characters.objects.all(),
+        }
+    return render(request, 'gameadmin/character_item.html', context)
 
 # ASSIGN
 def assign_monster(request):
@@ -118,6 +125,13 @@ def assign_treasure(request):
         room = Rooms.objects.get(id=request.POST['room'])
         treasure = Treasures.objects.get(id=request.POST['treasure'])
         room.treasure.add(treasure)
+    return redirect('/admin')
+
+def assign_item(request):
+    if request.method == "POST":
+        character = Characters.objects.get(id=request.POST['character'])
+        item = Items.objects.get(id=request.POST['item'])
+        item.owned_by.add(character)
     return redirect('/admin')
 
 # DELETE
@@ -256,6 +270,7 @@ def admin_characters(request):
 def admin_items(request):
     context = {
         'items': Items.objects.all().order_by('name'),
+        'characters':Characters.objects.all().order_by('name')
         }
     return render(request, 'gameadmin/admin_item.html', context)
 
