@@ -2,58 +2,51 @@
 <html>
 
 <head>
-    <meta charset="utf-8"> {% load static %}
-    {% block loads %} {%endblock%}
-    <link rel="stylesheet" type="text/css" href="{% static 'game/css/game.css' %}">
-    {% block css %}{% endblock %}
-    <title> {% block title %}The Game {% endblock %}</title>
+    <meta charset="utf-8"> {% block loads %} {% load static %} {%endblock%}
+    <link rel="stylesheet" type="text/css" href="{% static 'game/css/main.css' %}"> {% block css %}{% endblock %}
+    <title> {% block title %} Entering the game! {% endblock %}</title>
 </head>
 
 <body>
     <div id="container">
-        <header id='headerblock'>
+        <header id="headerblock">
             <div id="logoblock">
-                <img src="{% static 'login/img/Lorem_Ipsum.svg' %}" alt="Logo Placeholder">
-
+                <img src="{% static 'game/img/templogo.png' %}" alt="Logo Placeholder">
             </div>
             <div id="titleblock">
-                <h1> THE GAME </h1>
+                <h1>{% block header %}Lorem ipsum dolor sit {% endblock %}</h1>
             </div>
             <div id="loginblock">
                 {% if request.session.user_id %}
                 <p></p>
-                Well met, <br> {{request.session.username}}
-                 <p></p>
-                 <p></p>
-                 <form action="/Login/logout/" method="post">
-                     {% csrf_token %}
-                     <button type="submit" name="login">Log out</button>
-
-                 </form>
+                Hello {{request.session.username}} {# TODO logged in logic#}
+                <p></p>
+                <p></p>
+                <form action="/login/logout/" method="post">
+                    {% csrf_token %}
+                    <button type="submit" name="login">Log out</button>
+                </form>
                 {% else %}
                 <p></p>
                 <p>Please Log in</p>
                 <p></p>
                 <p></p>
-                <form action="login" method="post">
+                {# TODO not logged in logic#}
+                <form action="/login/login" method="post">
                     {% csrf_token %}
                     <button type="submit" name="login">Log in</button>
-
                 </form>
                 {% endif %}
             </div>
         </header>
-        <div id="content">
-            {% block content %}
-
-            {% endblock %}
-        </div>
-        <div id="character">
-            {% block character %}
-
-            {% endblock %}
+        <div id="wrapper">
+            <div id="content">
+                {% block content %}
+                <p><h3><a href="/game/main">Start Playing</a></h3></p>
+                <p><h3><a href="/mainmenu/">Back to Main Menu</a></h3></p> 
+                {% endblock %}
+            </div>
         </div>
     </div>
 </body>
-
 </html>

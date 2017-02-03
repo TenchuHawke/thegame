@@ -4,8 +4,10 @@
 {% block css %} <link rel="stylesheet" type="text/css" href="{% static 'mainmenu/css/hall.css' %}" /> {% endblock %}
 
 {% block content %}
-
-
+<div id="links">
+<a href="{% url 'Mainmenu:index' %}">Home</a>
+<a href="{% url 'Login:logout' %}">Logout</a>
+</div>
 {% for character in characters %}
 <table>
 <tr>

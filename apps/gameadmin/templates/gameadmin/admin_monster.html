@@ -62,7 +62,8 @@
                 <th>Intelligence</th>
                 <th>Health</th>
                 <th class="textleft">Image</th>
-                <th>Edit Monster: </th>
+                <th>Edit Monster </th>
+                <th>Delete Monster</th>
                 <th class="textleft">Killed By: </th>
                 <th class="textleft">Locations</th>
             </tr>
@@ -77,7 +78,10 @@
                 <td class="textleft">{{monster.image}}</td>
                 <td><form class="box" action="edit_monster/{{monster.id}}" method="post">
                 {% csrf_token %}
-                <button type="submit" name="button" value="{{monster.id}}">Edit Monster</button></td>
+                <button type="submit" name="button" value="{{monster.id}}">Edit Monster</button></form></td>
+                <td><form class="box" action="/admin/delete_monster" method="post">
+                {% csrf_token %}
+                <button type="submit" name="monster" value="{{monster.id}}">Delete Monster</button></form></td>
                 <td class="textleft">
                     <table class="innertable">
                         <tr>

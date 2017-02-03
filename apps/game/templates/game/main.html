@@ -1,0 +1,51 @@
+{% extends "game/game.html" %} {% include '/game/game.html' %} {% block title %}Endless Dungeon!{% endblock %} {% block loads %}{% load static %} {% endblock %} {% block css %}
+<link rel="stylesheet" type="text/css" href="{% static 'game/css/main.css' %}" /> {% endblock %} {%block header %} Exloring {{location.name}}! {% endblock %} {% block content %}
+<div id="wrapper">
+    <div id="contents">
+        <a href="/admin">Go Back</a>
+        <div id="room">
+
+            <h1>{{location.name}}</h1>
+            <br>
+            <br>
+            <p>{{hero.name}} enters the area.</p>
+            <p>{{location.description}}</p>
+            <br>
+            <br>
+            <div id='resting'>
+                <p>Heroes that are resting here, watching:</p>
+                <ul>
+                    {% for character in characters %} {% if character.populating.id == room.id %}
+                    <li>{{character.name}}</li>
+                    {% endif %} {% endfor %}
+                </ul>
+                <br>
+                <br>
+            </div>
+            <div id='resting'>
+                <p>You notice the following monsters, blocking the way:</p>
+
+                {{monster.name}}
+                {% endfor %}
+                <hr>
+                {% for monster in rm_monsters %}
+                <li>{{monster.name}}</li>
+                {% endif %}
+                {% endfor %}
+                {% endfor %}
+                <br>
+                <br>
+            </div>
+            <div id='treasure'>
+                {% for treasure in treasures %}
+                {% for treasure_rw in treasure.reward.all %}
+
+                {% endfor %}
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+
+</div>
+{% endblock %} {% block character %} {% endblock %}
