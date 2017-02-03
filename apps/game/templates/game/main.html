@@ -1,5 +1,6 @@
 {% extends "game/game.html" %} {% include '/game/game.html' %} {% block title %}Endless Dungeon!{% endblock %} {% block loads %}{% load static %} {% endblock %} {% block css %}
-<link rel="stylesheet" type="text/css" href="{% static 'game/css/main.css' %}" /> {% endblock %} {%block header %} Exloring {{location.name}}! {% endblock %} {% block content %}
+<link rel="stylesheet" type="text/css" href="{% static 'game/css/main.css' %}" /> {% endblock %} {%block header %} Exloring {{location.name}}! {% endblock %}
+{% block content %}
 <div id="wrapper">
     <div id="contents">
         <a href="/admin">Go Back</a>
@@ -13,39 +14,86 @@
             <br>
             <br>
             <div id='resting'>
+                {% if characters %}
                 <p>Heroes that are resting here, watching:</p>
                 <ul>
-                    {% for character in characters %} {% if character.populating.id == room.id %}
+                    {% for character in characters %}
                     <li>{{character.name}}</li>
-                    {% endif %} {% endfor %}
+                    {% endfor %}
                 </ul>
                 <br>
                 <br>
+                 {% endif %}
+            </div>
+            <div id='graveyard'>
+                {% if corpses %}
+                <p>The headstones of the fallen are in view:</p>
+                <ul>
+                    {% for character in corpses %}
+                    <li>Here lies {{character.name}}, Killed by {{character.killed_by}} before their time. They had {{character.gold}} gold on them when they died.</li>
+                    {% endfor %}
+                </ul>
+                <br>
+                <br>
+                {% endif %}
             </div>
             <div id='resting'>
+                {% if monsters %}
+                <br>
+                <br>
                 <p>You notice the following monsters, blocking the way:</p>
-
+                {% for monster in monsters %}
                 {{monster.name}}
                 {% endfor %}
-                <hr>
-                {% for monster in rm_monsters %}
-                <li>{{monster.name}}</li>
+                <br>
+                <br>
                 {% endif %}
-                {% endfor %}
+                {% if monsters_dead %}
+                <br>
+                <br>
+                <p>There are some dead monsters here:</p>
+                {% for monster in monsters_dead %}
+                <li>{{monster.name}}</li>
                 {% endfor %}
                 <br>
                 <br>
+                {% endif %}
             </div>
             <div id='treasure'>
+                {% if treasure %}
+                <br>
+                <br>
+                <p>You see </p>
+                <ul>
                 {% for treasure in treasures %}
-                {% for treasure_rw in treasure.reward.all %}
+                <li>{{treasure.name}}</li>
+                {% endfor %}
+                </ul>
+                {% endif %}
+            </div>
+            <div id="exits">
+                {% if exits %}
+                <br>
+                <br>
+                <p>You can leave by the following paths:</p>
+                <ul>
+                    {% for exit in exits %}
+                    <li>
+                        {{exit.exitdirection}}{% if exit.explored_by.id == hero.id %} - leads to:  {{exit.leads_to.name}}{% endif %}
+                    </li>
+                    {% endfor %}
+                </ul>
+                {% endif %}
 
-                {% endfor %}
-                {% endfor %}
             </div>
         </div>
     </div>
-
-
 </div>
-{% endblock %} {% block character %} {% endblock %}
+{% endblock %} {% block character %}
+<table>
+    <h1>{{hero.name}}</h1>
+    <h2>{{hero.cclass}}</h2>
+    <h2>{{hero.strength}}</h2>
+    <h2>{{hero.dexterity}}</h2>
+    <h2>{{hero.intelligence}}</h2>
+</table> {% endblock %}
