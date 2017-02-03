@@ -87,16 +87,20 @@
                     <td>{{character.health}}</td>
                     <td>{{character.gold}}</td>
                     <td>{{character.level}}</td>
-                    <td><form action="edit_character/{{character.id}}" method="post">
-                        {% csrf_token %}
+                    <td>
+                        <form action="edit_character/{{character.id}}" method="post">
+                        
                         <button id="edit" type="submit">Edit Character</button>
+                        {% csrf_token %}
                         <input type="hidden" name="character" value="{{character.id}}">
-                    </form></td>
-                    <td><form action="/admin/delete_character" method="post">
+                        </form>
+                    </td>
+                    <td>
+                        <form action="/admin/delete_character" method="post">
                         {% csrf_token %}
                         <button id="delete" type="submit">Delete Character</button>
                         <input type="hidden" name="character" value="{{character.id}}">
-                    </form>
+                        </form>
                     </td>
                     <td class="textleft">{{character.owned_by.username}}</td>
                 </tr>
