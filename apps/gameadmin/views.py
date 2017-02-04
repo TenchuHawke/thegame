@@ -23,6 +23,7 @@ def index(request):
 
 
 # first half of assigning objects display all options for X_Y
+# TODO add filters for all room_ rooms
 def room_exit(request):
     context = {
         'room': Rooms.objects.get(id=request.POST['room_id']),
@@ -84,6 +85,7 @@ def character_item(request):
 
 # ASSIGN
 def assign_monster(request):
+    print request.POST
     if request.method == "POST":
         room = Rooms.objects.get(id=request.POST['room'])
         monsterin = Monsters.objects.get(id=request.POST['monster'])

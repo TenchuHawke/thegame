@@ -310,24 +310,36 @@ class CharacaterManager(models.Manager):
 
     def move(self, hero, room, destination):
         errors=[]
-        response_from_models={}
+        modelResponse={}
         count=0
         # TODO monster blocking
-        # if len(room.monster)>0:
-        #     for monster in room.monster.all:
-        #         if monster.killed_by==hero:
-        #             count=count+1
-        #     if len(room.monster)>count:
-        #         errors.append("There is a monster blocking your way")
-        #     if errors:
-        #         response_from_models['status']=False
-        #         response_from_models['errors']=errors
-        # else:
-        response_from_models['status']=True
-        room.explored_by.add(hero)
-        room.currently_in.remove(hero)
-        destination.currently_in.add(hero)
-        return
+        alive_monsters=[]
+        print room.monster.all()
+        if room.monster.all():
+            print "room has monster"
+            for monster in room.monster.all():
+                if monster.killed_by.all():
+                    print monster.name
+                    for monster_kb in monster.killed_by.all():
+                        print monster_kb
+                        print monster_kb.id
+                        if monster_kb.id == hero.id:
+                            count = count + 1
+                        if count == 0:
+                            alive_monsters.append(monster)
+                    if alive_monsters:
+                        errors.append(monster.name+" blocks your way")
+                else:
+                    errors.append(monster.name+" blocks your way")
+        if errors:
+            modelResponse['status']=False
+            modelResponse['errors']=errors
+        else:
+            modelResponse['status']=True
+            room.explored_by.add(hero)
+            room.currently_in.remove(hero)
+            destination.currently_in.add(hero)
+        return modelResponse
 
 
 

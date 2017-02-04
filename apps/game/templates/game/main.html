@@ -8,15 +8,15 @@
 
             <h1>{{location.name}}</h1>
             <br>
+            <p><h3>{{hero.name}} enters the area.</h3></p>
             <br>
-            <p>{{hero.name}} enters the area.</p>
             <p>{{location.description}}</p>
             <br>
             <br>
             <div id='resting'>
 
                 {% if characters %}
-                <p>Heroes that are resting here, watching:</p>
+                <p><b>Heroes that are resting here, watching:</b></p>
                 <ul>
 
                     {% for character in characters %}
@@ -30,7 +30,7 @@
             <div id='graveyard'>
 
                 {% if corpses %}
-                <p>The headstones of the fallen are in view:</p>
+                <p><b>The headstones of the fallen are in view:</b></p>
                 <ul>
 
                     {% for character in corpses %}
@@ -46,14 +46,17 @@
                 {% if monsters %}
                 <br>
                 <br>
-                <p>You notice the following monsters, blocking the way:</p>
+                <p><h4>You notice the following monsters, blocking the way:</h4></p>
+                <ul>
 
-                {% for monster in monsters %} {{monster.name}} {% endfor %}
+
+                {% for monster in monsters %} <li>{{monster.name}}</li> {% endfor %}
+                </ul>
                 <br>
                 <br> {% endif %} {% if monsters_dead %}
                 <br>
                 <br>
-                <p>There are some dead monsters here:</p>
+                <p><h2>There are some dead monsters here:</h2></p>
 
                 {% for monster in monsters_dead %}
                 <li>{{monster.name}}</li>
@@ -65,9 +68,10 @@
             <div id='treasure'>
 
                 {% if treasure %}
+                {% if not monsters %}
                 <br>
                 <br>
-                <p>You see </p>
+                <p>Since there are no monsters here you see: </p>
                 <ul>
 
                     {% for treasure in treasures %}
@@ -75,21 +79,22 @@
 
                     {% endfor %}
                 </ul>
-
+                <br>
+                {% endif %}
                 {% endif %}
             </div>
             <div id="messages">
 
                 {% if messages %}
-                <ul class="messages">
+
 
                     {% for message in messages %}
-                    <li {% if message.tags %} class="{{ message.tags }}" {% endif%}>
-                        {{ message }}
-                    </li>
+
+                    <h1>  {{ message }}  </h1>
+
 
                     {% endfor %}
-                </ul>
+
 
                 {% endif %}
             </div>
@@ -98,8 +103,9 @@
                 {% if exits %}
                 <br>
                 <br>
-                <p>You can leave by the following paths:</p>
-                <ul>
+                <p><h3>You can leave by the following paths:</h3></p>
+                <p></p>
+                <ul id="exitlist">
                     {% for exit in exits %}
                     <li>
                         <form class="exit" action="move" method="post">
